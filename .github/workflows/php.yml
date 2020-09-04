@@ -34,8 +34,8 @@ jobs:
           echo test, and deploy your project.
           
       - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@2.0.0
-        env:
+        uses: Automattic/FTP-Deploy-Action@3.0.1
+        with:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
