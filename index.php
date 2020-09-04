@@ -1,3 +1,1 @@
-<?php
-  phpinfo();
-?>
+<?="This is my world"?>
