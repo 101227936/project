@@ -4,6 +4,7 @@ on:
       - master
       
 name: Howtoing
+
 jobs:
   FTP-Deploy-Action:
     name: FTP-Deploy-Action
@@ -19,7 +20,7 @@ jobs:
     - name: Build Project
       run: |
         npm install
-        npm run build --if-present
+        npm run build
         
     - name: List output files
       run: ls
