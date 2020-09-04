@@ -26,4 +26,5 @@ jobs:
           ftp-server: sftp://cclouder.duckdns.org:5698
           ftp-username: howtoing
           ftp-password: howtoing
+          git-ftp-args: --insecure
           
