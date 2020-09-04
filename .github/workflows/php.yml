@@ -23,7 +23,7 @@ jobs:
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
       with:
-          ftp-server: sftp://cclouder.duckdns.org:5698
+          ftp-server: sftp://cclouder.duckdns.org:5698/project/
           ftp-username: howtoing
           ftp-password: howtoing
           git-ftp-args: --insecure
