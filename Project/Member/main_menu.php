@@ -610,22 +610,30 @@
                                             <div class="col">
                                                 <h5 class="font-16 mt-0 sp-line-1"><a href="ecommerce-product-detail.html" class="text-dark"><?php echo $rows['product_name']?></a> </h5>
 												
-                                                <div class="text-warning mb-2 font-13">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
+                                                <div class="text-muted float-left mr-3 mb-2">
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
+                                                    <i class="fa fa-star text-warning"></i>
                                                     <i class="fa fa-star"></i>
                                                 </div>
                                                 <h5 class="m-0"> 
 													<span class="text-muted"> 
-														Status:
+														Category:
 														<?php 
-															$db->where("product_detail_id = '1'");
-															$rows = $db->getOne("tbl_product_detail");
-															echo $rows['product_detail_status']
+															$db->where("product_id = '1'");
+															$rows = $db->getOne("tbl_product");
+															echo $rows['product_type']
 														?>
-													</span></h5>
+													</span>												
+												</h5>
+												<h6> 
+													<?php 
+														$db->where("product_id = '1'");
+														$rows = $db->getOne("tbl_product");
+														echo $rows['product_description']
+													?>																								
+												</h6>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="product-price-tag">
@@ -666,14 +674,21 @@
                                                 </div>
                                                 <h5 class="m-0"> 
 													<span class="text-muted"> 
-														Status:
+														Category:
 														<?php 
-															$db->where("product_detail_id = '4'");
-															$rows = $db->getOne("tbl_product_detail");
-															echo $rows['product_detail_status']
+															$db->where("product_id = '2'");
+															$rows = $db->getOne("tbl_product");
+															echo $rows['product_type']
 														?>
 													</span>
 												</h5>
+												<h6> 
+													<?php 
+														$db->where("product_id = '2'");
+														$rows = $db->getOne("tbl_product");
+														echo $rows['product_description']
+													?>																								
+												</h6>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="product-price-tag">
@@ -714,14 +729,21 @@
                                                 </div>
                                                 <h5 class="m-0"> 
 													<span class="text-muted"> 
-														Status:
+														Category:
 														<?php 
-															$db->where("product_detail_id = '7'");
-															$rows = $db->getOne("tbl_product_detail");
-															echo $rows['product_detail_status']
+															$db->where("product_id = '3'");
+															$rows = $db->getOne("tbl_product");
+															echo $rows['product_type']
 														?>
 													</span>
 												</h5>
+												<h6> 
+													<?php 
+														$db->where("product_id = '3'");
+														$rows = $db->getOne("tbl_product");
+														echo $rows['product_description']
+													?>																								
+												</h6>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="product-price-tag">
@@ -762,14 +784,21 @@
                                                 </div>
                                                 <h5 class="m-0"> 
 													<span class="text-muted"> 
-														Status:
+														Category:
 														<?php 
-															$db->where("product_detail_id = '10'");
-															$rows = $db->getOne("tbl_product_detail");
-															echo $rows['product_detail_status']
+															$db->where("product_id = '4'");
+															$rows = $db->getOne("tbl_product");
+															echo $rows['product_type']
 														?>
 													</span>
 												</h5>
+												<h6 class="my-1"> 
+													<?php 
+														$db->where("product_id = '4'");
+														$rows = $db->getOne("tbl_product");
+														echo $rows['product_description']
+													?>																								
+												</h6>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="product-price-tag">
@@ -814,14 +843,21 @@
                                                 </div>
                                                 <h5 class="m-0"> 
 													<span class="text-muted"> 
-														Status:
+														Category:
 														<?php 
-															$db->where("product_detail_id = '13'");
-															$rows = $db->getOne("tbl_product_detail");
-															echo $rows['product_detail_status']
+															$db->where("product_id = '5'");
+															$rows = $db->getOne("tbl_product");
+															echo $rows['product_type']
 														?>
 													</span>
 												</h5>
+												<h6> 
+													<?php 
+														$db->where("product_id = '5'");
+														$rows = $db->getOne("tbl_product");
+														echo $rows['product_description']
+													?>																								
+												</h6>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="product-price-tag">
@@ -862,14 +898,21 @@
                                                 </div>
                                                 <h5 class="m-0"> 
 													<span class="text-muted"> 
-														Status:
+														Category:
 														<?php 
-															$db->where("product_detail_id = '17'");
-															$rows = $db->getOne("tbl_product_detail");
-															echo $rows['product_detail_status']
+															$db->where("product_id = '6'");
+															$rows = $db->getOne("tbl_product");
+															echo $rows['product_type']
 														?>
 													</span>
 												</h5>
+												<h6> 
+													<?php 
+														$db->where("product_id = '6'");
+														$rows = $db->getOne("tbl_product");
+														echo $rows['product_description']
+													?>																								
+												</h6>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="product-price-tag">
@@ -910,14 +953,21 @@
                                                 </div>
                                                 <h5 class="m-0"> 
 													<span class="text-muted"> 
-														Status:
+														Category:
 														<?php 
-															$db->where("product_detail_id = '19'");
-															$rows = $db->getOne("tbl_product_detail");
-															echo $rows['product_detail_status']
+															$db->where("product_id = '7'");
+															$rows = $db->getOne("tbl_product");
+															echo $rows['product_type']
 														?>
 													</span>
 												</h5>
+												<h6 class="my-3"> 
+													<?php 
+														$db->where("product_id = '7'");
+														$rows = $db->getOne("tbl_product");
+														echo $rows['product_description']
+													?>																								
+												</h6>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="product-price-tag">
