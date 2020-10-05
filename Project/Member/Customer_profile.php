@@ -948,9 +948,8 @@ error_reporting(0);
                                         $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
                                         $db->where("u.login_id", 3);
                                         $rows = $db->getOne ("tbl_user u");
-                                       //print_r ($products);
                                     ?>
-                                    <img src="../<?php echo $rows['user_profile']?>" width="170" height="165" alt="profile-image">
+                                    <img src="../<?php echo $rows['user_profile']?>" width="200" height="200" alt="profile-image">
 
                                     <div class="text-left mt-3">
 
@@ -977,40 +976,41 @@ error_reporting(0);
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="settings">
-                                            <form method="post" action="" id="userForm">
+                                            <form method="post" action="" id="userForm" class="parsley-examples">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="name">Your Name</label>
-                                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" value="<?php echo $rows['user_name']?>">
+                                                            <label for="name">Your Name<span class="text-danger">*</span></label>
+                                                            <input type="text" name="name" parsley-trigger="change" required placeholder="Enter your name" class="form-control" id="name" value="<?php echo $rows['user_name']?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="password">Password</label>
-                                                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password" value="<?php echo $rows['password']?>">
+                                                            <?php $output = encrypt_decrypt("decrypt",trim($rows['password']));?>
+                                                            <label for="password">Password<span class="text-danger">*</span></label>
+                                                            <input type="password" name="password" parsley-trigger="change" required placeholder="Enter new password" class="form-control" id="password" value="<?php echo $output?>">
                                                         </div>
                                                     </div>
                                                 </div> <!-- end row -->
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="userAddress">Address</label>
-                                                            <textarea class="form-control" id="userAddress" name="userAddress" rows="4" placeholder="Enter your new address..."><?php echo $rows['user_address']?></textarea>
+                                                            <label for="userAddress">Address<span class="text-danger">*</span></label>
+                                                            <textarea class="form-control" id="userAddress" name="userAddress" rows="4" parsley-trigger="change" required placeholder="Enter your new address..."><?php echo $rows['user_address']?></textarea>
                                                         </div>
                                                     </div> <!-- end col -->
                                                 </div> <!-- end row -->
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="userEmail">Email</label>
-                                                            <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="Enter new email" value="<?php echo $rows['email']?>">
+                                                            <label for="userEmail">Email address<span class="text-danger">*</span></label>
+                                                            <input type="email" name="userEmail" parsley-trigger="change" required placeholder="Enter email" class="form-control" id="userEmail" value="<?php echo $rows['email']?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="userPhone">Phone</label>
-                                                            <input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="Enter new phone number" value="<?php echo $rows['user_phone']?>">
+                                                            <label for="userPhone">Mobile<span class="text-danger">*</span></label>
+                                                            <input type="text" name="userPhone" parsley-trigger="change" required placeholder="Enter new phone number" class="form-control" id="userPhone" value="<?php echo $rows['user_phone']?>">
                                                         </div>
                                                     </div> <!-- end col -->
                                                 </div> <!-- end row -->
@@ -1466,6 +1466,13 @@ error_reporting(0);
 
         <!-- App js -->
         <script src="../assets/js/app.min.js"></script>
+
+        <!-- Plugin js-->
+        <script src="../assets/libs/parsleyjs/parsley.min.js"></script>
+
+        <!-- Validation init js-->
+        <script src="../assets/js/pages/form-validation.init.js"></script>
+
 
     </body>
 
