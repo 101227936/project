@@ -172,7 +172,7 @@
 																if($order["order_status"]=="Arrive")
 																{?>
 																<?php
-																	if($order["comment"] != null)
+																	if($order["comment"] == null)
 																	{
 																	?>
 																		<p>Comment: </p>
@@ -199,7 +199,14 @@
                                                     <tr>
                                                         <th scope="row" colspan="5" class="text-right">Total (RM):</th>
                                                         <td><div class="font-weight-bold"><?=$sum?></div></td>
-														<td><a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Submit</button></a></td>
+														<?php
+														if($order["comment"] == null)
+														{
+														?>
+															<td><a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Submit</button></a></td>
+															<?php
+														}
+														?>
                                                     </tr>
                                                 </tbody>
                                             </table>
