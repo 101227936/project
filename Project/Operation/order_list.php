@@ -75,7 +75,7 @@
                                                         <th>Products</th>
                                                         <th>Date Order</th>
 														<th>Date Delivery</th>
-														<th>Days</th>
+														<th>Hours</th>
                                                         <th>Payment Status</th>
                                                         <th>Total</th>
                                                         <th>Order Status</th>
@@ -84,6 +84,8 @@
                                                 <tbody>
 													<?php
 														$db->join("tbl_payment", "tbl_order.order_id=tbl_payment.order_id", "LEFT");
+														$db->where("order_status", "Cart","!=");
+														$db->where("TIMESTAMPDIFF(MINUTE, order_datetime, now())",5,">");
 														$orders = $db->get("tbl_order");
 														foreach($orders as $order)
 														{
@@ -92,7 +94,7 @@
 															$db->where("order_id",$order["order_id"],"=");
 															$db->where("tbl_order_detail.product_id",0,">");
 															$db->groupBy ("product_name");
-															$cols = Array ("*","ABS(TIMESTAMPDIFF(DAY,now(),'".$order["modified_datetime"]."')) as day" , "sum(tbl_product_detail.product_detail_price) as total");
+															$cols = Array ("*","ABS(TIMESTAMPDIFF(HOUR,now(),'".$order["modified_datetime"]."')) as hour" , "sum(tbl_product_detail.product_detail_price) as total");
 															$order_details = $db->get("tbl_order_detail",null, $cols);
 															//print_r("<pre>");
 															//print_r($order_details);
@@ -121,7 +123,7 @@
 																	<?=$order["modified_datetime"]?>
 																</td>
 																<td>
-																	<?=$order_detail["day"]?>
+																	<?=$order_detail["hour"]?>
 																</td>
 																<td>
 																	<h5><span class="badge bg-soft-success text-success"><i class="mdi mdi-coin"></i> <?=$order["payment_status"]?></span></h5>

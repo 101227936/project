@@ -103,17 +103,17 @@
                                             </li>
                                         </ul>
 										<?php							
-										if($order["order_status"]=="Waiting for Comfirmation" || $order["order_status"]=="Pending")
+										if($order["order_status"]=="Waiting for Confirmation" || $order["order_status"]=="Pending")
 										{
 											?>
-											<a href="order_comfirmation.php?order_id=<?=$order["order_id"]?>&action=Accept" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-success waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Accept</button></a>
-											<a href="order_comfirmation.php?order_id=<?=$order["order_id"]?>&action=Reject" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Reject</button></a>
+											<a href="order_confirmation.php?order_id=<?=$order["order_id"]?>&action=Accept" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-success waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Accept</button></a>
+											<a href="order_confirmation.php?order_id=<?=$order["order_id"]?>&action=Reject" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Reject</button></a>
 											<?php
 										}
 										else if($order["order_status"]=="Menu Edited")
 										{
 											?>
-											<a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Change & Send Email</button></a>
+											<a href="send_confirmation_email.php?order_id=<?=$order["order_id"]?>"><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Change & Send Email</button></a>
 											<?php
 										}
 										else if($order["order_status"]=="Accept")
@@ -145,7 +145,7 @@
                                                         <th>Price</th>
                                                         <th>Total</th>
 														<?php
-															if($order["order_status"]=="Pending")
+															if($order["order_status"]=="Pending"||$order["order_status"]=="Menu Edited")
 															{
 																?>
 																<th style="width: 125px;">Action</th>
@@ -178,11 +178,11 @@
 															<td><?=$order_detail['product_detail_price']?></td>
 															<td><?=$order_detail['product_detail_price']*$order_detail['quantity']?></td>
 															<?php
-																if($order["order_status"]=="Pending" && $order_detail['product_id']>0)
+																if(($order["order_status"]=="Pending"||$order["order_status"]=="Menu Edited") && $order_detail['product_id']>0)
 																{
 																	?>
 																	<td>
-																		<a href="alternative_product.php?order_id=<?=$order["order_id"]?>&product_id=<?=$order_detail['product_id']?>&product_detail_id=<?=$order_detail['product_detail_id']?>"> <i class="mdi mdi-square-edit-outline"></i></a>
+																		<a href="alternative_product.php?order_id=<?=$order["order_id"]?>&product_id=<?=$order_detail['product_id']?>&product_detail_id=<?=$order_detail['product_detail_id']?>&page=1"> <i class="mdi mdi-square-edit-outline"></i></a>
 																	</td>
 																	<?php
 																}
