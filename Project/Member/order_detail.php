@@ -121,30 +121,6 @@
 											<a href="order_comfirmation.php?order_id=<?=$order["order_id"]?>&action=Cancel" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Cancel Order</button></a>
 											<?php
 										}
-										else if($order["order_status"]=="Arrive")
-										{
-											?>
-											<?php
-											if($order["comment"] == null)
-											{
-												?>
-												<p>Comment: 
-													<textarea id="w3review" name="w3review" rows="4" cols="50" placeholder="Please insert your comment here"></textarea>
-												</p>
-												<p>Rating(Between 0 to 5):
-													<input type="number" id="rating" name="rating" min="0" max="5">
-												</p>
-												<a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Submit</button></a>
-												<?php
-											}
-											else
-											{
-												?>
-													<p>Comment: <?php echo $order["comment"]?></p>
-													<p>Rating: <?php echo $order["rating"]?></p>
-												<?php
-											}
-										}
 										?>
 										<a href="order_list.php"><button type="button" class="btn btn-info waves-effect waves-light mb-2 mr-2"> Back</button></a>
                                     </div>
@@ -165,6 +141,7 @@
                                                         <th>Quantity</th>
                                                         <th>Price</th>
                                                         <th>Total</th>
+														<th>Comment</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -190,6 +167,31 @@
 															<td><?=$order_detail['quantity']?></td>
 															<td><?=$order_detail['product_detail_price']?></td>
 															<td><?=$order_detail['product_detail_price']*$order_detail['quantity']?></td>
+															<td>
+															<?php
+																if($order["order_status"]=="Arrive")
+																{?>
+																<?php
+																	if($order["comment"] != null)
+																	{
+																	?>
+																		<p>Comment: </p>
+																		<textarea id="w3review" name="w3review" rows="3" cols="20" placeholder="Insert comment here"></textarea>
+																		<p>Rating(0 to 5):
+																			<input type="number" id="rating" name="rating" min="0" max="5">
+																		</p>
+																		<?php
+																	}
+																	else
+																	{
+																		?>
+																		<p>Comment: <?php echo $order["comment"]?></p>
+																		<p>Rating: <?php echo $order["rating"]?></p>
+																		<?php
+																	}
+																}
+																?>
+															</td>
 														</tr>
 														<?php
 													}
@@ -197,6 +199,7 @@
                                                     <tr>
                                                         <th scope="row" colspan="5" class="text-right">Total (RM):</th>
                                                         <td><div class="font-weight-bold"><?=$sum?></div></td>
+														<td><a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Submit</button></a></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
