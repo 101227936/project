@@ -11,27 +11,27 @@ require 'PHPMailer/src/SMTP.php';
 $mail = new PHPMailer(true);
 
 try {
-	//$mail->SMTPOptions = array(
-	//	'ssl' => array(
-	//	'verify_peer' => false,
-	//	'verify_peer_name' => false,
-	//	'allow_self_signed' => true
-	//	)
-	//);
+	$mail->SMTPOptions = array(
+		'ssl' => array(
+		'verify_peer' => false,
+		'verify_peer_name' => false,
+		'allow_self_signed' => true
+		)
+	);
 	
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
     $mail->isSMTP();                                            // Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'keechu613@gmail.com';                     // SMTP username
-    $mail->Password   = '56983798';                               // SMTP password
+    $mail->Username   = 'jasminkee613@gmail.com';                     // SMTP username
+    $mail->Password   = 'keechu0116';                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
     $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
     //Recipients
     $mail->setFrom('jasminkee613@gmail.com', 'Mailer');
-    $mail->addAddress('keechu613@gmail.com', 'Users');     // Add a recipient
+    $mail->addAddress('keechu613@gmail.com', 'Chuadevice');     // Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
@@ -41,7 +41,17 @@ try {
     //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 	
-	$message = file_get_contents('enterEmailResetPassword2.htm'); 
+	$data = array(
+		'login_id'=>'4',
+		'url'=>$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])
+    );
+	$query = http_build_query($data);
+
+	$url = "http://" .$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/email-templates/email-password.php';
+	
+	$message = file_get_contents($url.'?'.$query);
+	
+	
 	
 	$xpath = new DOMXPath(@DOMDocument::loadHTML($message));
 	$images = $xpath->evaluate("//img");

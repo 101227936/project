@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -23,6 +23,26 @@
     </head>
 
     <body class="authentication-bg authentication-bg-pattern">
+	
+	<?php	
+	require 'Database/init.php';
+	if(isset($_POST['btnSave']))
+	{									
+		$data = Array (
+                           'login_id' =>$_POST['login_id'],
+                           'email' => $_POST['email_id'],
+                                'password' => $_POST['password'],
+								'role' => "Member",
+								'status' => "Inactive"
+	);
+		
+		$id = $db->insert ('tbl_login', $data);
+	if($id) {echo 'user was created Successfully. Id=' . $id;}
+	else {echo "Sign up Unsuccessfuly. User ID Already Exits";}
+	}
+		
+	?>	
+	
 
         <div class="account-pages mt-5 mb-5">
             <div class="container">
@@ -46,45 +66,55 @@
                                             </span>
                                         </a>
                                     </div>
-                                    <p class="text-muted mb-4 mt-3">We successfully send the reset function to your email. Kindly reset your password to protect your user account.</p>
+                                    <p class="text-muted mb-4 mt-3">Don't have an account? Create your account, it takes less than a minute</p>
                                 </div>
 
-                              <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 600px;" class="content">
-           
-            <tr>
-                <td align="center" bgcolor="#0073AA" style="padding: 20px 20px 20px 20px; color: #ffffff; font-family: Arial, sans-serif; font-size: 36px; font-weight: bold;">
-                    <img src="img/proui_logo.png" alt="ProUI Logo" width="152" height="152" style="display:block;">
-                </td>
-            </tr>
-            <tr>
-                <td align="center" bgcolor="#ffffff" style="padding: 40px 20px 40px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px; border-bottom: 1px solid #f6f6f6;">
-                    <b>Forgot your password? Let's get you a new one!</b>
-                </td>
-            </tr>
-            <tr>
-                <td align="center" bgcolor="#f9f9f9" style="padding: 20px 20px 0 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px;">
-                    <b>Account:</b> ke***<a href="..\..\..\..\..\cdn-cgi\l\email-protection.htm" class="__cf_email__" data-cfemail="f3c3c0b3968b929e839f96dd909c9e">[email&#160;protected]</a>
-                </td>
-            </tr>
-            <tr>
-                <td align="center" bgcolor="#f9f9f9" style="padding: 30px 20px 30px 20px; font-family: Arial, sans-serif; border-bottom: 1px solid #f6f6f6;">
-                    <table bgcolor="#0073AA" border="0" cellspacing="0" cellpadding="0" class="buttonwrapper">
-                        <tr>
-                            <td align="center" height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
-                                <a href="#" style="color: #ffffff; text-align: center; text-decoration: none;">Reset Password</a>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td align="center" bgcolor="#ffffff" style="padding: 10px 20px 10px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 24px;">
-                    Help! <a href="#" style="color: #1b8bf9;">I didn't request this!</a>
-                </td>
-            </tr>
-           
-           
-        </table>
+                                <form method="post" action="#">
+	
+ 
+									<div class="form-group">
+                                        <label for="userid">User Login Id</label>
+                                        <input class="form-control" type="text" id="login_id" name="login_id" placeholder="Enter your name" required>
+                                    </div>
+									<div class="form-group">
+                                        <label for="userid">User Name</label>
+                                        <input class="form-control" type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
+									</div>
+									<div class="form-group">
+                                        <label for="userid">User Phone</label>
+                                        <input class="form-control" type="text" id="user_phone" name="user_phone" placeholder="Enter your phone" required>
+                                    </div>
+									<div class="form-group">
+                                        <label for="userid">Home Address</label>
+                                        <input class="form-control" type="text" id="user_address" name="user_address" placeholder="Enter your address" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emailaddress">Email address</label>
+                                        <input class="form-control" type="email" id="email_id" name="email_id" required placeholder="Enter your email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <div class="input-group input-group-merge">
+                                            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password">
+                                            <div class="input-group-append" data-password="false">
+                                                <div class="input-group-text">
+                                                    <span class="password-eye"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="checkbox-signup">
+                                            <label class="custom-control-label" for="checkbox-signup">I accept <a href="javascript: void(0);" class="text-dark">Terms and Conditions</a></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-0 text-center">
+                                        <button class="btn btn-success btn-block"id="btnSave" name="btnSave" type="submit"> Sign Up </button>
+                                    </div>
+
+                                </form>
+
                                 <div class="text-center">
                                     <h5 class="mt-3 text-muted">Sign up using</h5>
                                     <ul class="social-list list-inline mt-3 mb-0">
@@ -109,7 +139,7 @@
 
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                <p class="text-white-50">Already have account?  <a href="login.html" class="text-white ml-1"><b>Sign In</b></a></p>
+                                <p class="text-white-50">Already have account?  <a href="login.php" class="text-white ml-1"><b>Sign In</b></a></p>
                             </div> <!-- end col -->
                         </div>
                         <!-- end row -->
