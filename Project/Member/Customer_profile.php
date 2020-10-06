@@ -29,23 +29,75 @@ error_reporting(0);
 
     <body data-layout-mode="horizontal">
         <?php
-            if($_POST['btnSave'])
+            if(isset($_POST['btnSave']))
             {
-                $test = encrypt_decrypt("encrypt",trim($_POST['password']));
-                //echo '<script>alert("Haha")</script>'; 
-                $data = Array (
-                    'user_name' =>trim($_POST['name']),
-                    'user_phone' => trim($_POST['userPhone']),
-                    'user_address' => trim($_POST['userAddress']),
-                    'email' => trim($_POST['userEmail']),
-                    'password' => $test
-                );
                 $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
-                $db->where ('u.login_id', 3);
-                if ($db->update ('tbl_user u', $data))
-                    echo "<script> alert('Save change');location='Customer_profile.php'</script>";
-                else
-                    echo 'update failed: ' . $db->getLastError();
+                $db->where("u.login_id", 3);
+                $rows = $db->getOne ("tbl_user u");
+
+                if(isset($_FILES['image']))
+                {
+                    $old_image = $rows['user_profile'];
+                    $error = 0;
+                    $file_name = "../Image/Profile/".$_FILES['image']['name'];
+                    $file_size =$_FILES['image']['size'];
+                    $file_tmp =$_FILES['image']['tmp_name'];
+                    $file_type=$_FILES['image']['type'];
+                   
+                    /*if (file_exists($file_name)) {
+                        echo "<script> alert('Sorry, file already exists.');location='Customer_profile.php'</script>";
+                        $error = 1;
+                    }*/
+
+                    if($file_size > 2097152){
+                        echo "<script> alert('File size must be excately 2 MB');location='Customer_profile.php'</script>";
+                        $error = 1;
+                    }
+                    if($error==0)
+                    {
+                        if ($file_size == 0){
+                            $test = encrypt_decrypt("encrypt",trim($_POST['password']));
+                            $data = Array (
+                                'user_name' =>trim($_POST['name']),
+                                'user_phone' => trim($_POST['userPhone']),
+                                'user_address' => trim($_POST['userAddress']),
+                                'email' => trim($_POST['userEmail']),
+                                'password' => $test,
+                                'user_profile' => $old_image
+                            );
+                            $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
+                            $db->where ('u.login_id', 3);
+                            if ($db->update ('tbl_user u', $data))
+                                echo "<script> alert('Save change');location='Customer_profile.php'</script>";
+                            else
+                                echo 'update failed: ' . $db->getLastError();
+                        }
+                        else
+                        {
+                            unlink($old_image);
+                            move_uploaded_file($file_tmp,$file_name);
+                            $test = encrypt_decrypt("encrypt",trim($_POST['password']));
+                            $data = Array (
+                                'user_name' =>trim($_POST['name']),
+                                'user_phone' => trim($_POST['userPhone']),
+                                'user_address' => trim($_POST['userAddress']),
+                                'email' => trim($_POST['userEmail']),
+                                'password' => $test,
+                                'user_profile' => $file_name
+                            );
+                            $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
+                            $db->where ('u.login_id', 3);
+                            if ($db->update ('tbl_user u', $data))
+                                echo "<script> alert('Save change');location='Customer_profile.php'</script>";
+                            else
+                                echo 'update failed: ' . $db->getLastError();
+                        }
+                    }
+                    else
+                    {
+                        echo "<script> alert('Upload failed');location='Customer_profile.php'</script>";
+                    }
+                }
             }
         ?>
         <!-- Begin page -->
@@ -84,7 +136,7 @@ error_reporting(0);
                                         $db->where("u.login_id", 3);
                                         $rows = $db->getOne ("tbl_user u");
                                     ?>
-                                    <img src="../<?php echo $rows['user_profile']?>" width="170" height="170" alt="profile-image">
+                                    <img src="<?php echo $rows['user_profile']?>" width="196" height="196" alt="profile-image">
 
                                     <div class="text-left mt-3">
 
@@ -106,12 +158,19 @@ error_reporting(0);
                                     <ul class="nav nav-pills navtab-bg nav-justified">
                                         <li class="nav-item">
                                                 <h3>Update Your Profile Here</h3>
-                                                <hr>
                                         </li>
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="settings">
-                                            <form method="post" action="" id="userForm" class="parsley-examples">
+                                            <form method="post" action="" id="userForm" class="parsley-examples" enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="image">Upload Your Photo(Less than 2MB)</label>
+                                                            <input type="file" name="image" id="image" class="form-control-file" accept="image/*">
+                                                        </div>
+                                                    </div> <!-- end col -->
+                                                </div> <!-- end row -->
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
