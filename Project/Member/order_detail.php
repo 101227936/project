@@ -65,6 +65,7 @@
 							{
 								$db->join("tbl_user", "tbl_order.user_id=tbl_user.user_id", "LEFT");
 								$db->join("tbl_payment", "tbl_order.order_id=tbl_payment.order_id", "LEFT");
+								$db->join("tbl_order_detail","tbl_order.order_id=tbl_order_detail.order_id","LEFT");
 								$db->where("tbl_order.order_id",$_GET['order_id'],"=");
 								$order = $db->getOne("tbl_order");
 								//print_r("<pre>");
@@ -107,7 +108,7 @@
 										$end_time = new DateTime($order["order_datetime"]);
 										$minutesToAdd = 5;
 										$end_time->modify("+{$minutesToAdd} minutes");
-										if($start_time >= $end_time)
+										if($start_time <= $end_time) //less than 5 minutes
 										{
 											?>
 											<a href="order_comfirmation.php?order_id=<?=$order["order_id"]?>&action=Cancel" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Cancel Order</button></a>
@@ -116,14 +117,33 @@
 										else if($order["order_status"]=="Menu Edited")
 										{
 											?>
-											<a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Change & Send Email</button></a>
+											<a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Accept</button></a>
+											<a href="order_comfirmation.php?order_id=<?=$order["order_id"]?>&action=Cancel" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Cancel Order</button></a>
 											<?php
 										}
-										else if($order["order_status"]=="Accept")
+										else if($order["order_status"]=="Arrive")
 										{
 											?>
-											<a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Delivery</button></a>
 											<?php
+											if($order["comment"] == null)
+											{
+												?>
+												<p>Comment: 
+													<textarea id="w3review" name="w3review" rows="4" cols="50" placeholder="Please insert your comment here"></textarea>
+												</p>
+												<p>Rating(Between 0 to 5):
+													<input type="number" id="rating" name="rating" min="0" max="5">
+												</p>
+												<a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Submit</button></a>
+												<?php
+											}
+											else
+											{
+												?>
+													<p>Comment: <?php echo $order["comment"]?></p>
+													<p>Rating: <?php echo $order["rating"]?></p>
+												<?php
+											}
 										}
 										?>
 										<a href="order_list.php"><button type="button" class="btn btn-info waves-effect waves-light mb-2 mr-2"> Back</button></a>
@@ -134,8 +154,6 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="header-title mb-3">Items from Order #<?=$order["order_id"]?></h4>
-										
-										
 
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-centered mb-0">
