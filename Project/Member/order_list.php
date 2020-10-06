@@ -83,10 +83,19 @@
                                                 </thead>
                                                 <tbody>
 													<?php
+														$db->join("tbl_order_detail", "tbl_order.order_id=tbl_order_detail.order_id", "LEFT");
+														$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
+														$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
 														$db->join("tbl_payment", "tbl_order.order_id=tbl_payment.order_id", "LEFT");
 														$db->join("tbl_user", "tbl_user.user_id=tbl_order.user_id", "INNER");
 														$db->where("tbl_user.user_id", 1);
-														$orders = $db->get("tbl_order");
+														
+														$db->where("order_status", "Cart","!=");
+														//$db->where("TIMESTAMPDIFF(MINUTE, order_datetime, now())",5,">");
+														$db->groupBy ("tbl_order_detail.order_id");
+														$cols = Array ("*","ABS(TIMESTAMPDIFF(HOUR,now(),modified_datetime)) as hour" , "sum(tbl_product_detail.product_detail_price*tbl_order_detail.quantity) as total");
+														$orders = $db->get("tbl_order",null, $cols);
+														
 														foreach($orders as $order)
 														{
 															$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
@@ -94,7 +103,7 @@
 															$db->where("order_id",$order["order_id"],"=");
 															$db->where("tbl_order_detail.product_id",0,">");
 															$db->groupBy ("product_name");
-															$cols = Array ("*","ABS(TIMESTAMPDIFF(DAY,now(),'".$order["modified_datetime"]."')) as day" , "sum(tbl_product_detail.product_detail_price) as total");
+															$cols = Array ("*");
 															$order_details = $db->get("tbl_order_detail",null, $cols);
 															if($order["order_status"] != "Cart")
 															{
@@ -118,16 +127,16 @@
 																		<?=$order["order_datetime"]?>
 																	</td>
 																	<td>
-																		<?=$order["modified_datetime"]?>
+																		<?=$order["delivery_datetime"]?>
 																	</td>
 																	<td>
-																		<?=$order_detail["day"]?>
+																		<?=$order["hour"]?>
 																	</td>
 																	<td>
 																		<h5><span class="badge bg-soft-success text-success"><i class="mdi mdi-coin"></i> <?=$order["payment_status"]?></span></h5>
 																	</td>
 																	<td>
-																		<?=$order_detail["total"]?>
+																		<?=$order["total"]?>
 																	</td>
 																	<td>
 																		<h5><span class="badge badge-info"><?=$order["order_status"]?></span></h5>
