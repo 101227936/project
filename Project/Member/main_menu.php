@@ -1,5 +1,19 @@
 <?php
-	include '../Database/init.php';
+	require "../Database/init.php";
+	ob_start();
+	$db->join("tbl_product", "tbl_product_detail.product_id=tbl_product.product_id", "LEFT");
+	if(!empty($_GET['search']))$db->where ("tbl_product.product_name", '%'.$_GET['search'].'%', 'like');
+	if(!empty($_GET['type']))$db->where ("tbl_product.product_type", $_GET['type'], '=');
+	$db->where("tbl_product_detail.product_detail_status","Available","=");
+	
+	if(!empty($_GET['page']))$page = $_GET['page'];
+	else $page = 1;
+	$db->pageLimit = 4;
+	$product_details = $db->arraybuilder()->paginate("tbl_product_detail", $page);		
+	//print_r("<pre>");
+	//print_r($product_details);
+	//print_r($db->getLastQuery());
+	//print_r("</pre>");
 ?>
 
 <!DOCTYPE html>
@@ -37,501 +51,185 @@
             <!-- ============================================================== -->
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
-
-            <div class="content-page">
+			
+			<div class="content-page">
                 <div class="content">
 
                     <!-- Start Content-->
                     <div class="container-fluid">
                         
-                        <!-- start page title -->
+                       <!-- start page title -->
                         <div class="row">
                             <div class="col-10">
                                 <div class="page-title-box">
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item active">Main Menu</li>
-                                        </ol>
-                                    </div>
                                     <h4 class="page-title">Main Menu</h4>
                                 </div>
                             </div>
                         </div>     
                         <!-- end page title --> 
-
-                        <div class="row">
+						
+						<div class="row">
                             <div class="col-12">
                                 <div class="card-box">
                                     <div class="row">
-                                        <div class="col-lg-8">
-                                            <form class="form-inline" action="search.php" method="POST">
-                                                <div class="form-group">
-                                                    <label for="inputPassword2" class="sr-only">Search</label>
-                                                    <input type="search" name="search" class="form-control" id="inputPassword2" placeholder="Search...">
-													<input type="submit" name="submit" class="btn btn-light waves-effect">
-                                                </div>
-												<div
-													<?php
-														if(isset($_POST['search']))
-														{
-															$searchq=$_POST['search'];
-															$searchq=preg_replace("#[^0-9a-z]#i","",$searchq);
-															
-															$query=mysql_query("SELECT * FROM tbl_product WHERE product_name LIKE '%$searchq%'");
-															$count=mysql_num_rows($query);
-															if($count == 0)
+										<div class="col-lg-12">
+											<form class="form-inline">
+												<div class="form-group">
+													<label for="inputPassword2" class="sr-only">Search</label>
+													<input type="hidden" class="form-control" id="page" name="page" value="1"/>
+													<input type="search" class="form-control" id="search" name="search" placeholder="Search..." value="<?=(empty($_GET['search']))? '':$_GET['search']?>">
+												</div>
+												<?php
+													$cols = Array("product_type");
+													$product_types = $db->get("tbl_product", null, $cols);
+												?>
+												<div class="form-group mx-sm-3">
+                                                    <label for="status-select" class="mr-2">Sort By</label>
+                                                    <select class="custom-select" id="type" name="type">
+														<?php
+															if(empty($_GET['type']))
 															{
-																$output='No result';
+																?>
+																	<option selected="" value="">All</option>
+																<?php
 															}
 															else
 															{
-																while($row=mysql_fetch_array($query))
+																?>
+																	<option value="">All</option>
+																<?php
+															}
+															
+															foreach($product_types as $product_type)
+															{
+																if($product_type['product_type'] == $_GET['type'])
 																{
-																	$product=$row['product_name'];
-																	
-																	$output .= '<div>'.$product.'</div>';		
+																?>
+																	<option selected="" value="<?=$product_type['product_type']?>"><?=$product_type['product_type']?></option>
+																<?php
+																}
+																else
+																{
+																?>
+																	<option value="<?=$product_type['product_type']?>"><?=$product_type['product_type']?></option>
+																<?php
 																}
 															}
-														}
-													?>
-												</div>
-                                                <div class="form-group mx-sm-3">
-                                                    <label for="status-select" class="mr-2">Sort By</label>
-                                                    <select class="custom-select" id="status-select">
-                                                        <option selected="">All</option>
-                                                        <option value="1">Popular</option>
-                                                        <option value="2">Price Low</option>
-                                                        <option value="3">Price High</option>
-                                                        <option value="4">Sold Out</option>
+														?>
                                                     </select>
                                                 </div>
-                                            </form>
-                                        </div>
+												<div class="form-group mx-sm-3">
+                                                    <input type="submit" class="btn btn-warning waves-effect waves-light" value="Search">
+													<label for="status-select" class="mr-2"></label>
+                                                </div>
+											</form>
+										</div>
                                     </div> <!-- end row -->
                                 </div> <!-- end card-box -->
                             </div> <!-- end col-->
                         </div>
                         <!-- end row-->
 
-                        <div class="row">
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card-box product-box">
-									<?php							
-										$db->where("product_id ='1'");
-										$rows = $db->getOne("tbl_product");										
+						<div class="row">
+							<?php
+								foreach($product_details as $product_detail)
+								{
+									//print_r("<pre>");
+									//print_r($product_details);
+									//print_r($db->getLastQuery());
+									//print_r("</pre>");
 									?>
-									
-                                    <div class="bg-light">
-                                        <img src="../<?php echo $rows['product_image']?>" alt="product-pic" class="img-fluid"/>
-                                    </div>
+									 <div class="col-md-6 col-xl-3">
+										<div class="card-box product-box">
+											<div class="bg-light">
+												<img src="<?=$product_detail['product_image']?>" alt="product-pic" class="img-fluid"/>
+											</div>
 
-                                    <div class="product-info">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h5 class="font-16 mt-0 sp-line-1"><a href="product_detail1.php?product_id=<?=$rows["product_id"]?>" class="text-dark"><?php echo $rows['product_name']?></a></h5>										
-												
-                                                <div class="text-warning mb-2 font-13">
-                                                    Rating:
-													<?php 
-															$db->where("product_id = '2'");
-															$rows = $db->getOne("tbl_order_detail");
-															echo $rows['rating'];
-													?>
-                                                </div>
-                                                <h5 class="m-0"> 
-													<span class="text-muted"> 
-														Category:
-														<?php 
-															$db->where("product_id = '1'");
-															$rows = $db->getOne("tbl_product");
-															echo $rows['product_type']
-														?>
-													</span>												
-												</h5>
-												<h6 class="my-2"> 
-													<?php 
-														$db->where("product_id = '1'");
-														$rows = $db->getOne("tbl_product");
-														echo $rows['product_description']
-													?>																								
-												</h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="product-price-tag">
-													RM
-                                                    <?php 
-														$db->where("product_detail_id = '1'");
-														$rows = $db->getOne("tbl_product_detail");
-														echo $rows['product_detail_price']
-													?>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end row -->
-                                    </div> <!-- end product info-->
-                                </div> <!-- end card-box-->
-                            </div> <!-- end col-->
+											<div class="product-info">
+												<div class="row align-items-center">
+													<div class="col">
+														<h5 class="font-16 mt-0 sp-line-1"><a href="product_detail.php?product_detail_id=<?=$product_detail["product_detail_id"]?>" class="text-dark"><?php echo $product_detail['product_name']?></a></h5>										
+														
+														<div class="text-warning mb-2 font-13">
+															Rating:
+															<?php
+																$cols = Array("AVG(rating) as rating");
+																$db->groupBy ("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
+																$db->where("tbl_order_detail.product_id",$product_detail['product_id'],"=");
+																$db->where("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
+																$rating = $db->getOne("tbl_order_detail", null, $cols);
+															
+															?>
+															<?=isset($rating['rating'])? $rating['rating']:'-'?>
+														</div>
+														<h5 class="m-0"> 
+															<span class="text-muted"> 
+																Category:
+																<?=$product_detail['product_type']?>
+															</span>												
+														</h5>
+														<h6 class="my-2"> 
+															<span class="text-muted"> 
+																Size:
+																<?=$product_detail['product_detail_size']?>
+															</span>																	
+														</h6>
+														<h6 class="my-2"> 
+															<?=$product_detail['product_description']?>															
+														</h6>
+													</div>
+													<div class="col-auto">
+														<div class="product-price-tag">
+															RM<?=$product_detail['product_detail_price']?>	
+														</div>
+													</div>
+												</div> <!-- end row -->
+											</div> <!-- end product info-->
+										</div> <!-- end card-box-->
+									</div> <!-- end col-->
 
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card-box product-box">
-                                    <?php							
-										$db->where("product_id ='2'");
-										$rows = $db->getOne("tbl_product");
-									?>													
-
-                                    <div class="bg-light">
-                                        <img src="../<?php echo $rows['product_image']?>" alt="product-pic" class="img-fluid" />
-                                    </div>
-
-                                    <div class="product-info">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h5 class="font-16 mt-0 sp-line-1"><a href="product_detail1.php?product_id=<?=$rows["product_id"]?>" class="text-dark"><?php echo $rows['product_name']?></a></h5>
-                                                <div class="text-warning mb-2 font-13">
-                                                    Rating:
-													<?php 
-															$db->where("product_id = '2'");
-															$rows = $db->getOne("tbl_order_detail");
-															echo $rows['rating']
-													?>
-                                                </div>
-                                                <h5 class="m-0"> 
-													<span class="text-muted"> 
-														Category:
-														<?php 
-															$db->where("product_id = '2'");
-															$rows = $db->getOne("tbl_product");
-															echo $rows['product_type']
-														?>
-													</span>
-												</h5>
-												<h6> 
-													<?php 
-														$db->where("product_id = '2'");
-														$rows = $db->getOne("tbl_product");
-														echo $rows['product_description']
-													?>																								
-												</h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="product-price-tag">
-													RM
-                                                    <?php 
-														$db->where("product_detail_id = '4'");
-														$rows = $db->getOne("tbl_product_detail");
-														echo $rows['product_detail_price']
-													?>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end row -->
-                                    </div> <!-- end product info-->
-                                </div> <!-- end card-box-->
-                            </div> <!-- end col-->
-
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card-box product-box">
-									<?php							
-										$db->where("product_id ='3'");
-										$rows = $db->getOne("tbl_product");
-									?>
-
-                                    <div class="bg-light">
-                                        <img src="../<?php echo $rows['product_image']?>" alt="product-pic" class="img-fluid" />
-                                    </div>
-
-                                    <div class="product-info">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h5 class="font-16 mt-0 sp-line-1"><a href="product_detail1.php?product_id=<?=$rows["product_id"]?>" class="text-dark"><?php echo $rows['product_name']?></a></h5>
-                                                <div class="text-warning mb-2 font-13">
-                                                    Rating:
-													<?php 
-															$db->where("product_id = '3'");
-															$rows = $db->getOne("tbl_order_detail");
-															echo $rows['rating']
-													?>
-                                                </div>
-                                                <h5 class="m-0"> 
-													<span class="text-muted"> 
-														Category:
-														<?php 
-															$db->where("product_id = '3'");
-															$rows = $db->getOne("tbl_product");
-															echo $rows['product_type']
-														?>
-													</span>
-												</h5>
-												<h6> 
-													<?php 
-														$db->where("product_id = '3'");
-														$rows = $db->getOne("tbl_product");
-														echo $rows['product_description']
-													?>																								
-												</h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="product-price-tag">
-                                                    RM
-													<?php 
-														$db->where("product_detail_id = '7'");
-														$rows = $db->getOne("tbl_product_detail");
-														echo $rows['product_detail_price']
-													?>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end row -->
-                                    </div> <!-- end product info-->
-                                </div> <!-- end card-box-->
-                            </div> <!-- end col-->
-
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card-box product-box">
-									<?php							
-										$db->where("product_id ='4'");
-										$rows = $db->getOne("tbl_product");
-									?>
-
-                                    <div class="bg-light">
-                                        <img src="../<?php echo $rows['product_image']?>" alt="product-pic" class="img-fluid" />
-                                    </div>
-
-                                    <div class="product-info">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h5 class="font-16 mt-0 sp-line-1"><a href="product_detail1.php?product_id=<?=$rows["product_id"]?>" class="text-dark"><?php echo $rows['product_name']?></a></h5>
-                                                <div class="text-warning mb-2 font-13">
-                                                    Rating:
-													<?php 
-															$db->where("product_id = '4'");
-															$rows = $db->getOne("tbl_order_detail");
-															echo $rows['rating']
-													?>
-                                                </div>
-                                                <h5 class="m-0"> 
-													<span class="text-muted"> 
-														Category:
-														<?php 
-															$db->where("product_id = '4'");
-															$rows = $db->getOne("tbl_product");
-															echo $rows['product_type']
-														?>
-													</span>
-												</h5>
-												<h6 class="my-1"> 
-													<?php 
-														$db->where("product_id = '4'");
-														$rows = $db->getOne("tbl_product");
-														echo $rows['product_description']
-													?>																								
-												</h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="product-price-tag">
-                                                    RM
-													<?php 
-														$db->where("product_detail_id = '10'");
-														$rows = $db->getOne("tbl_product_detail");
-														echo $rows['product_detail_price']
-													?>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end row -->
-                                    </div> <!-- end product info-->
-                                </div> <!-- end card-box-->
-                            </div> <!-- end col-->
-                        </div>
-                        <!-- end row-->
-
-
-                        <div class="row">
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card-box product-box">
-									<?php							
-										$db->where("product_id ='5'");
-										$rows = $db->getOne("tbl_product");
-									?>
-
-                                    <div class="bg-light">
-                                        <img src="../<?php echo $rows['product_image']?>" alt="product-pic" class="img-fluid" />
-                                    </div>
-
-                                    <div class="product-info">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h5 class="font-16 mt-0 sp-line-1"><a href="product_detail1.php?product_id=<?=$rows["product_id"]?>" class="text-dark"><?php echo $rows['product_name']?></a></h5>
-                                                <div class="text-warning mb-2 font-13">
-                                                    Rating:
-													<?php 
-															$db->where("product_id = '5'");
-															$rows = $db->getOne("tbl_order_detail");
-															echo $rows['rating']
-													?>
-                                                </div>
-                                                <h5 class="m-0"> 
-													<span class="text-muted"> 
-														Category:
-														<?php 
-															$db->where("product_id = '5'");
-															$rows = $db->getOne("tbl_product");
-															echo $rows['product_type']
-														?>
-													</span>
-												</h5>
-												<h6> 
-													<?php 
-														$db->where("product_id = '5'");
-														$rows = $db->getOne("tbl_product");
-														echo $rows['product_description']
-													?>																								
-												</h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="product-price-tag">
-                                                    RM
-													<?php 
-														$db->where("product_detail_id = '13'");
-														$rows = $db->getOne("tbl_product_detail");
-														echo $rows['product_detail_price']
-													?>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end row -->
-                                    </div> <!-- end product info-->
-                                </div> <!-- end card-box-->
-                            </div> <!-- end col-->
-
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card-box product-box">
-									<?php							
-										$db->where("product_id ='6'");
-										$rows = $db->getOne("tbl_product");
-									?>
-
-                                    <div class="bg-light">
-                                        <img src="../<?php echo $rows['product_image']?>" alt="product-pic" class="img-fluid" />
-                                    </div>
-
-                                    <div class="product-info">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h5 class="font-16 mt-0 sp-line-1"><a href="product_detail1.php?product_id=<?=$rows["product_id"]?>" class="text-dark"><?php echo $rows['product_name']?></a></h5>
-                                                <div class="text-warning mb-2 font-13">
-                                                    Rating:
-													<?php 
-															$db->where("product_id = '6'");
-															$rows = $db->getOne("tbl_order_detail");
-													?>
-                                                </div>
-                                                <h5 class="m-0"> 
-													<span class="text-muted"> 
-														Category:
-														<?php 
-															$db->where("product_id = '6'");
-															$rows = $db->getOne("tbl_product");
-															echo $rows['product_type']
-														?>
-													</span>
-												</h5>
-												<h6> 
-													<?php 
-														$db->where("product_id = '6'");
-														$rows = $db->getOne("tbl_product");
-														echo $rows['product_description']
-													?>																								
-												</h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="product-price-tag">
-                                                    RM
-													<?php 
-														$db->where("product_detail_id = '17'");
-														$rows = $db->getOne("tbl_product_detail");
-														echo $rows['product_detail_price']
-													?>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end row -->
-                                    </div> <!-- end product info-->
-                                </div> <!-- end card-box-->
-                            </div> <!-- end col-->
-
-                            <div class="col-md-6 col-xl-3">
-                                <div class="card-box product-box">
-                                    <?php							
-										$db->where("product_id ='7'");
-										$rows = $db->getOne("tbl_product");
-									?>
-
-                                    <div class="bg-light">
-                                        <img src="../<?php echo $rows['product_image']?>" alt="product-pic" class="img-fluid" />
-                                    </div>
-
-                                    <div class="product-info">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <h5 class="font-16 mt-0 sp-line-1"><a href="product_detail1.php?product_id=<?=$rows["product_id"]?>" class="text-dark"><?php echo $rows['product_name']?></a></h5>
-                                                <div class="text-warning mb-2 font-13">
-                                                    Rating:
-													<?php 
-															$db->where("product_id = '7'");
-															$rows = $db->getOne("tbl_order_detail");
-															echo $rows['rating']
-													?>
-                                                </div>
-                                                <h5 class="m-0"> 
-													<span class="text-muted"> 
-														Category:
-														<?php 
-															$db->where("product_id = '7'");
-															$rows = $db->getOne("tbl_product");
-															echo $rows['product_type']
-														?>
-													</span>
-												</h5>
-												<h6 class="my-2"> 
-													<?php 
-														$db->where("product_id = '7'");
-														$rows = $db->getOne("tbl_product");
-														echo $rows['product_description']
-													?>																								
-												</h6>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="product-price-tag">
-                                                    RM
-													<?php 
-														$db->where("product_detail_id = '19'");
-														$rows = $db->getOne("tbl_product_detail");
-														echo $rows['product_detail_price']
-													?>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end row -->
-                                    </div> <!-- end product info-->
-                                </div> <!-- end card-box-->
-                            </div> <!-- end col-->
-                        </div>
-                        <!-- end row-->		
-
+									<?php
+								}
+							?>
+						</div>
+					
                         <div class="row">
                             <div class="col-12">
                                 <ul class="pagination pagination-rounded justify-content-end mb-3">
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript: void(0);" aria-label="Previous">
-                                            <span aria-hidden="true">«</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="javascript: void(0);">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript: void(0);">5</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript: void(0);" aria-label="Next">
-                                            <span aria-hidden="true">»</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
+									<?php
+										if($page>1)
+										{
+											?>
+											<li class="page-item">
+												<a class="page-link" href="main_menu.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.($page-1):(($db->totalPages>$page)? 'page='.($page)-1:'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>" aria-label="Previous">
+													<span aria-hidden="true">«</span>
+													<span class="sr-only">Previous</span>
+												</a>
+											</li>
+											<?php
+										}
+									?>
+									<?php
+									for ($x = 1; $x <= $db->totalPages; $x++) 
+									{
+										?>
+										<li class="page-item <?=($x==$page)? 'active':''?>"><a class="page-link" href="main_menu.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.($x):(($db->totalPages>1)? 'page='.$x:'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>"><?=$x?></a></li>
+										<?php
+									}
+									?>
+									<?php
+										if($page<$db->totalPages)
+										{
+											?>
+											<li class="page-item">
+												<a class="page-link" href="main_menu.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.(($page+1)):(($db->totalPages>1)? 'page='.($page+1):'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>" aria-label="Next">
+													<span aria-hidden="true">»</span>
+													<span class="sr-only">Next</span>
+												</a>
+											</li>
+											<?php
+										}
+									?>
                                 </ul>
                             </div> <!-- end col-->
                         </div>
@@ -544,7 +242,6 @@
                 <?php include "member_footer.php";?>
 
             </div>
-
             <!-- ============================================================== -->
             <!-- End Page content -->
             <!-- ============================================================== -->
