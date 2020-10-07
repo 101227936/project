@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
+	
         <title>Forgot Password | </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
@@ -31,6 +32,9 @@
                         <div class="card bg-pattern">
 
                             <div class="card-body p-4">
+							
+							
+							
                                 
                                 <div class="text-center w-75 m-auto">
                                     <div class="auth-logo">
@@ -48,6 +52,9 @@
                                     </div>
                                     <p class="text-muted mb-4 mt-3">Enter your email address and we'll send you an email with instructions to reset your password.</p>
                                 </div>
+								
+								
+								
 
                                 <form action="Mailer.php">
 
@@ -61,6 +68,9 @@
                                     </div>
 
                                 </form>
+								
+								
+								
 
                             </div> <!-- end card-body -->
                         </div>
