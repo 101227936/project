@@ -104,7 +104,17 @@
                                             </li>
                                         </ul>
 										<?php
-										if($order["order_status"]=="Menu Edited")
+										$start_time = new DateTime();
+										$end_time = new DateTime($order["order_datetime"]);
+										$minutesToAdd = 5;
+										$end_time->modify("+{$minutesToAdd} minutes");
+										if($start_time <= $end_time) //less than 5 minutes
+										{
+											?>
+											<a href="order_comfirmation.php?order_id=<?=$order["order_id"]?>&action=Cancel" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Cancel Order</button></a>
+											<?php
+										}
+										else if($order["order_status"]=="Menu Edited")
 										{
 											?>
 											<a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Accept</button></a>
