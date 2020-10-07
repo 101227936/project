@@ -26,17 +26,6 @@
         <![endif]-->
         <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 600px;" class="content">
             <tr>
-                <td style="padding: 15px 10px 15px 10px;">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                        <tr>
-                            <td align="center" style="color: #fff; font-family: Arial, sans-serif; font-size: 12px;">
-                                Email not displaying correctly?  <a href="#" style="color: #0073AA;">View it in your browser</a>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
                 <td align="center" bgcolor="#0073AA" style="padding: 20px 20px 20px 20px; color: #ffffff; font-family: Arial, sans-serif; font-size: 36px; font-weight: bold;">
                     <img src="img/proui_logo.png" alt="ProUI Logo" width="152" height="152" style="display:block;">
                 </td>
