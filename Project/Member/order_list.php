@@ -75,7 +75,7 @@
                                                         <th>Products</th>
                                                         <th>Date Order</th>
 														<th>Date Delivery</th>
-														<th>Days</th>
+														<th>Hours</th>
                                                         <th>Payment Status</th>
                                                         <th>Total</th>
                                                         <th>Order Status</th>
@@ -83,10 +83,19 @@
                                                 </thead>
                                                 <tbody>
 													<?php
+														$db->join("tbl_order_detail", "tbl_order.order_id=tbl_order_detail.order_id", "LEFT");
+														$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
+														$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
 														$db->join("tbl_payment", "tbl_order.order_id=tbl_payment.order_id", "LEFT");
 														$db->join("tbl_user", "tbl_user.user_id=tbl_order.user_id", "INNER");
 														$db->where("tbl_user.user_id", 1);
-														$orders = $db->get("tbl_order");
+														
+														$db->where("order_status", "Cart","!=");
+														//$db->where("TIMESTAMPDIFF(MINUTE, order_datetime, now())",5,">");
+														$db->groupBy ("tbl_order_detail.order_id");
+														$cols = Array ("*","ABS(TIMESTAMPDIFF(HOUR,now(),modified_datetime)) as hour" , "sum(tbl_product_detail.product_detail_price*tbl_order_detail.quantity) as total");
+														$orders = $db->get("tbl_order",null, $cols);
+														
 														foreach($orders as $order)
 														{
 															$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
@@ -94,48 +103,47 @@
 															$db->where("order_id",$order["order_id"],"=");
 															$db->where("tbl_order_detail.product_id",0,">");
 															$db->groupBy ("product_name");
-															$cols = Array ("*","ABS(TIMESTAMPDIFF(DAY,now(),'".$order["modified_datetime"]."')) as day" , "sum(tbl_product_detail.product_detail_price) as total");
+															$cols = Array ("*");
 															$order_details = $db->get("tbl_order_detail",null, $cols);
-															//print_r("<pre>");
-															//print_r($order_details);
-															//print_r($db->getLastQuery());
-															//print_r("</pre>");
-															?>
-															<tr>
-																<td><a href="order_detail.php?order_id=<?=$order["order_id"]?>" class="text-body font-weight-bold">#<?=$order["order_id"]?></a> </td>
-																<td>
-																	<?=$order["remark"]?>
-																</td>
-																<td>
-																	<?php
-																		foreach($order_details as $order_detail)
-																		{
-																			?>
-																			<img src="../<?=$order_detail['product_image']?>" alt="product-img" height="32" />
-																			<?php
-																		}
-																	?>
-																</td>
-																<td>
-																	<?=$order["order_datetime"]?>
-																</td>
-																<td>
-																	<?=$order["modified_datetime"]?>
-																</td>
-																<td>
-																	<?=$order_detail["day"]?>
-																</td>
-																<td>
-																	<h5><span class="badge bg-soft-success text-success"><i class="mdi mdi-coin"></i> <?=$order["payment_status"]?></span></h5>
-																</td>
-																<td>
-																	<?=$order_detail["total"]?>
-																</td>
-																<td>
-																	<h5><span class="badge badge-info"><?=$order["order_status"]?></span></h5>
-																</td>
-															</tr>
+															if($order["order_status"] != "Cart")
+															{
+																?>
+																<tr>
+																	<td><a href="order_detail.php?order_id=<?=$order["order_id"]?>" class="text-body font-weight-bold">#<?=$order["order_id"]?></a> </td>
+																	<td>
+																		<?=$order["remark"]?>
+																	</td>
+																	<td>
+																		<?php
+																			foreach($order_details as $order_detail)
+																			{
+																				?>
+																				<img src="../<?=$order_detail['product_image']?>" alt="product-img" height="32" />
+																				<?php
+																			}
+																		?>
+																	</td>
+																	<td>
+																		<?=$order["order_datetime"]?>
+																	</td>
+																	<td>
+																		<?=$order["delivery_datetime"]?>
+																	</td>
+																	<td>
+																		<?=$order["hour"]?>
+																	</td>
+																	<td>
+																		<h5><span class="badge bg-soft-success text-success"><i class="mdi mdi-coin"></i> <?=$order["payment_status"]?></span></h5>
+																	</td>
+																	<td>
+																		<?=$order["total"]?>
+																	</td>
+																	<td>
+																		<h5><span class="badge badge-info"><?=$order["order_status"]?></span></h5>
+																	</td>
+																</tr>
 															<?php
+															}
 														}
 													?>
                                                 </tbody>

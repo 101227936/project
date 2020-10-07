@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
+    <meta charset="utf-8" />
         <title>Ecommerce Orders | UBold - Responsive Admin Dashboard Template</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
@@ -33,8 +33,10 @@
 
         <!-- Begin page -->
         <div id="wrapper">
-			<?php include "topbar.php"?>
+
+            <?php include "topbar.php"?>
 			<?php include "sidebar.php"?>
+
             <!-- ============================================================== -->
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
@@ -49,14 +51,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box">
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
-                                            <li class="breadcrumb-item active">Orders</li>
-                                        </ol>
-                                    </div>
-                                    <h4 class="page-title">Orders</h4>
+                                    <h4 class="page-title">Product</h4>
                                 </div>
                             </div>
                         </div>     
@@ -66,84 +61,49 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        <div class="row mb-2">
+                                            <div class="col-lg-12">
+                                                <div class="text-lg-right">
+                                                    <a href="add_product.php" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Add New Product</a>
+                                                </div>
+                                            </div><!-- end col-->
+                                        </div>
+                
                                         <div class="table-responsive">
                                             <table id="basic-datatable" class="table dt-responsive nowrap w-100">
                                                 <thead class="thead-light">
                                                     <tr>
-                                                        <th>Order ID</th>
-														<th>Remark</th>
-                                                        <th>Products</th>
-                                                        <th>Date Order</th>
-														<th>Date Delivery</th>
-														<th>Hours</th>
-                                                        <th>Payment Status</th>
-                                                        <th>Total</th>
-                                                        <th>Order Status</th>
+                                                        <th>Product ID</th>
+														<th>Product Image</th>
+                                                        <th>Product Type</th>
+                                                        <th>Product Name</th>
+														<th>Product Description</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-													<?php
-														$db->join("tbl_order_detail", "tbl_order.order_id=tbl_order_detail.order_id", "LEFT");
-														$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
-														$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
-														$db->join("tbl_payment", "tbl_order.order_id=tbl_payment.order_id", "LEFT");
-														
-														$db->where("order_status", "Cart","!=");
-														$db->where("TIMESTAMPDIFF(MINUTE, order_datetime, now())",5,">");
-														$db->groupBy ("tbl_order_detail.order_id");
-														$cols = Array ("*","ABS(TIMESTAMPDIFF(HOUR,now(),modified_datetime)) as hour" , "sum(tbl_product_detail.product_detail_price*tbl_order_detail.quantity) as total");
-														$orders = $db->get("tbl_order",null, $cols);
-														
-														foreach($orders as $order)
-														{
-															$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
-															$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
-															$db->where("order_id",$order["order_id"],"=");
-															$db->where("tbl_order_detail.product_id",0,">");
-															$db->groupBy ("product_name");
-															$cols = Array ("*");
-															$order_details = $db->get("tbl_order_detail",null, $cols);
-															//print_r("<pre>");
-															//print_r($order_details);
-															//print_r($db->getLastQuery());
-															//print_r("</pre>");
-															?>
-															<tr>
-																<td><a href="order_detail.php?order_id=<?=$order["order_id"]?>" class="text-body font-weight-bold">#<?=$order["order_id"]?></a> </td>
-																<td>
-																	<?=$order["remark"]?>
-																</td>
-																<td>
-																	<?php
-																		foreach($order_details as $order_detail)
-																		{
-																			?>
-																			<img src="../<?=$order_detail['product_image']?>" alt="product-img" height="32" />
-																			<?php
-																		}
-																	?>
-																</td>
-																<td>
-																	<?=$order["order_datetime"]?>
-																</td>
-																<td>
-																	<?=$order["delivery_datetime"]?>
-																</td>
-																<td>
-																	<?=$order["hour"]?>
-																</td>
-																<td>
-																	<h5><span class="badge bg-soft-success text-success"><i class="mdi mdi-coin"></i> <?=$order["payment_status"]?></span></h5>
-																</td>
-																<td>
-																	<?=$order["total"]?>
-																</td>
-																<td>
-																	<h5><span class="badge badge-info"><?=$order["order_status"]?></span></h5>
-																</td>
-															</tr>
-															<?php
-														}
+                                                <?php
+                                                    //$db->join("tbl_product_detail pd", "p.product_id=pd.product_id", "INNER");
+                                                    $products = $db->get("tbl_product");
+                                                    foreach($products as $product)
+                                                    {
+                                                        ?>
+                                                        <tr>
+                                                            <td><a href="product_detail.php?product_id=<?=$product["product_id"]?>" class="text-body font-weight-bold"><?=$product["product_id"]?></a> </td>
+                                                            <td>
+                                                                <img src="<?=$product['product_image']?>" alt="product-img" height="100" width="100" />
+                                                            </td>
+                                                            <td>
+                                                                <?=$product["product_type"]?>
+                                                            </td>
+                                                            <td>
+                                                                <?=$product["product_name"]?>
+                                                            </td>
+                                                            <td>
+                                                                <?=$product["product_description"]?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php
+                                                    }
 													?>
                                                 </tbody>
                                             </table>
@@ -158,7 +118,9 @@
 
                 </div> <!-- content -->
 
+                <!-- Footer Start -->
                 <?php include "footer.php"?>
+                <!-- end Footer -->
 
             </div>
 
@@ -169,10 +131,12 @@
 
         </div>
         <!-- END wrapper -->
-		
-		<?php include "right_sidebar.php"?>
 
-         <!-- Vendor js -->
+        <!-- Right Sidebar -->
+        <?php include "right_sidebar.php"?>
+        <!-- /Right-bar -->
+
+        <!-- Vendor js -->
         <script src="../assets/js/vendor.min.js"></script>
 
         <!-- third party js -->
