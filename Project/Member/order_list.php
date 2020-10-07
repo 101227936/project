@@ -75,7 +75,7 @@
                                                         <th>Products</th>
                                                         <th>Date Order</th>
 														<th>Date Delivery</th>
-														<th>Days</th>
+														<th>Hours</th>
                                                         <th>Payment Status</th>
                                                         <th>Total</th>
                                                         <th>Order Status</th>
