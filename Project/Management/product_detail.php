@@ -44,8 +44,9 @@
                     $product = $db->getOne("tbl_product");
 
                     $old_image = $product['product_image'];
+                    $random_Name = date("YmdHis");
                     $error = 0;
-                    $file_name = "../Image/Product/".$_FILES['imageProduct']['name'];
+                    $file_name = "../Image/Product/".$random_Name.'.'.explode("/",$_FILES['imageProduct']['type'])[1];
                     $file_size =$_FILES['imageProduct']['size'];
                     $file_tmp =$_FILES['imageProduct']['tmp_name'];
                     $file_type=$_FILES['imageProduct']['type'];
