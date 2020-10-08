@@ -113,7 +113,7 @@
 										else if($order["order_status"]=="Menu Edited")
 										{
 											?>
-											<a href="send_confirmation_email.php?order_id=<?=$order["order_id"]?>"><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Change & Send Email</button></a>
+											<a href="send_confirmation_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Change & Send Email</button></a>
 											<?php
 										}
 										else if($order["order_status"]=="Accept")

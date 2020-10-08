@@ -31,7 +31,7 @@ try {
 
     //Recipients
     $mail->setFrom('jasminkee613@gmail.com', 'Mailer');
-    $mail->addAddress('keechu613@gmail.com', 'Chuadevice');     // Add a recipient
+    $mail->addAddress('keechu613@gmail.com', 'JasminPlanet');     // Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
@@ -67,7 +67,7 @@ try {
 	}
 
     // Content
-    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->isHTML(true); // Set email format to HTML
     $mail->Subject = 'Here is the subject';
 	$mail->MsgHTML($message);
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
