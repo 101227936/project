@@ -100,7 +100,7 @@
 															$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
 															$db->where("order_id",$order["order_id"],"=");
 															$db->where("tbl_order_detail.product_id",0,">");
-															$db->groupBy ("product_name");
+															$db->groupBy ("tbl_product.product_id");
 															$cols = Array ("*");
 															$order_details = $db->get("tbl_order_detail",null, $cols);
 															//print_r("<pre>");
@@ -118,7 +118,7 @@
 																		foreach($order_details as $order_detail)
 																		{
 																			?>
-																			<img src="../<?=$order_detail['product_image']?>" alt="product-img" height="32" />
+																			<img src="<?=$order_detail['product_image']?>" alt="product-img" height="32" />
 																			<?php
 																		}
 																	?>

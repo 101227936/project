@@ -118,7 +118,7 @@
 																			foreach($order_details as $order_detail)
 																			{
 																				?>
-																				<img src="../<?=$order_detail['product_image']?>" alt="product-img" height="32" />
+																				<img src="<?=$order_detail['product_image']?>" alt="product-img" height="32" />
 																				<?php
 																			}
 																		?>
