@@ -1,8 +1,8 @@
 <?php
 	require "../Database/init.php";
 	ob_start();
-	if(!empty($_GET['search']))$db->where ("tbl_product_redeem.product_name", '%'.$_GET['search'].'%', 'like');
-	if(!empty($_GET['type']))$db->where ("tbl_product_redeem.product_type", $_GET['type'], '=');
+	if(!empty($_GET['search']))$db->where ("tbl_product_redeem.product_redeem_name", '%'.$_GET['search'].'%', 'like');
+	if(!empty($_GET['type']))$db->where ("tbl_product_redeem.product_redeem_type", $_GET['type'], '=');
 	$db->where("tbl_product_redeem.product_redeem_status","Available","=");
 	
 	if(!empty($_GET['page']))$page = $_GET['page'];
@@ -64,7 +64,8 @@
                                     <h4 class="page-title">Redeem Main Menu</h4>
                                 </div>
                             </div>
-                        </div>     
+                        </div>    
+									
                         <!-- end page title --> 
 						
 						
@@ -123,6 +124,7 @@
                                                     <input type="submit" class="btn btn-warning waves-effect waves-light" value="Search">
 													<label for="status-select" class="mr-2"></label>
                                                 </div>
+													
 											</form>
 										</div>
                                     </div> <!-- end row -->
