@@ -131,7 +131,7 @@
 											</div>
 
 											<div class="bg-light">
-												<img src="<?=$product_detail['product_image']?>" alt="product-pic" class="img-fluid" />
+												<img src="../<?=$product_detail['product_image']?>" alt="product-pic" class="img-fluid" />
 											</div>
 
 											<div class="product-info">
