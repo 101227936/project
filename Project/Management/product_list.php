@@ -26,6 +26,13 @@
 
 	    <!-- icons -->
 	    <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+	    
+	    <style>
+        #ProductTR:hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+        </style>
 
     </head>
 
@@ -87,8 +94,8 @@
                                                     foreach($products as $product)
                                                     {
                                                         ?>
-                                                        <tr>
-                                                            <td><a href="product_detail.php?product_id=<?=$product["product_id"]?>" class="text-body font-weight-bold"><?=$product["product_id"]?></a> </td>
+                                                       <tr onclick="window.location='product_detail.php?product_id=<?=$product['product_id']?>'" id="ProductTR">
+                                                            <td><?=$product["product_id"]?></td>
                                                             <td>
                                                                 <img src="<?=$product['product_image']?>" alt="product-img" height="100" width="100" />
                                                             </td>
