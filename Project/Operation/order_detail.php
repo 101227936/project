@@ -189,7 +189,7 @@
 																	</td>
 																	<?php
 																}
-																else
+																else if($order["order_status"]=="Pending"||$order["order_status"]=="Menu Edited")
 																{
 																	?>
 																	<td>
