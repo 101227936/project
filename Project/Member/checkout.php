@@ -97,15 +97,16 @@
 																
 																foreach($orders as $order)
 																{
-																	$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
-																	$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
-																	$db->where("order_id",$order["order_id"],"=");
-																	$db->where("tbl_order_detail.product_id",0,">");
-																	$cols = Array ("*");
-																	$order_details = $db->get("tbl_order_detail",null, $cols);
-																	$sum=0;
 																	if($order["order_status"] == "Cart")
 																	{
+																		$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
+																		$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
+																		$db->where("order_id",$order["order_id"],"=");
+																		$db->where("tbl_order_detail.product_id",0,">");
+																		$db->groupBy ("product_name");
+																		$cols = Array ("*");
+																		$order_details = $db->get("tbl_order_detail",null, $cols);
+																		$sum=0;
 																		foreach($order_details as $order_detail)
 																		{
 																			$sum+=$order_detail['product_detail_price']*$order_detail['quantity'];
@@ -158,8 +159,6 @@
 													{
 														document.getElementById('billing-address').value='';
 														document.getElementById('billing-address').readOnly=false;
-														document.getElementById('billing-first-name').value='';
-														document.getElementById('billing-first-name').readOnly=false;
 														document.getElementById('billing-phone').value='';
 														document.getElementById('billing-phone').readOnly=false;
 													}
@@ -167,8 +166,6 @@
 													{
 														document.getElementById('billing-address').value='<?=$order["user_address"]?>';
 														document.getElementById('billing-address').readonly='true';
-														document.getElementById('billing-first-name').value='<?=$order['user_name']?>';
-														document.getElementById('billing-first-name').readonly='true';
 														document.getElementById('billing-phone').value='<?=$order['user_phone']?>';
 														document.getElementById('billing-phone').readonly='true';
 													}
@@ -404,12 +401,73 @@
                                                                 </div> <!-- end col -->
                                                                 <div class="col-sm-6">
                                                                     <div class="text-sm-right mt-2 mt-sm-0">
-                                                                        <a href="ecommerce-checkout.html" class="btn btn-success">
-                                                                            <i class="mdi mdi-cash-multiple mr-1"></i> Complete Order </a>
+                                                                        <form method="post"> 
+																			<input type="submit" id="completeBtn" name="completeBtn" class="btn btn-success" value="$ Complete Order" /> 
+																		</form> 
                                                                     </div>
                                                                 </div> <!-- end col -->
                                                             </div> <!-- end row-->
-                    
+															<?php
+																if (isset($_POST['completeBtn']))
+																{
+																	$orderid = $order['order_id'];
+																	
+																	$tbl_payment = $db->get('tbl_payment');
+																	
+																	$db->where('tbl_payment.order_id',$orderid);
+																	$payment = $db->get('tbl_payment');
+																	
+																	if (empty($tbl_payment))
+																	{
+																		echo"Emtpy";
+																	}
+																	else
+																	{
+																		echo"Not Emtpy";
+																		foreach($tbl_payment as $tbl_payments)
+																		{
+																			$last = $tbl_payments['payment_id'];
+																		};
+																	};
+																	
+																	if($order['order_status'] == "Cart" && empty($payment))
+																	{
+																		//2021-04-01 cvc format
+																		$get_cvc = $POST['card-cvc'];
+																		$str_cvc = str_split($get_cvc);
+																		$mm = $str_cvc[0] + $str_cvc[1];
+																		$yy = "20" + $str_cvc[3] + $str_cvc[4];
+																		$dd = 01;
+																		$cvc = $yy + "-"+ $mm + "-" + $dd;
+																		
+																		$update_order = Array(
+																								'remark' => $POST['example-textarea'],
+																								'order_datetime' =>  date('Y-m-d H:i:s'),
+																								'delivery_address' => $POST['billing-address'],
+																								'deivery_datetime' => $delivery,
+																								'deivery_phone' => $POST['billing-phone'],
+																								'order_status' => 'Pending'
+																							);
+																		$insert_payment = Array(
+																									'payment_id' => $last+1,
+																									'order_id' => $orderid,
+																									'card_number' => $POST['card-number'],
+																									'expiry_date' => $cvc,
+																									'cvc' => $POST['card-cvc'],
+																									'payment_status' => "Confirmed",
+																								);
+																		$db->where('tbl_order.order_id',$orderid);
+																		$update = $db->update('tbl_order',);
+																		$insert = $db->insert('tbl_payment',$insert_payment);
+																		
+																		if($update && $insert)
+																			echo "Place Order successfully!";
+																		else
+																			echo "Cannot place order! Please try again";
+																			
+																	};
+																};
+															?>
                                                         </div>
                                                     </div>
                                                 </div>
