@@ -69,7 +69,7 @@
                             $db->where("product_redeem_id",$_GET['product_redeem_id'],"=");
                             if ($db->update ('tbl_product_redeem', $data))
                             {
-                                echo "<script> alert('Save change.No D');location='redeem_detail.php?product_redeem_id=".$_GET['product_redeem_id']."'</script>";
+                                echo "<script> alert('Save change');location='redeem_detail.php?product_redeem_id=".$_GET['product_redeem_id']."'</script>";
                             } 
                             else
                             { 
