@@ -69,7 +69,7 @@
                                         <div class="row mb-2">
                                             <div class="col-lg-12">
                                                 <div class="text-lg-right">
-                                                    <a href="add_product_redeem.php" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Add Product Redeem</a>
+                                                    <a href="add_product_redeem.php" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add Product Redeem</a>
                                                 </div>
                                             </div><!-- end col-->
                                         </div>
