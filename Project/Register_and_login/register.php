@@ -25,7 +25,7 @@
     <body class="authentication-bg authentication-bg-pattern">
 	
 	<?php	
-	require 'Database/init.php';
+	require '../Database/init.php';
 	if(isset($_POST['btnSave']))
 	{									
 		$data = Array (
