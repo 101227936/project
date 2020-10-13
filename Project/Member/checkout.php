@@ -190,287 +190,314 @@
 												};
 											</script>
                                             <div class="col-lg-8">
-                                                <div class="tab-content p-3">
-                                                    <div class="tab-pane fade active show" id="custom-v-pills-billing" role="tabpanel" aria-labelledby="custom-v-pills-billing-tab">
-                                                        <div>
-                                                            <h4 class="header-title">Billing Information</h4>
+												<form method="post" action="#">
+													<div class="tab-content p-3">
+														<div class="tab-pane fade active show" id="custom-v-pills-billing" role="tabpanel" aria-labelledby="custom-v-pills-billing-tab">
+															<div>
+																<h4 class="header-title">Billing Information</h4>
 
-                                                            <p class="sub-header">Information get from your saved address in profile.</p>
-                                                            <form>
-																<div class="form-group">
-																	<div class="custom-control custom-checkbox">
-																		<input type="checkbox" class="custom-control-input" id="customCheck2" name="customCheck2" onclick="clickFunction()">
-																		<label class="custom-control-label" for="customCheck2">Ship to different address ?</label>
+																<p class="sub-header">Information get from your saved address in profile.</p>
+																<form>
+																	<div class="form-group">
+																		<div class="custom-control custom-checkbox">
+																			<input type="checkbox" class="custom-control-input" id="customCheck2" name="customCheck2" onclick="clickFunction()" />
+																			<label class="custom-control-label" for="customCheck2">Ship to different address ?</label>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div class="col-12">
+																			<div class="form-group">
+																				<label for="billing-first-name">Full Name</label>
+																				<input class="form-control" type="text" placeholder="Enter your first name" name="billing-first-name" id="billing-first-name" value = "<?=$order["user_name"]?>" readonly = "true"/>
+																			</div>
+																		</div>
+																	</div> <!-- end row -->
+																	<div class="row">
+																		<div class="col-md-6">
+																			<div class="form-group">
+																				<label for="billing-email-address">Email Address <span class="text-danger">*</span></label>
+																				<input class="form-control" type="email" placeholder="Enter your email" name="billing-email-address" id="billing-email-address" value="<?=$order["email"]?>" readonly = "true"/>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group">
+																				<label for="billing-phone">Phone <span class="text-danger">*</span></label>
+																				<input class="form-control" type="text" placeholder="(xx) xxx xxxx xxx" name="billing-phone" id="billing-phone" value="<?=$order["user_phone"]?>" readonly = "true"/>
+																			</div>
+																		</div>
+																	</div> <!-- end row -->
+																	<div class="row">
+																		<div class="col-12">
+																			<div class="form-group">
+																				<label for="billing-address">Address</label>
+																				<input class="form-control" type="text" placeholder="Enter full address" name="billing-address" id="billing-address" value="<?=$order["user_address"]?>" readonly = "true"/>
+																			</div>
+																		</div>
+																	</div> <!-- end row -->
+																	<div class="row">
+																		<div class="col-md-6">
+																			<div class="form-group">
+																				<label for="billing-town-city">Town / City</label>
+																				<input class="form-control" type="text" placeholder="Enter your city name" id="billing-town-city" value="Kuching" readonly = "true"/>
+																			</div>
+																		</div>
+																		<div class="col-md-6">
+																			<div class="form-group">
+																				<label for="billing-state">State</label>
+																				<input class="form-control" type="text" placeholder="Enter your state" id="billing-state" value="Sarawak" readonly="true"/>
+																			</div>
+																		</div>
+																	</div> <!-- end row -->
+																	<div class="row">
+																		<div class="col-12">
+																			<div class="form-group">
+																				<label>Country</label>
+																				<select data-toggle="select2" title="Country" class="form-control" readonly = "true">
+																					<option>Malaysia</option>																			
+																				</select>
+																			</div>
+																		</div>
+																	</div> <!-- end row -->
+																	
+																	<div class="row">
+																		<div class="col-12">
+																			<div class="form-group mt-3">
+																				<label for="example-textarea">Order Notes:</label>
+																				<textarea class="form-control" id="example-textarea" rows="3" placeholder="Write some note.."></textarea>
+																			</div>
+																		</div>
+																	</div> <!-- end row -->
+			
+																	<div class="row mt-4">
+																		<div class="col-sm-6">
+																			<a href="ecommerce-cart.html" class="btn btn-secondary">
+																				<i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
+																		</div> <!-- end col -->
+																	</div> <!-- end row -->
+																</form>
+															</div>    
+														</div>
+														<div class="tab-pane fade" id="custom-v-pills-shipping" role="tabpanel" aria-labelledby="custom-v-pills-shipping-tab">
+															<div>
+																<h4 class="header-title">Saved Address</h4>
+
+																<p class="sub-header">The address below shows the address from billing info.</p>
+			
+																<div class="row">
+																	<div class="col-md-12">
+																		<div class="border p-3 rounded mb-3 mb-md-0">
+																			<p class="mb-2"><span class="font-weight-semibold mr-2">Name:</span><output id="name_display"/></p>                                    
+																			<p class="mb-2"><span class="font-weight-semibold mr-2">Address:</span><output id="address_display"/></p>
+																			<p class="mb-2"><span class="font-weight-semibold mr-2">Phone:</span><output id="phone_display"/></p>
+																			<p class="mb-0"><span class="font-weight-semibold mr-2">Email:</span><output id="email_display"/></p>
+																		</div>
 																	</div>
 																</div>
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="form-group">
-                                                                            <label for="billing-first-name">Full Name</label>
-                                                                            <input class="form-control" type="text" placeholder="Enter your first name" id="billing-first-name" value = "<?=$order["user_name"]?>" readonly = "true"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> <!-- end row -->
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="billing-email-address">Email Address <span class="text-danger">*</span></label>
-                                                                            <input class="form-control" type="email" placeholder="Enter your email" id="billing-email-address" value="<?=$order["email"]?>" readonly = "true"/>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="billing-phone">Phone <span class="text-danger">*</span></label>
-                                                                            <input class="form-control" type="text" placeholder="(xx) xxx xxxx xxx" id="billing-phone" value="<?=$order["user_phone"]?>" readonly = "true"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> <!-- end row -->
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="form-group">
-                                                                            <label for="billing-address">Address</label>
-                                                                            <input class="form-control" type="text" placeholder="Enter full address" id="billing-address" value="<?=$order["user_address"]?>" readonly = "true"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> <!-- end row -->
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="billing-town-city">Town / City</label>
-                                                                            <input class="form-control" type="text" placeholder="Enter your city name" id="billing-town-city" value="Kuching" readonly = "true"/>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="billing-state">State</label>
-                                                                            <input class="form-control" type="text" placeholder="Enter your state" id="billing-state" value="Sarawak" readonly="true"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> <!-- end row -->
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="form-group">
-                                                                            <label>Country</label>
-                                                                            <select data-toggle="select2" title="Country" class="form-control" readonly = "true">
-																				<option>Malaysia</option>																			
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> <!-- end row -->
+																<!-- end row-->
+
+																<h4 class="header-title mt-4">Shipping Method</h4>
+
+																<p class="text-muted mb-3">Please choose one of the shipping method below.</p>
+
+																<div class="row">
+																	<div class="col-md-12">
+																		<div class="border p-3 rounded mb-3">
+																			<div class="custom-control custom-radio">
+																				<input type="radio" id="shippingMethodRadio1" name="shippingMethodRadio" value="1" class="custom-control-input" checked onclick="displayDate()"/>
+																				<label class="custom-control-label font-16 font-weight-bold" for="shippingMethodRadio1">DELIVERY NOW</label>
+																			</div>
+																			<p class="mb-0 pl-3 pt-1">Estimated 3 hours for preparing and delivering.</p>
+																		</div>
+
+																		<div class="border p-3 rounded">
+																			<div class="custom-control custom-radio">
+																				<input type="radio" id="shippingMethodRadio2" name="shippingMethodRadio" value="2" class="custom-control-input" onclick="displayDate()"/>
+																				<label class="custom-control-label font-16 font-weight-bold" for="shippingMethodRadio2">DELIVERY ON OTHER DATE &amp TIME(NEXT DAY &amp AFTER)</label>
+																			</div>
+																			<p class="mb-0 pl-3 pt-1">Working Hours 10.A.M. to 10.A.M.</p>
+																			<p class="mb-0 pl-3 pt-1"><input type="datetime-local" id="delivery-time" name="delivery-time" style="display:none"/></p>
+																		</div>
+																	</div>
+																</div>
+																<!-- end row-->
 																
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        
-        
-                                                                        <div class="form-group mt-3">
-                                                                            <label for="example-textarea">Order Notes:</label>
-                                                                            <textarea class="form-control" id="example-textarea" rows="3" placeholder="Write some note.."></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> <!-- end row -->
-        
-                                                                <div class="row mt-4">
-                                                                    <div class="col-sm-6">
-                                                                        <a href="ecommerce-cart.html" class="btn btn-secondary">
-                                                                            <i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
-                                                                    </div> <!-- end col -->
-                                                                </div> <!-- end row -->
-                                                            </form>
-                                                        </div>    
-                                                    </div>
-                                                    <div class="tab-pane fade" id="custom-v-pills-shipping" role="tabpanel" aria-labelledby="custom-v-pills-shipping-tab">
-                                                        <div>
-                                                            <h4 class="header-title">Saved Address</h4>
-
-                                                            <p class="sub-header">The address below shows the address from billing info.</p>
-        
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="border p-3 rounded mb-3 mb-md-0">
-																		<p class="mb-2"><span class="font-weight-semibold mr-2">Name:</span><output id="name_display"/></p>                                    
-                                                                        <p class="mb-2"><span class="font-weight-semibold mr-2">Address:</span><output id="address_display"/></p>
-                                                                        <p class="mb-2"><span class="font-weight-semibold mr-2">Phone:</span><output id="phone_display"/></p>
-                                                                        <p class="mb-0"><span class="font-weight-semibold mr-2">Email:</span><output id="email_display"/></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end row-->
-
-                                                            <h4 class="header-title mt-4">Shipping Method</h4>
-
-                                                            <p class="text-muted mb-3">Please choose one of the shipping method below.</p>
-
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="border p-3 rounded mb-3">
-                                                                        <div class="custom-control custom-radio">
-                                                                            <input type="radio" id="shippingMethodRadio1" name="shippingOptions" class="custom-control-input" checked onclick="displayDate()">
-                                                                            <label class="custom-control-label font-16 font-weight-bold" for="shippingMethodRadio1">DELIVERY NOW</label>
-                                                                        </div>
-                                                                        <p class="mb-0 pl-3 pt-1">Estimated 3 hours for preparing and delivering.</p>
-                                                                    </div>
-
-                                                                    <div class="border p-3 rounded">
-                                                                        <div class="custom-control custom-radio">
-                                                                            <input type="radio" id="shippingMethodRadio2" name="shippingOptions" class="custom-control-input" onclick="displayDate()"/>
-                                                                            <label class="custom-control-label font-16 font-weight-bold" for="shippingMethodRadio2">DELIVERY ON OTHER DATE &amp TIME(NEXT DAY &amp AFTER)</label>
-                                                                        </div>
-                                                                        <p class="mb-0 pl-3 pt-1">Working Hours 10.A.M. to 10.A.M.</p>
-																		<p class="mb-0 pl-3 pt-1"><input type="datetime-local" id="delivery-time" name="delivery-time" style="display:none"/></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end row-->
-															
-															<script>
-																var today = new Date();
-																var dd = today.getDate()+1;
-																var mm = today.getMonth()+1; //January is 0!
-																var yyyy = today.getFullYear();
-																if(dd<10){
-																	dd='0'+dd
-																} 
-																if(mm<10){
-																	mm='0'+mm
-																}
-																today = yyyy+'-'+mm+'-'+dd + 'T10:00';
-																document.getElementById("delivery-time").setAttribute("min", today);
-															</script>
-
-                                                            <div class="row mt-4">
-                                                                <div class="col-sm-6">
-                                                                    <a href="ecommerce-cart.html" class="btn btn-secondary">
-                                                                        <i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
-                                                                </div> <!-- end col -->
-                                                            </div> <!-- end row -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="custom-v-pills-payment" role="tabpanel" aria-labelledby="custom-v-pills-payment-tab">
-                                                        <div>
-                                                            <h4 class="header-title">Payment Selection</h4>
-        
-                                                            <p class="sub-header">Fill the form below in order to
-                                                                send you the order's invoice.</p>
-        
-                                                            <!-- Credit/Debit Card box-->
-                                                            <div class="border p-3 mb-3 rounded">
-                                                                <div class="float-right">
-                                                                    <i class="far fa-credit-card font-24 text-primary"></i>
-                                                                </div>
-                                                                <div class="custom-control custom-radio custom-control-inline">
-                                                                    <input type="radio" id="BillingOptRadio1" name="billingOptions" class="custom-control-input" checked>
-                                                                    <label class="custom-control-label font-16 font-weight-bold" for="BillingOptRadio1">Credit / Debit Card</label>
-                                                                </div>
-                                                                <p class="mb-0 pl-3 pt-1">Safe money transfer using your bank account. We support Mastercard, Visa, Discover and Stripe.</p>
-                                                                
-                                                                <div class="row mt-4">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label for="card-number">Card Number</label>
-                                                                            <input type="text" id="card-number" class="form-control" data-toggle="input-mask" data-mask-format="0000 0000 0000 0000" placeholder="4242 4242 4242 4242">
-                                                                        </div>
-                                                                    </div>
-                                                                </div> <!-- end row -->
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="card-name-on">Name on card</label>
-                                                                            <input type="text" id="card-name-on" class="form-control" placeholder="Master Shreyu">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="form-group">
-                                                                            <label for="card-expiry-date">Expiry date</label>
-                                                                            <input type="text" id="card-expiry-date" class="form-control" data-toggle="input-mask" data-mask-format="00/00" placeholder="MM/YY">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <div class="form-group">
-                                                                            <label for="card-cvv">CVV code</label>
-                                                                            <input type="text" id="card-cvv" class="form-control" data-toggle="input-mask" data-mask-format="000" placeholder="012">
-                                                                        </div>
-                                                                    </div>
-                                                                </div> <!-- end row -->
-                                                            </div>
-                                                            <!-- end Credit/Debit Card box-->
-        
-                                                            <div class="row mt-4">
-                                                                <div class="col-sm-6">
-                                                                    <a href="ecommerce-cart.html" class="btn btn-secondary">
-                                                                        <i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
-                                                                </div> <!-- end col -->
-                                                                <div class="col-sm-6">
-                                                                    <div class="text-sm-right mt-2 mt-sm-0">
-                                                                        <form method="post"> 
-																			<input type="submit" id="completeBtn" name="completeBtn" class="btn btn-success" value="$ Complete Order" /> 
-																		</form> 
-                                                                    </div>
-                                                                </div> <!-- end col -->
-                                                            </div> <!-- end row-->
-															<?php
-																if (isset($_POST['completeBtn']))
-																{
-																	$orderid = $order['order_id'];
-																	
-																	$tbl_payment = $db->get('tbl_payment');
-																	
-																	$db->where('tbl_payment.order_id',$orderid);
-																	$payment = $db->get('tbl_payment');
-																	
-																	if (empty($tbl_payment))
-																	{
-																		echo"Emtpy";
+																<script>
+																	var today = new Date();
+																	var dd = today.getDate()+1;
+																	var mm = today.getMonth()+1; //January is 0!
+																	var yyyy = today.getFullYear();
+																	if(dd<10){
+																		dd='0'+dd
+																	} 
+																	if(mm<10){
+																		mm='0'+mm
 																	}
-																	else
-																	{
-																		echo"Not Emtpy";
-																		foreach($tbl_payment as $tbl_payments)
-																		{
-																			$last = $tbl_payments['payment_id'];
-																		};
-																	};
+																	today = yyyy+'-'+mm+'-'+dd + 'T10:00';
+																	document.getElementById("delivery-time").setAttribute("min", today);
+																</script>
+
+																<div class="row mt-4">
+																	<div class="col-sm-6">
+																		<a href="ecommerce-cart.html" class="btn btn-secondary">
+																			<i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
+																	</div> <!-- end col -->
+																</div> <!-- end row -->
+															</div>
+														</div>
+														<div class="tab-pane fade" id="custom-v-pills-payment" role="tabpanel" aria-labelledby="custom-v-pills-payment-tab">
+															<div>
+																<h4 class="header-title">Payment Selection</h4>
+			
+																<p class="sub-header">Fill the form below in order to
+																	send you the order's invoice.</p>
+			
+																<!-- Credit/Debit Card box-->
+																<div class="border p-3 mb-3 rounded">
+																	<div class="float-right">
+																		<i class="far fa-credit-card font-24 text-primary"></i>
+																	</div>
+																	<div class="custom-control custom-radio custom-control-inline">
+																		<input type="radio" id="BillingOptRadio1" name="billingOptions" class="custom-control-input" checked/>
+																		<label class="custom-control-label font-16 font-weight-bold" for="BillingOptRadio1">Credit / Debit Card</label>
+																	</div>
+																	<p class="mb-0 pl-3 pt-1">Safe money transfer using your bank account. We support Mastercard, Visa, Discover and Stripe.</p>
 																	
-																	if($order['order_status'] == "Cart" && empty($payment))
-																	{
-																		//2021-04-01 cvc format
-																		$get_cvc = $POST['card-cvc'];
-																		$str_cvc = str_split($get_cvc);
-																		$mm = $str_cvc[0] + $str_cvc[1];
-																		$yy = "20" + $str_cvc[3] + $str_cvc[4];
-																		$dd = 01;
-																		$cvc = $yy + "-"+ $mm + "-" + $dd;
-																		
-																		$update_order = Array(
-																								'remark' => $POST['example-textarea'],
-																								'order_datetime' =>  date('Y-m-d H:i:s'),
-																								'delivery_address' => $POST['billing-address'],
-																								'deivery_datetime' => $delivery,
-																								'deivery_phone' => $POST['billing-phone'],
-																								'order_status' => 'Pending'
-																							);
-																		$insert_payment = Array(
-																									'payment_id' => $last+1,
-																									'order_id' => $orderid,
-																									'card_number' => $POST['card-number'],
-																									'expiry_date' => $cvc,
-																									'cvc' => $POST['card-cvc'],
-																									'payment_status' => "Confirmed",
-																								);
-																		$db->where('tbl_order.order_id',$orderid);
-																		$update = $db->update('tbl_order',);
-																		$insert = $db->insert('tbl_payment',$insert_payment);
-																		
-																		if($update && $insert)
-																			echo "Place Order successfully!";
-																		else
-																			echo "Cannot place order! Please try again";
-																			
-																	};
-																};
-															?>
-                                                        </div>
-                                                    </div>
-                                                </div>
+																	<div class="row mt-4">
+																		<div class="col-md-12">
+																			<div class="form-group">
+																				<label for="card-number">Card Number</label>
+																				<input type="text" id="card-number" name="card-number" class="form-control" data-toggle="input-mask" data-mask-format="0000 0000 0000 0000" placeholder="4242 4242 4242 4242"/>
+																			</div>
+																		</div>
+																	</div> <!-- end row -->
+																	<div class="row">
+																		<div class="col-md-6">
+																			<div class="form-group">
+																				<label for="card-name-on">Name on card</label>
+																				<input type="text" id="card-name-on" name="card-name-on" class="form-control" placeholder="Master Shreyu"/>
+																			</div>
+																		</div>
+																		<div class="col-md-3">
+																			<div class="form-group">
+																				<label for="card-expiry-date">Expiry date</label>
+																				<input type="text" id="card-expiry-date" name="card-expiry-date" class="form-control" data-toggle="input-mask" data-mask-format="00/00" placeholder="MM/YY"/>
+																			</div>
+																		</div>
+																		<div class="col-md-3">
+																			<div class="form-group">
+																				<label for="card-cvv">CVV code</label>
+																				<input type="text" id="card-cvv" name="card-cvv" class="form-control" data-toggle="input-mask" data-mask-format="000" placeholder="012"/>
+																			</div>
+																		</div>
+																	</div> <!-- end row -->
+																</div>
+																<!-- end Credit/Debit Card box-->
+			
+																<div class="row mt-4">
+																	<div class="col-sm-6">
+																		<a href="ecommerce-cart.html" class="btn btn-secondary">
+																			<i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
+																	</div> <!-- end col -->
+																	<div class="col-sm-6">
+																		<div class="text-sm-right mt-2 mt-sm-0">
+																			<input type="submit" id="completeBtn" name="completeBtn" class="btn btn-success" value="$ Complete Order" /> 
+																		</div>
+																	</div> <!-- end col -->
+																</div> <!-- end row-->
+															</div>
+														</div>
+													</div>
+												</form>
+												<?php
+													if ($_SERVER['REQUEST_METHOD'] == 'POST')
+													{														
+														$orderid = $order['order_id'];
+														
+														$tbl_payment = $db->get('tbl_payment');
+														
+														$db->where('tbl_payment.order_id',$orderid);
+														$payment = $db->get('tbl_payment');
+														
+														if (empty($tbl_payment)){
+															$last = "999";
+														}
+														else
+														{
+															foreach($tbl_payment as $tbl_payments)
+															{
+																$last = $tbl_payments['payment_id'];
+															};
+														};
+														
+														if($order['order_status'] == 'Cart' && empty($payment))
+														{
+															//2021-04-01 expiry format
+															$get_expiry = $_POST['card-expiry-date'];
+															$str_expiry = str_split($get_expiry);
+															$mm = $str_expiry[0] . $str_expiry[1];
+															$yy = '20' . $str_expiry[3] . $str_expiry[4];
+															$dd = '01';
+															$expiry = $yy . '-' . $mm . '-' . $dd;
+															
+															$remark = '';
+															if(!empty($_POST['example-textarea'])){
+																$remark = $_POST['example-textarea'];
+															}
+															else
+															{
+																$remark = null;
+															};
+															
+															$shipping = $_POST['shippingMethodRadio'];
+															if($shipping == '1')
+															{
+																$delivery = date('Y-m-d H:i:s');
+															}
+															else
+															{
+																//java time format = 2020-10-16T20:00
+																//sql time format 2020-10-13 13:34:30
+																$time = $_POST['delivery-time'];
+																$time2 = str_split($time);
+																
+																$yy = $time2[0].$time2[1].$time2[2].$time2[3];
+																$mm = $time2[5].$time2[6];
+																$dd = $time2[8].$time2[9];
+																$hh = $time2[11].$time2[12];
+																$mn = $time2[14].$time2[15];
+																$sc = "00";
+																
+																$delivery = $yy . "-" . $mm . "-" . $dd . " " . $hh . ":" . $mn . ":" . $sc;
+															};
+															
+															$update_order = Array(
+																					'remark' => $remark, 
+																					'order_datetime' =>  date('Y-m-d H:i:s'),
+																					'delivery_address' => $_POST['billing-address'],
+																					'delivery_datetime' => $delivery,
+																					'delivery_phone' => $_POST['billing-phone'],
+																					'order_status' => 'Pending'
+																				);
+															$insert_payment = Array(
+																						'payment_id' => $last+1,
+																						'order_id' => $orderid,
+																						'card_number' => str_replace(' ', '', $_POST['card-number']),
+																						'expiry_date' => $expiry,
+																						'cvc' => $_POST['card-cvv'],
+																						'payment_status' => 'Confirmed',
+																					);
+															$db->where('tbl_order.order_id',$orderid);
+															$update = $db->update('tbl_order',$update_order);
+															$insert = $db->insert('tbl_payment',$insert_payment);
+															
+															if($update && $insert)
+																echo 'Place Order successfully!';
+															else
+																echo 'Cannot place order! Please try again';
+																
+														};
+													};
+												?>
                                             </div> <!-- end col-->
                                         </div> <!-- end row-->
 
