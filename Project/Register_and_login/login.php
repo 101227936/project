@@ -27,7 +27,7 @@
 	
 	
 	<?php
-	require 'Database/init.php';
+	require '../Database/init.php';
 	if (isset($_POST['btnSave']))
 	{
 		if ($login_id = $_POST['userid']){
