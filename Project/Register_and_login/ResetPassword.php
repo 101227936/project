@@ -25,19 +25,19 @@
     <body class="authentication-bg authentication-bg-pattern">
 	
 		<?php	
-									require 'Database/init.php';
-									if(isset($_POST['btnSave']))
-									{
-										$data = Array (
-										'password' => $_POST['password']
-										);
-										$db->where ('login_id', 4);
-										if ($db->update ('tbl_login', $data))
-											echo "Password update success: ";
-										else
-											echo "Password update failed: " . $db->getLastError();
-									}
-									?>	
+		require '../Database/init.php';
+		if(isset($_POST['btnSave']))
+		{
+			$data = Array (
+			'password' => $_POST['password']
+			);
+			$db->where ('login_id', 4);
+			if ($db->update ('tbl_login', $data))
+				echo "Password update success: ";
+			else
+				echo "Password update failed: " . $db->getLastError();
+		}
+		?>	
 		
 	
 
@@ -88,24 +88,6 @@
                                     </div>
 
                                 </form>
-
-                                <div class="text-center">
-                                    <h5 class="mt-3 text-muted">Sign up using</h5>
-                                    <ul class="social-list list-inline mt-3 mb-0">
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
 
                             </div> <!-- end card-body -->
                         </div>

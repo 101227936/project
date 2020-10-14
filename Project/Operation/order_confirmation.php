@@ -17,6 +17,8 @@
 			);
 			$db->where ('order_id', $_GET['order_id']);
 			$db->update ('tbl_order', $data);
+			
+			header("Location: send_receipt_email.php?order_id=".$_GET['order_id']."");
 		}
 		else if ($_GET['action']=="Reject")
 		{
@@ -31,7 +33,8 @@
 			);
 			$db->where ('order_id', $_GET['order_id']);
 			$db->update ('tbl_payment', $data);
+			
+			header("Location: order_detail.php?order_id=".$_GET['order_id']."");
 		}
 	}
-	header("Location: order_detail.php?order_id=".$_GET['order_id']."");
 ?>

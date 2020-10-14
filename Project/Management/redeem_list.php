@@ -26,14 +26,12 @@
 
 	    <!-- icons -->
 	    <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-	    
-	    <style>
-        #ProductTR:hover {
+        <style>
+        #ProductRedeemTR:hover {
             background-color: #f5f5f5;
             cursor: pointer;
         }
         </style>
-
     </head>
 
     <body>
@@ -58,7 +56,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box">
-                                    <h4 class="page-title">Product List</h4>
+                                    <h4 class="page-title">Product Redeem List</h4>
                                 </div>
                             </div>
                         </div>     
@@ -71,7 +69,7 @@
                                         <div class="row mb-2">
                                             <div class="col-lg-12">
                                                 <div class="text-lg-right">
-                                                    <a href="add_product.php" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add New Product</a>
+                                                    <a href="add_product_redeem.php" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-plus mr-1"></i> Add Product Redeem</a>
                                                 </div>
                                             </div><!-- end col-->
                                         </div>
@@ -82,31 +80,31 @@
                                                     <tr>
                                                         <th>Product ID</th>
 														<th>Product Image</th>
-                                                        <th>Product Type</th>
                                                         <th>Product Name</th>
+                                                        <th>Redeem Point</th>
 														<th>Product Description</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                 <?php
                                                     //$db->join("tbl_product_detail pd", "p.product_id=pd.product_id", "INNER");
-                                                    $products = $db->get("tbl_product");
+                                                    $products = $db->get("tbl_product_redeem");
                                                     foreach($products as $product)
                                                     {
                                                         ?>
-                                                       <tr onclick="window.location='product_detail.php?product_id=<?=$product['product_id']?>'" id="ProductTR">
-                                                            <td><?=$product["product_id"]?></td>
+                                                        <tr onclick="window.location='redeem_detail.php?product_redeem_id=<?=$product['product_redeem_id']?>'" id="ProductRedeemTR">
+                                                            <td><?=$product["product_redeem_id"]?></td>
                                                             <td>
-                                                                <img src="<?=$product['product_image']?>" alt="product-img" height="100" width="100" />
+                                                                <img src="<?=$product['product_redeem_image']?>" alt="product-img" height="100" width="100" />
                                                             </td>
                                                             <td>
-                                                                <?=$product["product_type"]?>
+                                                                <?=$product["product_redeem_name"]?>
                                                             </td>
                                                             <td>
-                                                                <?=$product["product_name"]?>
+                                                                <?=$product["product_redeem_point"]?>
                                                             </td>
                                                             <td>
-                                                                <?=$product["product_description"]?>
+                                                                <?=$product["product_redeem_description"]?>
                                                             </td>
                                                         </tr>
                                                     <?php

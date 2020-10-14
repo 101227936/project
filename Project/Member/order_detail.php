@@ -146,6 +146,7 @@
                                                 </thead>
                                                 <tbody>
 												<?php
+													$db->join("tbl_product_redeem", "tbl_order_detail.product_detail_id=tbl_product_redeem.product_redeem_id && tbl_order_detail.product_id=0", "LEFT");
 													$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
 													$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
 													$db->where("order_id",$order["order_id"],"=");
@@ -155,14 +156,16 @@
 													//print_r($order_details);
 													//print_r($db->getLastQuery());
 													//print_r("</pre>");
-													$sum=0;
+													$price_sum=0;
+													$point_sum=0;
 													foreach($order_details as $order_detail)
 													{
-														$sum+=$order_detail['product_detail_price']*$order_detail['quantity'];
+														if($order_detail['product_id']==0)$point_sum+=$order_detail['product_redeem_point']*$order_detail['quantity'];
+															else $price_sum+=$order_detail['product_detail_price']*$order_detail['quantity'];
 														?>
 														<tr>
-															<th scope="row"><?=$order_detail['product_name']?></th>
-															<td><?=$order_detail['product_type']?></td>
+															<th scope="row"><?=($order_detail['product_id']==0)?$order_detail['product_redeem_name']:$order_detail['product_name']?></th>
+															<td><?=($order_detail['product_id']==0)?$order_detail['product_redeem_type']:$order_detail['product_type']?></td>
 															<td><?=$order_detail['product_detail_size']?></td>
 															<td><?=$order_detail['quantity']?></td>
 															<td><?=$order_detail['product_detail_price']?></td>
@@ -196,9 +199,9 @@
 														<?php
 													}
 													?>
-                                                    <tr>
+													<tr>
                                                         <th scope="row" colspan="5" class="text-right">Total (RM):</th>
-                                                        <td><div class="font-weight-bold"><?=$sum?></div></td>
+                                                        <td><div class="font-weight-bold"><?=$price_sum?></div></td>
 														<?php
 														if($order["comment"] == null && $order["order_status"] == "Arrive")
 														{
@@ -207,6 +210,10 @@
 															<?php
 														}
 														?>
+                                                    </tr>
+													<tr>
+                                                        <th scope="row" colspan="5" class="text-right">Total point:</th>
+                                                        <td><div class="font-weight-bold"><?=$point_sum?></div></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
