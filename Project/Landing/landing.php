@@ -79,7 +79,9 @@
                             <li><a class="color_animation" href="#bread">REDEEM</a></li>
                             <li><a class="color_animation" href="#featured">FEATURED</a></li>
                             <li><a class="color_animation" href="#contact">CONTACT</a></li>
-							<button class="btn btn-info navbar-btn">Login or Register</button>
+							<li><form action="../Register_and_login/login.php" method="get">
+								<button class="btn btn-info navbar-btn" action="../Register_and_login/login.php">Login or Register</button>
+							</form></li>
                         </ul>
 						 
                     </div><!-- /.navbar-collapse -->
