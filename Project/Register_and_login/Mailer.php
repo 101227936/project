@@ -42,7 +42,7 @@ try {
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 	
 	$data = array(
-		'login_id'=>'4',
+		'login_id'=>'3',
 		'url'=>$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])
     );
 	$query = http_build_query($data);
