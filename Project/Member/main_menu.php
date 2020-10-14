@@ -159,12 +159,11 @@
 															Rating:
 															<?php
 																$cols = Array("AVG(rating) as rating");
-																$db->groupBy ("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
 																$db->where("tbl_order_detail.product_id",$product_detail['product_id'],"=");
 																$db->where("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
-																$rating = $db->getOne("tbl_order_detail", null, $cols);				
+																$rating = $db->get("tbl_order_detail", null, $cols);	
 															?>
-															<?=isset($rating['rating'])? $rating['rating']:'-'?>
+															<?=isset($rating[0]['rating'])? number_format((float)$rating[0]['rating'], 2, '.', ''):'-'?>
 														</div>
 														<h5 class="m-0"> 
 															<span class="text-muted"> 

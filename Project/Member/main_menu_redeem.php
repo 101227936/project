@@ -61,11 +61,6 @@
                         <div class="row">
                             <div class="col-10">
                                 <div class="page-title-box">
-								<div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <a href="cart.php" class="action-icon"> <i class="fa fa-shopping-cart"></i></a>
-                                        </ol>
-                                    </div>
                                     <h4 class="page-title">Redeem Main Menu</h4>
                                 </div>
                             </div>
@@ -160,15 +155,14 @@
 														
 														<div class="text-warning mb-2 font-13">
 															Rating:
+															
 															<?php
 																$cols = Array("AVG(rating) as rating");
-																$db->groupBy ("tbl_order_detail.product_detail_id",$product_redeem_detail['product_redeem_id'],"=");
 																$db->where("tbl_order_detail.product_id",0,"=");
 																$db->where("tbl_order_detail.product_detail_id",$product_redeem_detail['product_redeem_id'],"=");
-																$rating = $db->getOne("tbl_order_detail", null, $cols);
-															
+																$rating = $db->get("tbl_order_detail", null, $cols);	
 															?>
-															<?=isset($rating['rating'])? $rating['rating']:'-'?>
+															<?=isset($rating[0]['rating'])? number_format((float)$rating[0]['rating'], 2, '.', ''):'-'?>
 														</div>
 														<h5 class="m-0"> 
 															<span class="text-muted"> 
