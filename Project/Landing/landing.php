@@ -146,7 +146,7 @@
 											<div class="product-info">
 												<div class="row align-items-center">
 													<div class="col">
-														<h5 class="font-16 mt-0 sp-line-1"><a href="product_detail.php?product_detail_id=<?=$product_detail["product_detail_id"]?>" class="text-dark"><?php echo $product_detail['product_name']?></a></h5>										
+														<h5 class="font-16 mt-0 sp-line-1"><a  class="text-dark"><?php echo $product_detail['product_name']?></a></h5>										
 														
 														<div class="text-warning mb-2 font-13">
 															Rating:
@@ -222,7 +222,7 @@
 											<div class="product-info">
 												<div class="row align-items-center">
 													<div class="col">
-														<h5 class="font-16 mt-0 sp-line-1"><a href="product_redeem_detail.php?product_redeem_id=<?=$product_redeem_detail["product_redeem_id"]?>" class="text-dark"><?php echo $product_redeem_detail['product_redeem_name']?></a></h5>										
+														<h5 class="font-16 mt-0 sp-line-1"><a  class="text-dark"><?php echo $product_redeem_detail['product_redeem_name']?></a></h5>										
 														
 														<div class="text-warning mb-2 font-13">
 															Rating:
