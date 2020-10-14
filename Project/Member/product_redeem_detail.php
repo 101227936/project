@@ -1,18 +1,17 @@
 <?php
 	include '../Database/init.php';
 	ob_start();
-	if(empty($_GET['product_detail_id']))header("Location: main_menu.php");
+	if(empty($_GET['product_redeem_id']))header("Location: main_menu.php");
 	else
 	{
-		$db->join("tbl_product", "tbl_product_detail.product_id=tbl_product.product_id", "LEFT");
-		$db->where("tbl_product_detail.product_detail_id",$_GET['product_detail_id'],"=");
+		$db->where("tbl_product_redeem.product_redeem_id",$_GET['product_redeem_id'],"=");
 		$cols = Array("*");
-		$product_detail = $db->getOne("tbl_product_detail", null, $cols);
-		if($product_detail['product_detail_status']=="Not Available"|| $product_detail==null)header("Location: main_menu.php");
+		$product_redeem_detail = $db->getOne("tbl_product_redeem", null, $cols);
+		if($product_redeem_detail['product_redeem_status']=="Not Available"|| $product_redeem_detail==null)header("Location: main_menu_redeem.php");
 		//else
 		//{
 		//	print_r("<pre>");
-		//	print_r($product_detail);
+		//	print_r($product_redeem_detail);
 		//	print_r($db->getLastQuery());
 		//	print_r("</pre>");
 		//}
@@ -74,11 +73,11 @@
                                 <div class="page-title-box">
 									<div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <a href="main_menu.php" class="btn text-muted d-none d-sm-inline-block btn-link font-weight-semibold">
+                                            <a href="main_menu_redeem.php" class="btn text-muted d-none d-sm-inline-block btn-link font-weight-semibold">
                                                             <i class="mdi mdi-arrow-left"></i> Back </a>
                                         </ol>
                                     </div>
-                                    <h4 class="page-title">Product Detail</h4>
+                                    <h4 class="page-title">Product Redeem Detail</h4>
                                 </div>
                             </div>
                         </div>     
@@ -91,39 +90,41 @@
 
                                             <div class="tab-content pt-0">
                                                 <div class="tab-pane active show" id="product-1-item">
-                                                    <img src="<?php echo $product_detail['product_image']?>" alt="" class="img-fluid mx-auto d-block rounded">
+                                                    <img src="<?php echo $product_redeem_detail['product_redeem_image']?>" alt="" class="img-fluid mx-auto d-block rounded">
                                                 </div>
                                             </div>
                                         </div> <!-- end col -->
                                         <div class="col-lg-7">
                                             <div class="pl-xl-3 mt-3 mt-xl-0">
-                                                <p class="mb-1"><?php echo $product_detail['product_type']?></p>
-                                                <h4 class="mb-3"><?php echo $product_detail['product_name']?></h4>
+                                                <p class="mb-1"><?php echo $product_redeem_detail['product_redeem_type']?></p>
+                                                <h4 class="mb-3"><?php echo $product_redeem_detail['product_redeem_name']?></h4>
                                                 <p class="text-warning mb-2 font-13">
                                                     Rating:
+													
 													<?php
 														$cols = Array("AVG(rating) as rating");
-														$db->where("tbl_order_detail.product_id",$product_detail['product_id'],"=");
-														$db->where("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
+														$db->where("tbl_order_detail.product_id",0,"=");
+														$db->where("tbl_order_detail.product_detail_id",$product_redeem_detail['product_redeem_id'],"=");
 														$rating = $db->get("tbl_order_detail", null, $cols);	
 													?>
 													<?=isset($rating[0]['rating'])? number_format((float)$rating[0]['rating'], 2, '.', ''):'-'?>
+													
                                                 </p>
                                                 
-                                                <h4 class="mb-4">Price : RM
+                                                <h4 class="mb-4">Point : 
 													</span> <b>
-													<?php echo $product_detail['product_detail_price']?></h4>
+													<?php echo $product_redeem_detail['product_redeem_point']?></h4>
 													</b>
 												</h4>
 
                                                 <p class="text-muted mb-4">
-													<?php echo $product_detail['product_detail_description']?></h4>
+													<?php echo $product_redeem_detail['product_redeem_description']?></h4>
 												</p>
 												
 											
 													<form class="form-inline mb-4 parsley-examples" action="add_cart.php" method="POST" >
-														<input type="hidden" id="product_id" name="product_id"value="<?=$product_detail['product_id']?>">
-														<input type="hidden" id="product_detail_id" name="product_detail_id"value="<?=$_GET['product_detail_id']?>">
+														<input type="hidden" id="product_id" name="product_id"value="0">
+														<input type="hidden" id="product_detail_id" name="product_detail_id"value="<?=$_GET['product_redeem_id']?>">
 														<div class="form-group">
 															<label for="quantity">Quantity<span class="text-danger">*</span>: </label>
 															<input type="text" class="form-control" id="quantity" name="quantity" required="" data-parsley-type="digits" data-parsley-min="1" placeholder="Min value is 1" value="1">
@@ -133,9 +134,6 @@
 														</div>
 														
 													</form>
-											
-
-                                                
 												
 												<div>
 													<div>
@@ -149,10 +147,9 @@
 																	<?php
 																		$cols = Array("rating, comment");
 																		$db->where("tbl_order_detail.rating", NULL,"IS NOT");
-																		$db->where("tbl_order_detail.product_id",$product_detail['product_id'],"=");
-																		$db->where("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
+																		$db->where("tbl_order_detail.product_id",0,"=");
+																		$db->where("tbl_order_detail.product_detail_id",$product_redeem_detail['product_redeem_id'],"=");
 																		$ratings = $db->get("tbl_order_detail", null, $cols);
-																		
 																		if(sizeof($ratings)==0)echo "No review yet";
 																		else
 																		{
