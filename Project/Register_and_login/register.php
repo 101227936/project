@@ -38,8 +38,13 @@
 	);
 		
 		$id = $db->insert ('tbl_login', $data);
-	if($id) {echo 'user was created Successfully. Id=' . $id;}
-	else {echo "Sign up Unsuccessfuly. User ID Already Exits";}
+		
+	if($id){
+		
+		echo 'user was created Successfully. Id=' . $id;
+		header("location: login.php");
+		
+	}else {echo "Sign up Unsuccessfuly. User ID Already Exits";}
 	}
 		
 	?>	
