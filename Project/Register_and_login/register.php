@@ -26,12 +26,13 @@
 	
 	<?php	
 	require '../Database/init.php';
+	require "../encrypt.php";
 	if(isset($_POST['btnSave']))
 	{									
 		$data = Array (
                            'login_id' =>$_POST['login_id'],
                            'email' => $_POST['email_id'],
-                                'password' => $_POST['password'],
+                                'password' => encrypt_decrypt("encrypt",trim($_POST['password'])),
 								'role' => "Member",
 								'status' => "Inactive"
 	);
