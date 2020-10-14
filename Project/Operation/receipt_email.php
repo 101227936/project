@@ -11,7 +11,8 @@
 		//print_r($order);
 		//print_r($db->getLastQuery());
 		//print_r("</pre>");
-		
+        
+        $db->join("tbl_product_redeem", "tbl_order_detail.product_detail_id=tbl_product_redeem.product_redeem_id && tbl_order_detail.product_id=0", "LEFT");
 		$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
 		$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
 		$db->where("tbl_order_detail.order_id",$_GET['order_id'],"=");
@@ -97,11 +98,12 @@
                             $sum=0;
 							foreach($order_details as $order_detail)
 							{
-                                $sum += $order_detail['product_detail_price']*$order_detail['quantity'];
+                                $sum += $order_detail['product_id']==0?$order_detail['product_detail_price']*0:$order_detail['product_detail_price']*$order_detail['quantity'];
+                                //$sum += $order_detail['product_detail_price']*$order_detail['quantity'];
 								?>
 								<tr>
 									<td height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; width: 50%;" class="button">
-										<?=$order_detail['product_name']?>
+                                        <?=($order_detail['product_id']==0)?$order_detail['product_redeem_name']:$order_detail['product_name']?>
 									</td>
 									<td align="center" height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px;" class="button">
 										<?=$order_detail['product_detail_size']?>
@@ -110,7 +112,7 @@
 										<?=$order_detail['quantity']?>
 									</td>
                                     <td align="center" height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px;" class="button">
-										<?=$order_detail['product_detail_price']*$order_detail['quantity']?>
+                                        <?=($order_detail['product_id']==0)?0:$order_detail['product_detail_price']*$order_detail['quantity']?>
 									</td>
 								</tr>
                                
@@ -138,7 +140,7 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td align="center" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
-                                Email not displaying correctly?  <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/receipt_email.php?order_id=<?=$_GET['order_id']?>" style="color:#0073AA;">View it in your browser</a>
+                                Email not displaying correctly?  <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/receipt_email.php?order_id=<?=$_GET['order_id']?>" style="color:#0073AA;" target="_blank">View it in your browser</a>
                             </td>
                         </tr>
                     </table>
