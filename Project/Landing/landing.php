@@ -218,7 +218,7 @@
 									 <div class="col-md-6 col-xl-3">
 										<div class="card-box product-box">
 											<div class="bg-light">
-												<img src="<?=$product_redeem_detail['product_redeem_image']?>" alt="product-pic" class="img-fluid"/>
+												<img src="<?=$product_redeem_detail['product_redeem_image']?>" width="200" height="200"alt="product-pic" class="img-fluid"/>
 											</div>
 
 											<div class="product-info">
