@@ -99,49 +99,97 @@
 																{
 																	if($order["order_status"] == "Cart")
 																	{
+																		$db->join("tbl_product_redeem", "tbl_order_detail.product_detail_id=tbl_product_redeem.product_redeem_id && tbl_order_detail.product_id=0", "LEFT");
 																		$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
 																		$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
 																		$db->where("order_id",$order["order_id"],"=");
-																		$db->where("tbl_order_detail.product_id",0,">");
-																		$db->groupBy ("product_name");
 																		$cols = Array ("*");
 																		$order_details = $db->get("tbl_order_detail",null, $cols);
-																		$sum=0;
+																		
+																		$sum_price=0;
+																		$sum_point=0;
 																		foreach($order_details as $order_detail)
 																		{
-																			$sum+=$order_detail['product_detail_price']*$order_detail['quantity'];
+																			if($order_detail['product_id']==0)$sum_point+=$order_detail['product_redeem_point']*$order_detail['quantity'];
+																			else $sum_price+=$order_detail['product_detail_price']*$order_detail['quantity'];
 																			$total=$order_detail['product_detail_price']*$order_detail['quantity'];
 																			?>
 																				<tr>
 																					<td style="width: 90px;">
-																						<img src="<?=$order_detail['product_image']?>" alt="product-img" height="48" class="rounded"/>
+																						<img src="<?=($order_detail['product_id']==0)?$order_detail['product_redeem_image']:$order_detail['product_image']?>" alt="product-img" height="48" class="rounded"/>
 																					</td>
 																					<td>
-																						<a href="" class="text-body font-weight-semibold"><?=$order_detail['product_name']?></a>
-																						<small class="d-block"><?=$order_detail['quantity']?> x RM<?=$order_detail['product_detail_price']?></small>
+																						<a href="" class="text-body font-weight-semibold"><?=($order_detail['product_id']==0)?$order_detail['product_redeem_name']:$order_detail['product_name']?></a>
+																						<?php
+																						if($order_detail['product_id']==0)
+																						{
+																							if($order_detail['product_redeem_point'] > 1)
+																							{
+																								?>
+																								<small class="d-block"><?=$order_detail['quantity']?> x <?=$order_detail['product_redeem_point'] ?> Points</small>
+																								<?php
+																								
+																							}
+																							else
+																							{
+																								?>
+																								<small class="d-block"><?=$order_detail['quantity']?> x <?=$order_detail['product_redeem_point'] ?> Point</small>
+																								<?php
+																							}
+																						}
+																						else
+																						{
+																							?>
+																							<small class="d-block"><?=$order_detail['quantity']?> x RM<?=$order_detail['product_detail_price']?></small>
+																							<?php
+																						}
+																						?>
+																						
 																					</td>
-																					<td class="text-right">RM<?=$total?></td>
+																					<?php
+																						if($order_detail['product_id']==0)
+																						{
+																							if($total > 1)
+																							{
+																								?>
+																									<td class="text-right"><?=$total?> Points</td>
+																								<?php
+																							}
+																							else
+																							{
+																								?>
+																									<td class="text-right"><?=$total?> Point</td>
+																								<?php
+																							}
+																						}
+																						else
+																						{
+																							?>
+																							<td class="text-right">RM <?=$total?></td>
+																							<?php
+																						}
+																					?>
+																					
 																			<?php
 																		}
 																		?>
-																		</tr>
-																			<tr class="text-right">
-																			<td colspan="2"><h6 class="m-0">Sub Total:</h6></td>
-																			<td class="text-right">RM<?=$sum?></td>
+																		<tr class="text-right">
+																			<td colspan="2">
+																				<h5 class="m-0">Total Price:</h5>
+																			</td>
+																			<td class="text-right font-weight-semibold">RM<?=$sum_price?></td>
 																		</tr>
 																		<tr class="text-right">
 																			<td colspan="2">
-																				<h6 class="m-0">Shipping:</h6>
+																				<h5 class="m-0">Total Point:</h5>
 																			</td>
-																			<td class="text-right">
-																				FREE
-																			</td>
+																			<td class="text-right font-weight-semibold"><?=$sum_point?> Points</td>
 																		</tr>
 																		<tr class="text-right">
 																			<td colspan="2">
-																				<h5 class="m-0">Total:</h5>
+																				<h5 class="m-0">User's Point Left: </h5>
 																			</td>
-																			<td class="text-right font-weight-semibold">RM<?=$sum?></td>
+																			<td class="text-right font-weight-semibold">(<?=$order['user_reward']?> - <?=$sum_point?>) <?=$lastPoint = $order['user_reward'] - $sum_point?> Points</td>
 																		</tr>
 																		<?php
 																	}
@@ -159,15 +207,11 @@
 													{
 														document.getElementById('billing-address').value='';
 														document.getElementById('billing-address').readOnly=false;
-														document.getElementById('billing-phone').value='';
-														document.getElementById('billing-phone').readOnly=false;
 													}
 													else
 													{
 														document.getElementById('billing-address').value='<?=$order["user_address"]?>';
 														document.getElementById('billing-address').readonly='true';
-														document.getElementById('billing-phone').value='<?=$order['user_phone']?>';
-														document.getElementById('billing-phone').readonly='true';
 													}
 												};
 													
@@ -198,12 +242,6 @@
 
 																<p class="sub-header">Information get from your saved address in profile.</p>
 																<form>
-																	<div class="form-group">
-																		<div class="custom-control custom-checkbox">
-																			<input type="checkbox" class="custom-control-input" id="customCheck2" name="customCheck2" onclick="clickFunction()" />
-																			<label class="custom-control-label" for="customCheck2">Ship to different address ?</label>
-																		</div>
-																	</div>
 																	<div class="row">
 																		<div class="col-12">
 																			<div class="form-group">
@@ -234,6 +272,12 @@
 																			</div>
 																		</div>
 																	</div> <!-- end row -->
+																	<div class="form-group">
+																		<div class="custom-control custom-checkbox">
+																			<input type="checkbox" class="custom-control-input" id="customCheck2" name="customCheck2" onclick="clickFunction()" />
+																			<label class="custom-control-label" for="customCheck2">Ship to different address ?</label>
+																		</div>
+																	</div>
 																	<div class="row">
 																		<div class="col-md-6">
 																			<div class="form-group">
@@ -366,7 +410,7 @@
 																		<div class="col-md-12">
 																			<div class="form-group">
 																				<label for="card-number">Card Number</label>
-																				<input type="text" id="card-number" name="card-number" class="form-control" data-toggle="input-mask" data-mask-format="0000 0000 0000 0000" placeholder="4242 4242 4242 4242"/>
+																				<input type="text" id="card-number" name="card-number" class="form-control" data-toggle="input-mask" data-mask-format="0000 0000 0000 0000" placeholder="4242 4242 4242 4242" pattern="\d*" minlength=16 maxlength=16 required/>
 																			</div>
 																		</div>
 																	</div> <!-- end row -->
@@ -380,13 +424,13 @@
 																		<div class="col-md-3">
 																			<div class="form-group">
 																				<label for="card-expiry-date">Expiry date</label>
-																				<input type="text" id="card-expiry-date" name="card-expiry-date" class="form-control" data-toggle="input-mask" data-mask-format="00/00" placeholder="MM/YY"/>
+																				<input type="text" id="card-expiry-date" name="card-expiry-date" class="form-control" data-toggle="input-mask" data-mask-format="00/00" placeholder="MM/YY" pattern="\^[0-1][0-2]\/[2-9][0-9]$\" minlength=5 maxlength=5 required/>
 																			</div>
 																		</div>
 																		<div class="col-md-3">
 																			<div class="form-group">
 																				<label for="card-cvv">CVV code</label>
-																				<input type="text" id="card-cvv" name="card-cvv" class="form-control" data-toggle="input-mask" data-mask-format="000" placeholder="012"/>
+																				<input type="text" id="card-cvv" name="card-cvv" class="form-control" data-toggle="input-mask" data-mask-format="000" placeholder="012" pattern="\^[0-9]{3, 4}$\" minlength=3 maxlength=3 required/>
 																			</div>
 																		</div>
 																	</div> <!-- end row -->
@@ -475,7 +519,6 @@
 																					'order_datetime' =>  date('Y-m-d H:i:s'),
 																					'delivery_address' => $_POST['billing-address'],
 																					'delivery_datetime' => $delivery,
-																					'delivery_phone' => $_POST['billing-phone'],
 																					'order_status' => 'Pending'
 																				);
 															$insert_payment = Array(
@@ -486,11 +529,14 @@
 																						'cvc' => $_POST['card-cvv'],
 																						'payment_status' => 'Confirmed',
 																					);
+															$update_user = Array('user_reward' => $lastPoint);
+															$db->where('tbl_user.user_id', $order['user_id']);
+															$updateUser = $db->update('tbl_user',$update_user);
 															$db->where('tbl_order.order_id',$orderid);
 															$update = $db->update('tbl_order',$update_order);
 															$insert = $db->insert('tbl_payment',$insert_payment);
 															
-															if($update && $insert)
+															if($update && $insert && $updateUser)
 																echo 'Place Order successfully!';
 															else
 																echo 'Cannot place order! Please try again';
