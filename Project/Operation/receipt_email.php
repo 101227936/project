@@ -47,37 +47,30 @@
             }
         </style>
     </head>
-    <body bgcolor="#34495E" style="margin: 0; padding: 0;" yahoo="fix">
+    <body bgcolor="white" style="margin: 0; padding: 0;" yahoo="fix">
         <!--[if (gte mso 9)|(IE)]>
         <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td>
         <![endif]-->
         <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 600px;" class="content">
-            <tr>
-                <td style="padding: 15px 10px 15px 10px;">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                        <tr>
-                            <td align="center" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
-                                Email not displaying correctly?  <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/SSSconfirmation_email.php?order_id=<?=$_GET['order_id']?>" style="color:#0073AA;">View it in your browser</a>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
+            <!--<tr>
                 <td align="center" bgcolor="#0073AA " style="padding: 20px 20px 20px 20px; color: #ffffff; font-family: Arial, sans-serif; font-size: 36px; font-weight: bold;">
-                    <img src="img/proui_logo.png" alt="ProUI Logo" width="152" height="152" style="display:block;">
+                    <img src="img/aaa.jpeg" alt="ProUI Logo" width="152" height="152" style="display:block;">
+                </td>-->
+                <!--<td>
+                    <img src="img/aaa.jpeg" alt="ProUI Logo" width="100%" height="152" style="display:block;">
                 </td>
-            </tr>
+            </tr>-->
             <tr>
-                <td align="center" bgcolor="#ffffff" style="padding: 20px 20px 20px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px;">
-                    <b>Thanks for your payment!</b><br>
+                <td align="center" bgcolor="#ffffff" style="padding: 0px 20px 20px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 30px; line-height: 30px;">
+                    <b>Thanks for your payment!</b><br><br>
                     We've attached your receipt in this email.
+                    <hr>
                 </td>
             </tr>
             <tr>
-                <td align="left" bgcolor="#ffffff" style="padding: 10px 20px 40px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px; border-bottom: 1px solid #f6f6f6;">
+                <td align="left" bgcolor="#ffffff" style="padding: 10px 20px 40px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px; border-bottom: 1px solid #f6f6f6;">
                     Payment ID: <?=$order['payment_id']?><br>
                     <?php date_default_timezone_set('Asia/Kuala_Lumpur');?>
                     Date : <?=date("l jS F Y h:i:s A")?>
@@ -87,16 +80,16 @@
                 <td align="center" bgcolor="#f9f9f9" style="padding: 30px 20px 30px 20px; font-family: Arial, sans-serif;">
 					<table border="0" cellspacing="0" cellpadding="0" class="buttonwrapper" style="width:100%;">
 						<tr>
-							<td height="50" style="border-bottom-width: 1px; border-bottom-color: #eee; border-bottom-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
+							<td height="50" style="border-bottom-width: 2px; border-bottom-color: #eee; border-bottom-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
 								Product
 							</td>
-							<td align="center" height="50" style=" border-bottom-width: 1px; border-bottom-color: #eee; border-bottom-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
+							<td align="center" height="50" style=" border-bottom-width: 2px; border-bottom-color: #eee; border-bottom-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
 								Size
 							</td>
-							<td align="center" height="50" style=" border-bottom-width: 1px; border-bottom-color: #eee; border-bottom-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
+							<td align="center" height="50" style=" border-bottom-width: 2px; border-bottom-color: #eee; border-bottom-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
 								Quantity
 							</td>
-                            <td align="center" height="50" style=" border-bottom-width: 1px; border-bottom-color: #eee; border-bottom-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
+                            <td align="center" height="50" style=" border-bottom-width: 2px; border-bottom-color: #eee; border-bottom-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
 								Price
 							</td>
 						</tr>
@@ -116,7 +109,7 @@
 									<td align="center" height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px;" class="button">
 										<?=$order_detail['quantity']?>
 									</td>
-                                    <td align="right" height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px;" class="button">
+                                    <td align="center" height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px;" class="button">
 										<?=$order_detail['product_detail_price']*$order_detail['quantity']?>
 									</td>
 								</tr>
@@ -126,9 +119,9 @@
 						?>
                             <tr>
                                 <td colspan="3" align="right" height="50" style="border-bottom-width: 3px; border-bottom-color: #eee; border-bottom-style: solid; border-top-width: 3px; border-top-color: #eee; border-top-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
-                                    Total (RM): 
+                                    Total (RM) 
                                 </td>
-                                <td align="right" height="50" style="border-bottom-width: 3px; border-bottom-color: #eee; border-bottom-style: solid;border-top-width: 3px; border-top-color: #eee; border-top-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 20px;" class="button">
+                                <td align="center" height="50" style="border-bottom-width: 3px; border-bottom-color: #eee; border-bottom-style: solid;border-top-width: 3px; border-top-color: #eee; border-top-style: solid; padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 20px;" class="button">
                                     <?=$sum?>
                                 </td>
                             </tr>
@@ -136,8 +129,19 @@
                 </td>
             </tr>
 			<tr>
-                <td align="left" bgcolor="#ffffff" style="padding: 75px 20px 40px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px; border-bottom: 1px solid #f6f6f6;">
-                    We were delivery at: <?=$order['delivery_datetime']?>
+                <td align="left" bgcolor="#ffffff" style="padding: 30px 20px 40px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 18px; line-height: 30px; border-bottom: 1px solid #f6f6f6;">
+                    *We were delivery order on: <?=date_format(date_create($order['delivery_datetime']),"l jS F Y H:i:s A");?>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 15px 10px 15px 10px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td align="center" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
+                                Email not displaying correctly?  <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/receipt_email.php?order_id=<?=$_GET['order_id']?>" style="color:#0073AA;">View it in your browser</a>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>
@@ -145,7 +149,7 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td align="center" width="100%" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
-                                2020 &copy; <a href="http://html.codedthemes.com/mash-able/" style="color: #0073AA;">FCMS</a>
+                                2020 &copy; FCMS
                             </td>
                         </tr>
                     </table>
