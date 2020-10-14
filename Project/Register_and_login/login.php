@@ -28,15 +28,21 @@
 	
 	<?php
 	require '../Database/init.php';
+	require "../encrypt.php";
+	
 	if (isset($_POST['btnSave']))
 	{
-		if ($login_id = $_POST['userid']){
-			echo "Login successfuly";
-		}else{
-			echo "Login Unsuccessfuly";
+		$db->where("login_id", $_POST['userid']);
+		$db->where("password", encrypt_decrypt("encrypt",trim($_POST['password'])));
+		$results = $db->get ('tbl_login');
+		if($results) {
+			echo "You are logged";
+			header("location: ../Member/main_menu.php");
+		} else {
+			echo "Wrong user/password";
 		}
+
 	}
-	
 	?>	
 	
 
