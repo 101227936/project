@@ -31,9 +31,10 @@
 			$data = Array (
 			'password' => $_POST['password']
 			);
-			$db->where ('login_id', 4);
+			$db->where ('login_id', 3);
 			if ($db->update ('tbl_login', $data))
 				echo "Password update success: ";
+				header("location: login.php");
 			else
 				echo "Password update failed: " . $db->getLastError();
 		}
