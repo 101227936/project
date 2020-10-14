@@ -104,7 +104,7 @@
                 <div class="col-md-6">
                     <h1>About us</h1>
                     <div class="fa fa-cutlery fa-2x"></div>
-                    <p class="desc-text">Restaurant is a place for simplicity. Good food, good beer, and good service. Simple is the name of the game, and we’re good at finding it in all the right places, even in your dining experience. We’re a small group from Denver, Colorado who make simple food possible. Come join us and see what simplicity tastes like.</p>
+                    <p class="desc-text">Restaurant is a place for simplicity. Good food, good beer, and good service. Simple is the name of the game, and we’re good at finding it in all the right places, even in your dining experience. We’re a small group from SWINBURNE PLANET who make simple food possible. Come join us and see what simplicity tastes like!</p>
                 </div>
                 <div class="col-md-6">
                     <div class="img-section">
@@ -195,9 +195,7 @@
         </section>
 
 
-       
-
-       <!-- ============ Top Redeem Listing Page  ============= -->
+        <!-- ============ Top Redeem Listing Page  ============= -->
 
 
         <section id ="bread" class="description_content">
@@ -265,6 +263,8 @@
                 </div>
             </div>  
         </section>
+
+      
 
 
         
