@@ -62,6 +62,11 @@
                         <div class="row">
                             <div class="col-10">
                                 <div class="page-title-box">
+									<div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <a href="cart.php" class="action-icon"> <i class="fa fa-shopping-cart"></i></a>
+                                        </ol>
+                                    </div>
                                     <h4 class="page-title">Main Menu</h4>
                                 </div>
                             </div>
@@ -157,8 +162,7 @@
 																$db->groupBy ("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
 																$db->where("tbl_order_detail.product_id",$product_detail['product_id'],"=");
 																$db->where("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
-																$rating = $db->getOne("tbl_order_detail", null, $cols);
-															
+																$rating = $db->getOne("tbl_order_detail", null, $cols);				
 															?>
 															<?=isset($rating['rating'])? $rating['rating']:'-'?>
 														</div>
