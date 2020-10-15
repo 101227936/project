@@ -14,6 +14,7 @@
 		
 		$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
 		$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
+		$db->where("tbl_order_detail.product_id",0,"!=");
 		$db->where("tbl_order_detail.order_id",$_GET['order_id'],"=");
 		$order_details = $db->get("tbl_order_detail");
 		
