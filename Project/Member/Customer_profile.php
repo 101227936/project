@@ -101,7 +101,7 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                             }
                             else
                             {
-                                echo "<script> alert('Your Current Password is wrong.');location='Customer_profile.php'</script>";
+                                echo "<script> alert('Your current password is wrong.');location='Customer_profile.php'</script>";
                             }
                         }
                         else
@@ -156,7 +156,7 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                             }
                             else
                             {
-                                echo "<script> alert('Your Current Password is wrong.');location='Customer_profile.php'</script>";
+                                echo "<script> alert('Your current password is wrong.');location='Customer_profile.php'</script>";
                             }
                         }
                     }
@@ -240,7 +240,7 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="name">Your Name<span class="text-danger">*</span></label>
-                                                            <input type="text" name="name" parsley-trigger="change" required placeholder="Enter your name" class="form-control" id="name" value="<?php echo $rows['user_name']?>">
+                                                            <input type="text" name="name" parsley-trigger="change" required placeholder="Enter your new name" class="form-control" id="name" value="<?php echo $rows['user_name']?>">
                                                         </div>
                                                     </div>
                                                 </div> <!-- end row -->
@@ -248,13 +248,13 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="userEmail">Email address<span class="text-danger">*</span></label>
-                                                            <input type="email" name="userEmail" parsley-trigger="change" required placeholder="Enter email" class="form-control" id="userEmail" value="<?php echo $rows['email']?>">
+                                                            <input type="email" name="userEmail" parsley-trigger="change" required placeholder="Enter your new email" class="form-control" id="userEmail" value="<?php echo $rows['email']?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="userPhone">Mobile<span class="text-danger">*</span></label>
-                                                            <input type="type" name="userPhone" data-parsley-type="digits" data-parsley-length="[10,11]" parsley-trigger="change" required placeholder="Enter new phone number" class="form-control" id="userPhone" value="<?php echo $rows['user_phone']?>">
+                                                            <input type="type" name="userPhone" data-parsley-type="digits" data-parsley-length="[10,11]" parsley-trigger="change" required placeholder="Enter your new mobile number" class="form-control" id="userPhone" value="<?php echo $rows['user_phone']?>">
                                                         </div>
                                                     </div> <!-- end col -->
                                                 </div> <!-- end row -->
@@ -262,7 +262,7 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="userAddress">Address<span class="text-danger">*</span></label>
-                                                            <textarea class="form-control" id="userAddress" name="userAddress" rows="2" parsley-trigger="change" required placeholder="Enter your new address..."><?php echo $rows['user_address']?></textarea>
+                                                            <textarea class="form-control" id="userAddress" name="userAddress" rows="2" parsley-trigger="change" required placeholder="Enter your new address"><?php echo $rows['user_address']?></textarea>
                                                         </div>
                                                     </div> <!-- end col -->
                                                 </div> <!-- end row -->
@@ -271,13 +271,13 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="password">Old Password</label>
-                                                            <input type="password" name="password" parsley-trigger="change" placeholder="Enter current password" class="form-control" id="password">
+                                                            <input type="password" name="password" parsley-trigger="change" placeholder="Enter your current password" class="form-control" id="password">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="New_password">New Password</label>
-                                                            <input type="password" name="New_password" parsley-trigger="change" placeholder="Enter new password" class="form-control" id="New_password">
+                                                            <input type="password" name="New_password" parsley-trigger="change" placeholder="Enter your new password" class="form-control" id="New_password">
                                                         </div>
                                                     </div>
                                                 </div> <!-- end row -->
