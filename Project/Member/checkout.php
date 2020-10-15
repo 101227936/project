@@ -140,7 +140,7 @@
 																						else
 																						{
 																							?>
-																							<small class="d-block"><?=$order_detail['quantity']?> x RM<?=$order_detail['product_detail_price']?></small>
+																							<small class="d-block"><?=$order_detail['quantity']?> x RM<?=$order_detail['product_detail_price']?> (<?=$order_detail['product_detail_size']?>)</small>
 																							<?php
 																						}
 																						?>
@@ -537,10 +537,13 @@
 															$insert = $db->insert('tbl_payment',$insert_payment);
 															
 															if($update && $insert && $updateUser)
-																echo 'Place Order successfully!';
+																echo '<script>',
+																	'alert("Place Order successfully!");',
+																'</script>';
 															else
-																echo 'Cannot place order! Please try again';
-																
+																echo '<script>',
+																	'alert("Cannot place order! Please try again");',
+																'</script>';
 														};
 													};
 												?>
