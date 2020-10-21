@@ -152,13 +152,13 @@
 																							if($total > 1)
 																							{
 																								?>
-																									<td class="text-right"><?=$total?> Points</td>
+																									<td class="text-right"><?=$order_detail['product_redeem_point']?> Points</td>
 																								<?php
 																							}
 																							else
 																							{
 																								?>
-																									<td class="text-right"><?=$total?> Point</td>
+																									<td class="text-right"><?=$order_detail['product_redeem_point']?> Point</td>
 																								<?php
 																							}
 																						}
