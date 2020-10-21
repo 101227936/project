@@ -106,7 +106,7 @@
 										<?php
 										function accept($db, $order){
 											$update_order = Array('order_status' => 'Pending');
-											$db->where('tbl_order.user_id',$order['user_id']); 
+											$db->where('tbl_order.order_id',$order['order_id']); 
 											$Update = $db->update('tbl_order',$update_order);
 										};
 										$start_time = new DateTime();
