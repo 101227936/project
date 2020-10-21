@@ -32,7 +32,7 @@
 			$data = Array (
 			'password' => encrypt_decrypt("encrypt",trim($_POST['password']))
 			);
-			$db->where ('login_id', 3);
+			$db->where ('login_id', 4);
 			if ($db->update ('tbl_login', $data))
 			{
 				echo "Password update success: ";
