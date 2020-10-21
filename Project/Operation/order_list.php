@@ -88,6 +88,7 @@
 														$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
 														$db->join("tbl_payment", "tbl_order.order_id=tbl_payment.order_id", "LEFT");
 														
+														$db->where("tbl_order_detail.product_id", "0","!=");
 														$db->where("order_status", "Cart","!=");
 														$db->where("TIMESTAMPDIFF(MINUTE, order_datetime, now())",5,">");
 														$db->groupBy ("tbl_order_detail.order_id");

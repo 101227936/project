@@ -176,10 +176,10 @@
 														<tr>
 															<th scope="row"><?=($order_detail['product_id']==0)?$order_detail['product_redeem_name']:$order_detail['product_name']?></th>
 															<td><?=($order_detail['product_id']==0)?$order_detail['product_redeem_type']:$order_detail['product_type']?></td>
-															<td><?=$order_detail['product_detail_size']?></td>
+															<td><?=($order_detail['product_id']==0)? "-":$order_detail['product_detail_size']?></td>
 															<td><?=$order_detail['quantity']?></td>
-															<td><?=$order_detail['product_detail_price']?></td>
-															<td><?=$order_detail['product_detail_price']*$order_detail['quantity']?></td>
+															<td><?=($order_detail['product_id']==0)? $order_detail['product_redeem_point']:$order_detail['product_detail_price']?></td>
+															<td><?=($order_detail['product_id']==0)?($order_detail['product_redeem_point']*$order_detail['quantity']):($order_detail['product_detail_price']*$order_detail['quantity'])?></td>
 															<?php
 																if(($order["order_status"]=="Pending"||$order["order_status"]=="Menu Edited") && $order_detail['product_id']>0)
 																{
