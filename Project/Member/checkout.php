@@ -172,29 +172,27 @@
 																					
 																			<?php
 																		}
-																		?>
-																		<tr class="text-right">
-																			<td colspan="2">
-																				<h5 class="m-0">Total Price:</h5>
-																			</td>
-																			<td class="text-right font-weight-semibold">RM<?=$sum_price?></td>
-																		</tr>
-																		<tr class="text-right">
-																			<td colspan="2">
-																				<h5 class="m-0">Total Point:</h5>
-																			</td>
-																			<td class="text-right font-weight-semibold"><?=$sum_point?> Points</td>
-																		</tr>
-																		<tr class="text-right">
-																			<td colspan="2">
-																				<h5 class="m-0">User's Point Left: </h5>
-																			</td>
-																			<td class="text-right font-weight-semibold">(<?=$order['user_reward']?> - <?=$sum_point?>) <?=$lastPoint = $order['user_reward'] - $sum_point?> Points</td>
-																		</tr>
-																		<?php
 																	}
 																}
 																?>
+																<tr class="text-right">
+																	<td colspan="2">
+																		<h5 class="m-0">Total Price:</h5>
+																	</td>
+																	<td class="text-right font-weight-semibold">RM<?=$sum_price?></td>
+																</tr>
+																<tr class="text-right">
+																	<td colspan="2">
+																		<h5 class="m-0">Total Point:</h5>
+																	</td>
+																	<td class="text-right font-weight-semibold"><?=$sum_point?> Points</td>
+																</tr>
+																<tr class="text-right">
+																	<td colspan="2">
+																		<h5 class="m-0">User's Point Left: </h5>
+																	</td>
+																	<td class="text-right font-weight-semibold">(<?=$order['user_reward']?> - <?=$sum_point?>) <?=$lastPoint = $order['user_reward'] - $sum_point?> Points</td>
+																</tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
