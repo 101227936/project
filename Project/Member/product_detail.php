@@ -103,6 +103,8 @@
                                                     Rating:
 													<?php
 														$cols = Array("AVG(rating) as rating");
+														$db->join("tbl_order", "tbl_order.order_id=tbl_order_detail.order_id", "LEFT");
+														$db->where("tbl_order.order_status",'Arrive',"=");
 														$db->where("tbl_order_detail.product_id",$product_detail['product_id'],"=");
 														$db->where("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
 														$rating = $db->get("tbl_order_detail", null, $cols);	
@@ -148,7 +150,8 @@
 																
 																	<?php
 																		$cols = Array("rating, comment");
-																		$db->where("tbl_order_detail.rating", NULL,"IS NOT");
+																		$db->join("tbl_order", "tbl_order.order_id=tbl_order_detail.order_id", "LEFT");
+																		$db->where("tbl_order.order_status",'Arrive',"=");
 																		$db->where("tbl_order_detail.product_id",$product_detail['product_id'],"=");
 																		$db->where("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
 																		$ratings = $db->get("tbl_order_detail", null, $cols);
@@ -172,7 +175,7 @@
 																						?>
 																						<tr>
 																							<td><?=$rating['rating']?></td>
-																							<td><?=$rating['comment']?></td>
+																							<td><?=(empty($rating['comment']))?"No Comment":$rating['comment']?></td>
 																						</tr>
 																						<?php
 																					}

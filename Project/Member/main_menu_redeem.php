@@ -66,7 +66,7 @@
                                             <a href="cart.php" class="action-icon"> <i class="fa fa-shopping-cart"></i></a>
                                         </ol>
                                     </div>
-                                    <h4 class="page-title">Redeem Main Menu</h4>
+                                    <h4 class="page-title">Main Menu Redeem </h4>
                                 </div>
                             </div>
                         </div>    
@@ -163,6 +163,8 @@
 															
 															<?php
 																$cols = Array("AVG(rating) as rating");
+																$db->join("tbl_order", "tbl_order.order_id=tbl_order_detail.order_id", "LEFT");
+																$db->where("tbl_order.order_status",'Arrive',"=");
 																$db->where("tbl_order_detail.product_id",0,"=");
 																$db->where("tbl_order_detail.product_detail_id",$product_redeem_detail['product_redeem_id'],"=");
 																$rating = $db->get("tbl_order_detail", null, $cols);	
