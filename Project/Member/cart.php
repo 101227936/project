@@ -108,13 +108,13 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Cart | UBold - Responsive Admin Dashboard Template</title>
+        <title>Shopping Cart</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="shortcut icon" href="../Landing/favicon-1.ico">
 
 	    <!-- App css -->
 	    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
@@ -189,8 +189,8 @@
 																		<input type="hidden" name="order_detail_id" value="<?=$order["order_detail_id"]?>">
 																		 <tr>
 																			<td>
-																				<img src="<?=(isset($order["product_id"]))? $order["product_image"]:$order["product_redeem_image"];?>" alt="contact-img"
-																					title="contact-img" class="rounded mr-3" height="120" width="70"/>
+																				<img src="<?=(isset($order["product_id"]))? $order["product_image"]:$order["product_redeem_image"];?>" alt="product-img"
+																					title="product-img" class="rounded mr-3" height="120" width="70"/>
 																				<p class="m-0 d-inline-block align-middle font-16">
 																					<?=(isset($order["product_id"]))? $order["product_name"]:$order["product_redeem_name"];?>
 																					<br>
