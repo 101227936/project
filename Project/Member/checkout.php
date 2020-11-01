@@ -140,7 +140,7 @@
 																						else
 																						{
 																							?>
-																							<small class="d-block"><?=$order_detail['quantity']?> x RM<?=$order_detail['product_detail_price']?></small>
+																							<small class="d-block"><?=$order_detail['quantity']?> x RM<?=$order_detail['product_detail_price']?> (<?=$order_detail['product_detail_size']?>)</small>
 																							<?php
 																						}
 																						?>
@@ -152,13 +152,13 @@
 																							if($total > 1)
 																							{
 																								?>
-																									<td class="text-right"><?=$total?> Points</td>
+																									<td class="text-right"><?=$order_detail['product_redeem_point']?> Points</td>
 																								<?php
 																							}
 																							else
 																							{
 																								?>
-																									<td class="text-right"><?=$total?> Point</td>
+																									<td class="text-right"><?=$order_detail['product_redeem_point']?> Point</td>
 																								<?php
 																							}
 																						}
@@ -172,29 +172,27 @@
 																					
 																			<?php
 																		}
-																		?>
-																		<tr class="text-right">
-																			<td colspan="2">
-																				<h5 class="m-0">Total Price:</h5>
-																			</td>
-																			<td class="text-right font-weight-semibold">RM<?=$sum_price?></td>
-																		</tr>
-																		<tr class="text-right">
-																			<td colspan="2">
-																				<h5 class="m-0">Total Point:</h5>
-																			</td>
-																			<td class="text-right font-weight-semibold"><?=$sum_point?> Points</td>
-																		</tr>
-																		<tr class="text-right">
-																			<td colspan="2">
-																				<h5 class="m-0">User's Point Left: </h5>
-																			</td>
-																			<td class="text-right font-weight-semibold">(<?=$order['user_reward']?> - <?=$sum_point?>) <?=$lastPoint = $order['user_reward'] - $sum_point?> Points</td>
-																		</tr>
-																		<?php
 																	}
 																}
 																?>
+																<tr class="text-right">
+																	<td colspan="2">
+																		<h5 class="m-0">Total Price:</h5>
+																	</td>
+																	<td class="text-right font-weight-semibold">RM<?=$sum_price?></td>
+																</tr>
+																<tr class="text-right">
+																	<td colspan="2">
+																		<h5 class="m-0">Total Point:</h5>
+																	</td>
+																	<td class="text-right font-weight-semibold"><?=$sum_point?> Points</td>
+																</tr>
+																<tr class="text-right">
+																	<td colspan="2">
+																		<h5 class="m-0">User's Point Left: </h5>
+																	</td>
+																	<td class="text-right font-weight-semibold">(<?=$order['user_reward']?> - <?=$sum_point?>) <?=$lastPoint = $order['user_reward'] - $sum_point?> Points</td>
+																</tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -537,10 +535,13 @@
 															$insert = $db->insert('tbl_payment',$insert_payment);
 															
 															if($update && $insert && $updateUser)
-																echo 'Place Order successfully!';
+																echo '<script>',
+																	'alert("Place Order successfully!");',
+																'</script>';
 															else
-																echo 'Cannot place order! Please try again';
-																
+																echo '<script>',
+																	'alert("Cannot place order! Please try again");',
+																'</script>';
 														};
 													};
 												?>
