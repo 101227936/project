@@ -23,7 +23,6 @@
 
 	    <!-- icons -->
 	    <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-
     </head>
 
     <body data-layout-mode="horizontal">
@@ -104,6 +103,8 @@
 																		$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
 																		$db->where("order_id",$order["order_id"],"=");
 																		$cols = Array ("*");
+																		$orderID = $order["order_id"];
+																		$orderStatus = $order["order_status"];
 																		$order_details = $db->get("tbl_order_detail",null, $cols);
 																		
 																		$sum_price=0;
@@ -450,14 +451,13 @@
 														</div>
 													</div>
 												</form>
-												<?php
+												<?php																	
 													if ($_SERVER['REQUEST_METHOD'] == 'POST')
-													{														
-														$orderid = $order['order_id'];
+													{
 														
 														$tbl_payment = $db->get('tbl_payment');
 														
-														$db->where('tbl_payment.order_id',$orderid);
+														$db->where('tbl_payment.order_id',$orderID);
 														$payment = $db->get('tbl_payment');
 														
 														if (empty($tbl_payment)){
@@ -471,7 +471,7 @@
 															};
 														};
 														
-														if($order['order_status'] == 'Cart' && empty($payment))
+														if($orderStatus == 'Cart')
 														{
 															//2021-04-01 expiry format
 															$get_expiry = $_POST['card-expiry-date'];
@@ -521,7 +521,7 @@
 																				);
 															$insert_payment = Array(
 																						'payment_id' => $last+1,
-																						'order_id' => $orderid,
+																						'order_id' => $orderID,
 																						'card_number' => str_replace(' ', '', $_POST['card-number']),
 																						'expiry_date' => $expiry,
 																						'cvc' => $_POST['card-cvv'],
@@ -530,18 +530,24 @@
 															$update_user = Array('user_reward' => $lastPoint);
 															$db->where('tbl_user.user_id', $order['user_id']);
 															$updateUser = $db->update('tbl_user',$update_user);
-															$db->where('tbl_order.order_id',$orderid);
+															$db->where('tbl_order.order_id',$orderID);
 															$update = $db->update('tbl_order',$update_order);
 															$insert = $db->insert('tbl_payment',$insert_payment);
 															
 															if($update && $insert && $updateUser)
+															{
 																echo '<script>',
-																	'alert("Place Order successfully!");',
+																	'alert("Place Order successfully!\nYou can cancel the order within 5 minutes only. Please leave your comment after the order arrived.");',
 																'</script>';
+																$url = 'order_detail.php?order_id='.$ordeID;
+																echo '<script>location.href = "'.$url.'";</script>';
+															}
 															else
+															{
 																echo '<script>',
 																	'alert("Cannot place order! Please try again");',
 																'</script>';
+															}
 														};
 													};
 												?>

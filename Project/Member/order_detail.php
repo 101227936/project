@@ -113,7 +113,8 @@
 										$end_time = new DateTime($order["order_datetime"]);
 										$minutesToAdd = 5;
 										$end_time->modify("+{$minutesToAdd} minutes");
-										if($start_time <= $end_time) //less than 5 minutes
+										
+										if($start_time <= $end_time && $order["order_status"] == "Pending") //less than 5 minutes
 										{
 											?>
 											<a href="order_comfirmation.php?order_id=<?=$order["order_id"]?>&action=Cancel" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Cancel Order</button></a>
@@ -177,10 +178,13 @@
 															<td><?=$order_detail['product_detail_price']*$order_detail['quantity']?></td>
 															<td>
 															<?php
+																$currentDate = new DateTime();
+																$endDate = new DateTime($order['delivery_datetime']);
+																date_modify($endDate,"+14 days");
 																if($order["order_status"]=="Arrive")
-																{?>
-																<?php
-																	if($order["comment"] == null)
+																{
+																	
+																	if($order["comment"] == null && $currentDate < $endDate)
 																	{
 																	?>
 																		<p>Comment: </p>
