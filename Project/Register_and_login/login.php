@@ -9,7 +9,7 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../Landing/favicon-1.ico">
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
 
 		<!-- App css -->
 		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
@@ -32,7 +32,7 @@
 	
 	if (isset($_POST['btnSave']))
 	{
-		$db->where("login_id", $_POST['userid']);
+		$db->where("email", $_POST['useremail']);
 		$db->where("password", encrypt_decrypt("encrypt",trim($_POST['password'])));
 		$results = $db->get ('tbl_login');
 		if($results) {
@@ -74,8 +74,8 @@
                                 <form method="post" >
 
                                     <div class="form-group mb-3">
-                                        <label for="userid">User ID</label>
-                                        <input class="form-control" type="userid" id="userid" name="userid"required="" placeholder="Enter your user ID">
+                                        <label for="useremail">User Email</label>
+                                        <input class="form-control" type="useremail" id="useremail" name="useremail"required="" placeholder="Enter your user email">
                                     </div>
 									
                                     <div class="form-group mb-3">
