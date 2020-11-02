@@ -27,6 +27,33 @@
     </head>
 
     <body>
+		<!--
+			view the statistic of the company operation such as revenue and number of customer, 
+			the sale of the food and beverage monthly, 
+			payment transaction record, 
+			the review of the food or beverage, 
+			stock of food and beverages
+		-->
+		<?php
+			$db->join("tbl_user", "tbl_user.login_id=tbl_login.login_id", "INNER");
+			$db->join("tbl_order","tbl_order.user_id=tbl_user.user_id","INNER");
+			$db->join("tbl_payment","tbl_payment.order_id=tbl_order.order_id","INNER");
+			$db->where("tbl_login.role", "Member");
+			$db->where("tbl_login.status","Active");
+			$members = $db->get("tbl_login");
+			
+			$db->join("tbl_user", "tbl_user.login_id=tbl_login.login_id", "INNER");
+			$db->join("tbl_order","tbl_order.user_id=tbl_user.user_id","INNER");
+			$db->join("tbl_order_detail","tbl_order_detail.order_id=tbl_order.order_id","INNER");
+			$db->join("tbl_product","tbl_product.product_id=tbl_order_detail.product_id","INNER");
+			$db->join("tbl_product_detail","tbl_product_detail.product_detail_id=tbl_order_detail.product_detail_id","INNER");
+			$db->where("tbl_login.role", "Member");
+			$db->where("tbl_login.status","Active");
+			$orders = $db->get("tbl_login");
+			
+			$db->join("tbl_product_detail","tbl_product_detail.product_id=tbl_product.product_id","INNER");
+			$products=$db->get("tbl_product");
+		?>
 
         <!-- Begin page -->
         <div id="wrapper">
@@ -74,26 +101,15 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="text-right">
-                                                <h3 class="text-dark mt-1">$<span data-plugin="counterup">58,947</span></h3>
+												<?php
+													$total = 0;
+													foreach($members as $member)
+													{
+														$total += (int)$member['amount_price'];
+													}
+												?>
+                                                <h3 class="text-dark mt-1">$<span data-plugin="counterup"><?=$total?>.00</span></h3>
                                                 <p class="text-muted mb-1 text-truncate">Total Revenue</p>
-                                            </div>
-                                        </div>
-                                    </div> <!-- end row-->
-                                </div> <!-- end widget-rounded-circle-->
-                            </div> <!-- end col-->
-
-                            <div class="col-md-6 col-xl-3">
-                                <div class="widget-rounded-circle card-box">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="avatar-lg rounded bg-soft-success">
-                                                <i class="dripicons-basket font-24 avatar-title text-success"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="text-right">
-                                                <h3 class="text-dark mt-1"><span data-plugin="counterup">1,845</span></h3>
-                                                <p class="text-muted mb-1 text-truncate">Orders</p>
                                             </div>
                                         </div>
                                     </div> <!-- end row-->
@@ -110,8 +126,43 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="text-right">
-                                                <h3 class="text-dark mt-1"><span data-plugin="counterup">825</span></h3>
-                                                <p class="text-muted mb-1 text-truncate">Stores</p>
+												<?php
+													$total_order = 0;
+													foreach($members as $member)
+													{
+														$total_order ++;
+													}
+												?>
+                                                <h3 class="text-dark mt-1"><span data-plugin="counterup"><?=$total_order?></span></h3>
+                                                <p class="text-muted mb-1 text-truncate">Orders</p>
+                                            </div>
+                                        </div>
+                                    </div> <!-- end row-->
+                                </div> <!-- end widget-rounded-circle-->
+                            </div> <!-- end col-->
+
+                            <div class="col-md-6 col-xl-3">
+                                <div class="widget-rounded-circle card-box">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="avatar-lg rounded bg-soft-success">
+                                                <i class="dripicons-basket font-24 avatar-title text-success"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-right">
+												<?php
+													$total_cart = 0;
+													foreach($orders as $order)
+													{
+														if($order['order_status']=='Cart')
+														{
+															$total_cart ++;
+														}
+													}
+												?>
+                                                <h3 class="text-dark mt-1"><span data-plugin="counterup"><?=$total_cart?></span></h3>
+                                                <p class="text-muted mb-1 text-truncate">Cart</p>
                                             </div>
                                         </div>
                                     </div> <!-- end row-->
@@ -128,8 +179,16 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="text-right">
-                                                <h3 class="text-dark mt-1"><span data-plugin="counterup">2,430</span></h3>
-                                                <p class="text-muted mb-1 text-truncate">Sellers</p>
+												<?php
+													$users = $db->get('tbl_user');
+													$total_user = 0;
+													foreach($users as $user)
+													{
+														$total_user++;
+													}
+												?>
+                                                <h3 class="text-dark mt-1"><span data-plugin="counterup"><?=$total_user?></span></h3>
+                                                <p class="text-muted mb-1 text-truncate">User Account</p>
                                             </div>
                                         </div>
                                     </div> <!-- end row-->
@@ -248,19 +307,13 @@
                                             </thead>
                                             <tbody>
 												<?php
-													$db->join("tbl_user", "tbl_user.login_id=tbl_login.login_id", "INNER");
-													$db->join("tbl_order","tbl_order.user_id=tbl_user.user_id","INNER");
-													$db->join("tbl_payment","tbl_payment.order_id=tbl_order.order_id","INNER");
-													$db->where("tbl_login.role", "Member");
-													$db->where("tbl_login.status","Active");
-													$members = $db->get("tbl_login");
 													foreach($members as $member)
 													{
 														?>
 															<tr>
 																<td>
 																	<img src="<?php echo $member['user_profile']?>" alt="user-pic" class="rounded-circle avatar-sm bx-shadow-lg" />
-																	<span class="ml-2"><?php echo $member['user_name'] ?></span>
+																	<p><span><?php echo $member['user_name'] ?></span></p>
 																</td>
 																<td>
 																	<img src="../assets/images/cards/visa.png" alt="user-card" height="24" />
@@ -305,6 +358,87 @@
 
                                 </div> <!-- end card-box-->
                             </div> <!-- end col-->
+							<div class="col-xl-6">
+                                <div class="card-box">
+                                    <h4 class="header-title mb-3">Stock List</h4>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-hover mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-top-0">Category</th>
+                                                    <th class="border-top-0">Product</th>
+                                                    <th class="border-top-0">Size</th>
+                                                    <th class="border-top-0">Price</th>
+                                                    <th class="border-top-0">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+												<?php
+													$cnt = 0;
+													foreach($products as $product)
+													{
+														?>
+															<?php
+																if($cnt%3==0)
+																{
+																	?>
+																	<tr>
+																		<td rowspan="3"><?=$product['product_type']?></td>
+																		<td rowspan="3" style="width:120px">
+																			<img src="<?=$product['product_image']?>" alt="product-pic" height="36" />
+																			<p><span><?=$product['product_name']?></span></p>
+																		</td>
+																		<td><?=$product['product_detail_size']?></td>
+																		<td>$ <?=$product['product_detail_price']?>.00</td>
+																		<?php
+																			if(strtolower($product['product_detail_status'])=='not available')
+																			{
+																				?>
+																				<td><span class="badge bg-soft-danger text-danger"><?=$product['product_detail_status']?></span></td>
+																				<?php
+																			}
+																			else if(strtolower($product['product_detail_status'])=='available')
+																			{
+																				?>
+																				<td><span class="badge bg-soft-success text-success"><?=$product['product_detail_status']?></span></td>
+																				<?php
+																			}
+																		?>
+																	</tr>
+																<?php
+																}else
+																{
+																	?>
+																	<tr>
+																		<td><?=$product['product_detail_size']?></td>
+																		<td>$ <?=$product['product_detail_price']?>.00</td>
+																		<?php
+																			if(strtolower($product['product_detail_status'])=='not available')
+																			{
+																				?>
+																				<td><span class="badge bg-soft-danger text-danger"><?=$product['product_detail_status']?></span></td>
+																				<?php
+																			}
+																			else if(strtolower($product['product_detail_status'])=='available')
+																			{
+																				?>
+																				<td><span class="badge bg-soft-success text-success"><?=$product['product_detail_status']?></span></td>
+																				<?php
+																			}
+																		?>
+																	</tr>
+																	<?php
+																}
+														$cnt++;
+													}
+												?>
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- end table-responsive -->
+                                </div> <!-- end card-box-->
+                            </div>
+							<!--
                             <div class="col-xl-6">
                                 <div class="card-box">
                                     <h4 class="header-title mb-3">Recent Products</h4>
@@ -314,78 +448,64 @@
                                             <thead>
                                                 <tr>
                                                     <th class="border-top-0">Product</th>
-                                                    <th class="border-top-0">Category</th>
+                                                    <th class="border-top-0">Size</th>
                                                     <th class="border-top-0">Added Date</th>
                                                     <th class="border-top-0">Amount</th>
                                                     <th class="border-top-0">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <img src="../assets/images/products/product-1.png" alt="product-pic" height="36" />
-                                                        <span class="ml-2">Adirondack Chair</span>
-                                                    </td>
-                                                    <td>
-                                                        Dining Chairs
-                                                    </td>
-                                                    <td>27.03.2018</td>
-                                                    <td>$345.98</td>
-                                                    <td><span class="badge bg-soft-success text-success">Active</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="../assets/images/products/product-2.png" alt="product-pic" height="36" />
-                                                        <span class="ml-2">Biblio Plastic Armchair</span>
-                                                    </td>
-                                                    <td>
-                                                        Baby Chairs
-                                                    </td>
-                                                    <td>28.03.2018</td>
-                                                    <td>$1,250</td>
-                                                    <td><span class="badge bg-soft-success text-success">Active</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="../assets/images/products/product-3.png" alt="product-pic" height="36" />
-                                                        <span class="ml-2">Amazing Modern Chair</span>
-                                                    </td>
-                                                    <td>
-                                                        Plastic Armchair
-                                                    </td>
-                                                    <td>28.03.2018</td>
-                                                    <td>$145</td>
-                                                    <td><span class="badge bg-soft-danger text-danger">Deactive</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="../assets/images/products/product-4.png" alt="product-pic" height="36" />
-                                                        <span class="ml-2">Designer Awesome Chair</span>
-                                                    </td>
-                                                    <td>
-                                                        Wing Chairs
-                                                    </td>
-                                                    <td>29.03.2018</td>
-                                                    <td>$2,005.89</td>
-                                                    <td><span class="badge bg-soft-success text-success">Active</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="../assets/images/products/product-5.png" alt="product-pic" height="36" />
-                                                        <span class="ml-2">The butterfly chair</span>
-                                                    </td>
-                                                    <td>
-                                                        Plastic Armchair
-                                                    </td>
-                                                    <td>31.03.2018</td>
-                                                    <td>$24.95</td>
-                                                    <td><span class="badge bg-soft-success text-success">Active</span></td>
-                                                </tr>
-                                            
+												<?php
+													foreach($orders as $order)
+													{
+														if($order['order_status']!='Cart')
+														{
+															?>
+																<tr>
+																	<td>
+																		<img src="<?=$order['product_image']?>" alt="product-pic" height="36" />
+																		<span class="ml-2"><?=$order['product_name']?></span>
+																	</td>
+																	<td><?=$order['product_detail_size']?></td>
+																	<td>
+																		<?php
+																		$date = new DateTime($order['order_datetime']);
+																		$sDate = $date->format("d.m.Y");
+																		echo $sDate;
+																		?>
+																	</td>
+																	<td>$ <?=$order['product_detail_price']?>.00</td>
+																	<?php
+																		if($order['order_status']=='Reject')
+																		{
+																			?>
+																			<td><span class="badge bg-soft-danger text-danger"><?=$order['order_status']?></span></td>
+																			<?php
+																		}
+																		else if($order['order_status']=='Pending')
+																		{
+																			?>
+																			<td><span class="badge bg-soft-warning text-warning"><?=$order['order_status']?></span></td>
+																			<?php
+																		}
+																		else
+																		{
+																			?>
+																			<td><span class="badge bg-soft-success text-success"><?=$order['order_status']?></span></td>
+																			<?php
+																		}
+																	?>
+																</tr>
+															<?php
+														}
+													}													
+												?>
                                             </tbody>
                                         </table>
                                     </div> <!-- end table-responsive -->
+									<!--
                                 </div> <!-- end card-box-->
+									<!--
                             </div> <!-- end col-->
                         </div>
                         <!-- end row-->
