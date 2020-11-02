@@ -128,7 +128,7 @@
 														<input type="hidden" id="product_detail_id" name="product_detail_id"value="<?=$_GET['product_detail_id']?>">
 														<div class="form-group">
 															<label for="quantity">Quantity<span class="text-danger">*</span>: </label>
-															<input type="text" class="form-control" id="quantity" name="quantity" required="" data-parsley-type="digits" data-parsley-min="1" placeholder="Min value is 1" value="1">
+															<input type="number" class="form-control" id="quantity" name="quantity" required="" data-parsley-type="digits" data-parsley-min="1" min="1" value="1">
 														</div>
 														<div class="form-group">
 															<input type="submit" class="form-control btn btn-warning waves-effect waves-light" value="Add to cart">
