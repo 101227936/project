@@ -2,13 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Register & Signup</title>
+        <title>Register & Signup | </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../Landing/favicon-1.ico">
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
 
 		<!-- App css -->
 		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
@@ -28,25 +28,42 @@
 	require '../Database/init.php';
 	require "../encrypt.php";
 	if(isset($_POST['btnSave']))
-	{									
+	{
+		
+		
 		$data = Array (
-                           'login_id' =>$_POST['login_id'],
+                          
                            'email' => $_POST['email_id'],
-                                'password' => encrypt_decrypt("encrypt",trim($_POST['password'])),
-								'role' => "Member",
-								'status' => "Inactive"
-	);
+                           'password' => encrypt_decrypt("encrypt",trim($_POST['password'])),
+						   'role' => "Member",
+						   'status' => "Inactive"
+		);
 		
-		$id = $db->insert ('tbl_login', $data);
-		
-	if($id){
-		
-		echo 'user was created Successfully. Id=' . $id;
-		header("location: login.php");
-		
-	}else {echo "Sign up Unsuccessfuly. User ID Already Exits";}
+		$data2 = Array (
+						  'user_profile'=> "Image/Profile/default.png",
+                          'user_name'=> $_POST['user_name'],
+						  'user_phone'=> $_POST['user_phone'],
+						  'user_address'=> $_POST['user_address'],
+						  'user_reward' => "0",
+						  'newsletter_status' => "Inactive",
+						  
+		);
+		$db->where("email", $_POST['email_id']);
+		$results = $db->get ('tbl_login');
+		if($results) {
+			echo "This Email Already Exits";
+			
+		} else {
+			$id = $db->insert ('tbl_login', $data);
+			$id = $db->insert ('tbl_user', $data2);
+			if($id){
+			
+			echo 'user was created Successfully. Id=' . $id;
+			header("location: EmailVerificationMailer.php");
+			
+			}else {echo "Sign up Unsuccessfuly. User ID Already Exits";}
+			}
 	}
-		
 	?>	
 	
 
@@ -78,10 +95,7 @@
                                 <form method="post" action="#">
 	
  
-									<div class="form-group">
-                                        <label for="userid">User Login Id</label>
-                                        <input class="form-control" type="text" id="login_id" name="login_id" placeholder="Enter your name" required>
-                                    </div>
+									
 									<div class="form-group">
                                         <label for="userid">User Name</label>
                                         <input class="form-control" type="text" id="user_name" name="user_name" placeholder="Enter your name" required>
@@ -101,7 +115,7 @@
                                     <div class="form-group">
                                         <label for="password">Password</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password">
+                                            <input  type="password" id="password" name="password" class="form-control" placeholder="Enter your password" minlength="8">
                                             <div class="input-group-append" data-password="false">
                                                 <div class="input-group-text">
                                                     <span class="password-eye"></span>
@@ -109,12 +123,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="checkbox-signup">
-                                            <label class="custom-control-label" for="checkbox-signup">I accept <a href="javascript: void(0);" class="text-dark">Terms and Conditions</a></label>
+									
+									 <div class="form-group">
+                                        <label for="confirmpassword">Confirm Password</label>
+                                        <div class="input-group input-group-merge">
+                                            <input type="confirmpassword" id="confirmpassword" name="confirmpassword" class="form-control" minlength="8" placeholder="Enter your confirm password">
+                                            <div class="input-group-append" data-password="false">
+                                                <div class="input-group-text">
+                                                    <span class="password-eye"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                   
                                     <div class="form-group mb-0 text-center">
                                         <button class="btn btn-success btn-block"id="btnSave" name="btnSave" type="submit"> Sign Up </button>
                                     </div>
