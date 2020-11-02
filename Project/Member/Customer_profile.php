@@ -2,6 +2,7 @@
 require "../Database/init.php";
 require "../encrypt.php";
 ob_start();
+session_start();
 error_reporting(0);
 $_SESSION['user_id']=1;
 if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
@@ -53,47 +54,98 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                     }
                     if($error==0)
                     {
-                        if ($file_size == 0)
+                        if ($file_size == 0)    //No update Image
                         {
-                            if(trim($_POST['password'])=="")
+                            if(trim($_POST['password'])=="")    //No update Password
                             {
-                               $old_password = $rows['password'];
-                               //$test = encrypt_decrypt("encrypt",trim($_POST['password']));
-                               $data = Array (
-                                   'user_name' =>trim($_POST['name']),
-                                   'user_phone' => trim($_POST['userPhone']),
-                                   'user_address' => trim($_POST['userAddress']),
-                                   'email' => trim($_POST['userEmail']),
-                                   'password' => $old_password,
-                                   'user_profile' => $old_image
-                               );
-                               $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
-                               $db->where ('u.login_id', 3);
-                               if ($db->update ('tbl_user u', $data))
-                                   echo "<script> alert('Save change');location='Customer_profile.php'</script>";
-                               else
-                                   echo 'update failed: ' . $db->getLastError();
+                                $old_password = $rows['password'];
+                               
+                                
+                                $data = Array (
+                                    'user_name' =>trim($_POST['name']),
+                                    'user_phone' => trim($_POST['userPhone']),
+                                    'user_address' => trim($_POST['userAddress']),
+                                    'email' => trim($_POST['userEmail']),
+                                    'password' => $old_password,
+                                    'user_profile' => $old_image,
+                                );
+
+                                $data2 = Array (
+                                'subscribe_email' => trim($_POST['userEmail'])
+                                );
+                                $db->join("tbl_login l", "s.subscribe_email = l.email", "INNER");
+                                $updateSubs = $db->update ('tbl_subscribe s', $data2);
+                                    
+                                $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
+                                $db->where("u.user_id",$_SESSION['user_id'] ,"=");
+                                $updateLogin = $db->update ('tbl_user u', $data);
+                               
+                                $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
+                                $db->where("u.user_id",$_SESSION['user_id'] ,"=");
+                                $rows = $db->getOne ("tbl_user u");
+                                $user_email = $rows['email'];
+
+                                $db->where("subscribe_email","$user_email","=");
+                                $order = $db->getOne("tbl_subscribe");
+                                if(sizeof($order)!=0)
+                                {
+                                    $data3 = Array (
+                                        'newsletter_status' =>'Active'
+                                    );
+                                    $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
+                                    $db->where("u.user_id",$_SESSION['user_id'] ,"=");
+                                    $updateUser = $db->update ('tbl_user u', $data3);
+                                }
+                                if ($updateLogin && $updateSubs || $updateUser)
+                                    echo "<script> alert('Save change');location='Customer_profile.php'</script>";
+                                else
+                                    echo 'update failed: ' . $db->getLastError();
                             }
                             else if($_POST['password']==encrypt_decrypt("decrypt",trim($rows['password'])))
                             {
-                                if(trim($_POST['New_password'])=="")
+                                if(trim($_POST['New_password'])=="")    //No New Password
                                 {
                                     echo "<script> alert('New password cannot be empty or space.');location='Customer_profile.php'</script>";
                                 }
                                 else
                                 {
                                     $new_password = encrypt_decrypt("encrypt",trim($_POST['New_password']));
+
+                                    $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
+                                    $db->where("u.user_id",$_SESSION['user_id'] ,"=");
+                                    $rows = $db->getOne ("tbl_user u");
+                                    $user_email = $rows['email'];
+
+                                    $db->where("subscribe_email","$user_email","=");
+                                    $order = $db->getOne("tbl_subscribe");
+                                    if(sizeof($order)!=0)
+                                    {
+                                        $data3 = Array (
+                                            'newsletter_status' =>'Active'
+                                        );
+                                        $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
+                                        $db->where("u.user_id",$_SESSION['user_id'] ,"=");
+                                        $updateUser = $db->update ('tbl_user u', $data3);
+                                    }
+
+                                    $data2 = Array (
+                                    'subscribe_email' => trim($_POST['userEmail'])
+                                    );
+                                    $db->join("tbl_login l", "s.subscribe_email = l.email", "INNER");
+                                    $updateSubs = $db->update ('tbl_subscribe s', $data2);
+
                                     $data = Array (
                                         'user_name' =>trim($_POST['name']),
                                         'user_phone' => trim($_POST['userPhone']),
                                         'user_address' => trim($_POST['userAddress']),
                                         'email' => trim($_POST['userEmail']),
                                         'password' => $new_password,
-                                        'user_profile' => $old_image
+                                        'user_profile' => $old_image,
+                                        'newsletter_status' => 'Active'
                                     );
                                     $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
-                                    $db->where ('u.login_id', 3);
-                                    if ($db->update ('tbl_user u', $data))
+                                    $db->where("u.user_id",$_SESSION['user_id'] ,"=");
+                                    if ($db->update ('tbl_user u', $data) && $updateSubs || $updateUser)
                                         echo "<script> alert('Save change');location='Customer_profile.php'</script>";
                                     else
                                         echo 'update failed: ' . $db->getLastError();
@@ -101,7 +153,7 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                             }
                             else
                             {
-                                echo "<script> alert('Your current password is wrong.');location='Customer_profile.php'</script>";
+                                echo "<script> alert('Your Current Password is wrong.');location='Customer_profile.php'</script>";
                             }
                         }
                         else
@@ -111,21 +163,28 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                 unlink($old_image);
                                 move_uploaded_file($file_tmp,$file_name);
                                 $old_password = $rows['password'];
-                               //$test = encrypt_decrypt("encrypt",trim($_POST['password']));
-                               $data = Array (
-                                   'user_name' =>trim($_POST['name']),
-                                   'user_phone' => trim($_POST['userPhone']),
-                                   'user_address' => trim($_POST['userAddress']),
-                                   'email' => trim($_POST['userEmail']),
-                                   'password' => $old_password,
-                                   'user_profile' => $file_name
-                               );
-                               $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
-                               $db->where ('u.login_id', 3);
-                               if ($db->update ('tbl_user u', $data))
-                                   echo "<script> alert('Save change');location='Customer_profile.php'</script>";
-                               else
-                                   echo 'update failed: ' . $db->getLastError();
+                                
+                                $data2 = Array (
+                                'subscribe_email' => trim($_POST['userEmail'])
+                                );
+                                $db->join("tbl_login l", "s.subscribe_email = l.email", "INNER");
+                                $updateSubs = $db->update ('tbl_subscribe s', $data2);
+
+                                $data = Array (
+                                    'user_name' =>trim($_POST['name']),
+                                    'user_phone' => trim($_POST['userPhone']),
+                                    'user_address' => trim($_POST['userAddress']),
+                                    'email' => trim($_POST['userEmail']),
+                                    'password' => $old_password,
+                                    'user_profile' => $file_name,
+                                    'newsletter_status' => 'Active'
+                                );
+                                $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
+                                $db->where ('u.login_id', 3);
+                                if ($db->update ('tbl_user u', $data) && $updateSubs)
+                                    echo "<script> alert('Save change');location='Customer_profile.php'</script>";
+                                else
+                                    echo 'update failed: ' . $db->getLastError();
                             }
                             else if($_POST['password']==encrypt_decrypt("decrypt",trim($rows['password'])))
                             {
@@ -138,17 +197,25 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                     unlink($old_image);
                                     move_uploaded_file($file_tmp,$file_name);
                                     $new_password = encrypt_decrypt("encrypt",trim($_POST['New_password']));
+
+                                    $data2 = Array (
+                                    'subscribe_email' => trim($_POST['userEmail'])
+                                    );
+                                    $db->join("tbl_login l", "s.subscribe_email = l.email", "INNER");
+                                    $updateSubs = $db->update ('tbl_subscribe s', $data2);
+
                                     $data = Array (
                                         'user_name' =>trim($_POST['name']),
                                         'user_phone' => trim($_POST['userPhone']),
                                         'user_address' => trim($_POST['userAddress']),
                                         'email' => trim($_POST['userEmail']),
                                         'password' => $new_password,
-                                        'user_profile' => $file_name
+                                        'user_profile' => $file_name,
+                                        'newsletter_status' => 'Active'
                                     );
                                     $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
                                     $db->where ('u.login_id', 3);
-                                    if ($db->update ('tbl_user u', $data))
+                                    if ($db->update ('tbl_user u', $data) && $updateSubs)
                                         echo "<script> alert('Save change');location='Customer_profile.php'</script>";
                                     else
                                         echo 'update failed: ' . $db->getLastError();
@@ -156,7 +223,7 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                             }
                             else
                             {
-                                echo "<script> alert('Your current password is wrong.');location='Customer_profile.php'</script>";
+                                echo "<script> alert('Your Current Password is wrong.');location='Customer_profile.php'</script>";
                             }
                         }
                     }
@@ -204,7 +271,6 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                         $rows = $db->getOne ("tbl_user u");
                                     ?>
                                     <img src="<?php echo $rows['user_profile']?>" width="196" height="196" alt="profile-image">
-
                                     <div class="text-left mt-3">
 
                                         <p class="text-muted mb-4 font-16"><strong>Name &emsp;&emsp;<span class="ml-3">:</span></strong><span class="ml-2"><?php echo $rows['user_name']?></span></p>
@@ -216,6 +282,8 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                         <p class="text-muted mb-3 font-16"><strong>Address &emsp;<span class="ml-3">:</span></strong><span class="ml-2"><?php echo $rows['user_address']?></span></p>
 
                                         <p class="text-muted mb-3 font-16"><strong>Reward Point :</strong><span class="ml-2"><?php echo $rows['user_reward']?></span></p>
+
+                                        <p class="text-muted mb-4 font-16"><strong>Newsletter<span class="ml-3">:</span></strong><span class="ml-2"><?php echo $rows['newsletter_status']?></span></p>
                                     </div>
                                 </div> <!-- end card-box -->
                             </div> <!-- end col-->
@@ -233,40 +301,40 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="image">Upload Your Photo(Less than 2MB)</label>
+                                                            <label for="image">Upload Your Photo</label><label style="color:red;">(LESS than 2MB)</label>
                                                             <input type="file" name="image" id="image" class="form-control-file" accept="image/*">
                                                         </div>
                                                     </div> <!-- end col -->
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="name">Your Name<span class="text-danger">*</span></label>
-                                                            <input type="text" name="name" parsley-trigger="change" required placeholder="Enter your new name" class="form-control" id="name" value="<?php echo $rows['user_name']?>">
+                                                            <label for="name">Your Name <span class="text-danger">*</span></label>
+                                                            <input type="text" name="name" parsley-trigger="change" required placeholder="Enter your new name"  class="form-control" id="name" value="<?php echo $rows['user_name']?>">
                                                         </div>
                                                     </div>
                                                 </div> <!-- end row -->
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="userEmail">Email address<span class="text-danger">*</span></label>
+                                                            <label for="userEmail">Email <span class="text-danger">*</span></label>
                                                             <input type="email" name="userEmail" parsley-trigger="change" required placeholder="Enter your new email" class="form-control" id="userEmail" value="<?php echo $rows['email']?>">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="userPhone">Mobile<span class="text-danger">*</span></label>
-                                                            <input type="type" name="userPhone" data-parsley-type="digits" data-parsley-length="[10,11]" parsley-trigger="change" required placeholder="Enter your new mobile number" class="form-control" id="userPhone" value="<?php echo $rows['user_phone']?>">
+                                                            <label for="userPhone">Mobile <span class="text-danger">*</span></label>
+                                                            <input type="type" name="userPhone" data-parsley-type="digits" data-parsley-length="[10,11]" parsley-trigger="change" required placeholder="Enter your new phone number" class="form-control" id="userPhone" value="<?php echo $rows['user_phone']?>">
                                                         </div>
                                                     </div> <!-- end col -->
                                                 </div> <!-- end row -->
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="userAddress">Address<span class="text-danger">*</span></label>
-                                                            <textarea class="form-control" id="userAddress" name="userAddress" rows="2" parsley-trigger="change" required placeholder="Enter your new address"><?php echo $rows['user_address']?></textarea>
+                                                            <label for="userAddress">Address <span class="text-danger">*</span></label>
+                                                            <textarea class="form-control" id="userAddress" name="userAddress" rows="4" parsley-trigger="change" required placeholder="Enter your new address"><?php echo $rows['user_address']?></textarea>
                                                         </div>
                                                     </div> <!-- end col -->
                                                 </div> <!-- end row -->
-                                                    <label><u>*If you don't want to change password, let it be EMPTY*</u></label><br>
+                                                    <label style="color:red;"><u>*If you don't want to change password, let it be EMPTY*</u></label><br>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -277,13 +345,13 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="New_password">New Password</label>
-                                                            <input type="password" name="New_password" parsley-trigger="change" placeholder="Enter your new password" class="form-control" id="New_password">
+                                                            <input type="password" name="New_password" parsley-trigger="change" placeholder="Enter your new password" data-parsley-minlength="8" class="form-control" id="New_password">
                                                         </div>
                                                     </div>
                                                 </div> <!-- end row -->
 
                                                 <div class="text-center">
-                                                    <input type="submit" id="btnSave" name="btnSave" class="btn btn-success waves-effect waves-light mt-2 width-xl" value="Update">
+                                                    <input type="submit" id="btnSave" name="btnSave" class="btn btn-success waves-effect waves-light mt-3 width-xl" value="Update">
                                                 </div>
                                             </form>
                                         </div>
