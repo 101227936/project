@@ -198,7 +198,7 @@
 																				</p>
 																			</td>
 																			<td>
-																				<?=(isset($order["product_id"]))? "RM".$order["product_detail_price"]:$order["product_redeem_point"];?>
+																				<?=(isset($order["product_id"]))? "RM".$order["product_detail_price"]:$order["product_redeem_point"]." points"?>
 																			</td>
 																			<td>
 																				<input type="number" min="1" value="<?php echo $order["quantity"];?>" required name="quantity" class="form-control" placeholder="Qty" style="width: 90px;">
