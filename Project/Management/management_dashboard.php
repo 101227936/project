@@ -199,15 +199,16 @@
 
                         <div class="row">
                             <div class="col-xl-8">
-                                <div class="card-box pb-2">
-                                    <div class="float-right d-none d-md-inline-block">
+                                <div class="card-box pb-2" style="height: 600px">
+                                    <!--
+									<div class="float-right d-none d-md-inline-block">
                                         <div class="btn-group mb-2">
                                             <button type="button" class="btn btn-xs btn-light">Today</button>
                                             <button type="button" class="btn btn-xs btn-light">Weekly</button>
                                             <button type="button" class="btn btn-xs btn-secondary">Monthly</button>
                                         </div>
                                     </div>
-
+									-->
                                     <h4 class="header-title mb-3">Sales Analytics</h4>
 
                                     <div class="row text-center">
@@ -239,7 +240,7 @@
                             </div> <!-- end col-->
 
                             <div class="col-xl-4">
-                                <div class="card-box">
+                                <div class="card-box"  style="position: relative;height: 600px;overflow: auto;display: block;">
                                     <div class="dropdown float-right">
                                         <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
                                             <i class="mdi mdi-dots-vertical"></i>
@@ -256,18 +257,35 @@
                                         </div>
                                     </div>
 
-                                    <h4 class="header-title mb-0">Total Revenue</h4>
+                                    <h4 class="header-title mb-0">Sales &amp Reviews</h4>
 
                                     <div class="widget-chart text-center" dir="ltr">
                                         
-                                        <div id="world-map-markers" style="height: 230px" class="mt-4"></div>
+                                        <!--<div id="world-map-markers" style="height: 230px" class="mt-4"></div>-->
 
                                         <h5 class="text-muted mt-4">Total sales made today</h5>
                                         <h2>$178</h2>
 
-                                        <p class="text-muted w-75 mx-auto sp-line-2">Traditional heading elements are designed to work best in the meat of your page content.</p>
+                                        <!--<p class="text-muted w-75 mx-auto sp-line-2">Traditional heading elements are designed to work best in the meat of your page content.</p>-->
 
                                         <div class="row mt-4">
+                                            <div class="col-4">
+                                                <p class="text-muted font-15 mb-1 text-truncate">Target</p>
+                                                <h4><i class="fe-arrow-down text-danger mr-1"></i>$7.8k</h4>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="text-muted font-15 mb-1 text-truncate">Last week</p>
+                                                <h4><i class="fe-arrow-up text-success mr-1"></i>$1.4k</h4>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="text-muted font-15 mb-1 text-truncate">Last Month</p>
+                                                <h4><i class="fe-arrow-down text-danger mr-1"></i>$15k</h4>
+                                            </div>
+                                        </div>
+										
+										<h3>Review</h3>
+										
+										<div class="row mt-5">
                                             <div class="col-4">
                                                 <p class="text-muted font-15 mb-1 text-truncate">Target</p>
                                                 <h4><i class="fe-arrow-down text-danger mr-1"></i>$7.8k</h4>
@@ -294,7 +312,7 @@
                                 <div class="card-box">
                                     <h4 class="header-title mb-3">Transaction History</h4>
 
-                                    <div class="table-responsive">
+                                    <div style="position: relative;height: 700px;overflow: auto;display: block;">
                                         <table class="table table-centered table-hover mb-0">
                                             <thead>
                                                 <tr>
@@ -362,7 +380,7 @@
                                 <div class="card-box">
                                     <h4 class="header-title mb-3">Stock List</h4>
 
-                                    <div class="table-responsive">
+                                    <div style="position: relative;height: 700px;overflow: auto;display: block;">
                                         <table class="table table-centered table-hover mb-0">
                                             <thead>
                                                 <tr>
