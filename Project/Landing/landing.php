@@ -9,11 +9,7 @@
 	if(!empty($_GET['page']))$page = $_GET['page'];
 	else $page = 1;
 	$db->pageLimit = 4;
-	$product_details = $db->arraybuilder()->paginate("tbl_product_detail", $page);		
-	//print_r("<pre>");
-	//print_r($product_details);
-	//print_r($db->getLastQuery());
-	//print_r("</pre>");
+	$product_details = $db->arraybuilder()->paginate("tbl_product_detail", $page);
 ?>
 
 
@@ -27,14 +23,8 @@
 	if(!empty($_GET['page']))$page = $_GET['page'];
 	else $page = 1;
 	$db->pageLimit = 4;
-	$product_redeem_details = $db->arraybuilder()->paginate("tbl_product_redeem", $page);		
-	//print_r("<pre>");
-	//print_r($product_redeem_details);
-	//print_r($db->getLastQuery());
-	//print_r("</pre>");
+	$product_redeem_details = $db->arraybuilder()->paginate("tbl_product_redeem", $page);
 ?>
-
-
 <!DOCTYPE html>
 <html>
 
@@ -52,10 +42,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link rel="icon" href="favicon-1.ico" type="image/x-icon">
+      
     </head>
 
     <body>
-
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="row">
@@ -83,7 +73,6 @@
 								<button class="btn btn-info navbar-btn" action="../Register_and_login/login.php">Login or Register</button>
 							</form></li>
                         </ul>
-						 
                     </div><!-- /.navbar-collapse -->
                 </div>
             </div><!-- /.container-fluid -->
@@ -95,6 +84,17 @@
                     <h2 class="top-title"> FoodEdge</h2>
                     <h2 class="white second-title">" The Buffet Catering At Your Doorstep"</h2>
                     <hr>
+                    <br>
+                </div>
+                <div class="col-md-6 col-md-offset-3">
+                <form method="post" action="Testing.php" id="subsForm" class="parsley-examples" enctype="multipart/form-data">
+                    <div class="col-md-8">
+                        <input style="border-radius:10px !important;" type="email" name="SubEmail" required placeholder="Enter your email to subscribe our newsletter" class="form" id="SubEmail">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" id="btnSub" name="btnSub" class="form-btn" value="SUBSCRIBE">
+                    </div>
+                </form>
                 </div>
             </div>
         </div>
@@ -392,7 +392,6 @@
                 
             </div>
         </footer>
-
 
         <script type="text/javascript" src="js/jquery-1.10.2.min.js"> </script>
         <script type="text/javascript" src="js/bootstrap.min.js" ></script>
