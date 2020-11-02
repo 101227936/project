@@ -87,7 +87,7 @@
                     <br>
                 </div>
                 <div class="col-md-6 col-md-offset-3">
-                <form method="post" action="Testing.php" id="subsForm" class="parsley-examples" enctype="multipart/form-data">
+                <form method="post" action="send_subscribe_email.php" id="subsForm" class="parsley-examples" enctype="multipart/form-data">
                     <div class="col-md-8">
                         <input style="border-radius:10px !important;" type="email" name="SubEmail" required placeholder="Enter your email to subscribe our newsletter" class="form" id="SubEmail">
                     </div>
