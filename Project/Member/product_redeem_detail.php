@@ -98,7 +98,7 @@
                                             <div class="pl-xl-3 mt-3 mt-xl-0">
                                                 <p class="mb-1"><?php echo $product_redeem_detail['product_redeem_type']?></p>
                                                 <h4 class="mb-3"><?php echo $product_redeem_detail['product_redeem_name']?></h4>
-                                                <p class="text-warning mb-2 font-13">
+                                                <p class="color2 mb-2 font-13">
                                                     Rating:
 													
 													<?php
@@ -132,7 +132,7 @@
 															<input type="number" class="form-control" id="quantity" name="quantity" required="" data-parsley-type="digits" data-parsley-min="1" min="1" value="1"/>
 														</div>
 														<div class="form-group">
-															<input type="submit" class="form-control btn btn-warning waves-effect waves-light" value="Add to cart">
+															<input type="submit" class="form-control btn form-btn waves-effect waves-light" value="Add to cart">
 														</div>
 														
 													</form>

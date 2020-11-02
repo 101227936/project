@@ -1,6 +1,7 @@
 <?php
 	include '../Database/init.php';
 	ob_start();
+
 	if(empty($_GET['product_detail_id']))header("Location: main_menu.php");
 	else
 	{
@@ -99,7 +100,7 @@
                                             <div class="pl-xl-3 mt-3 mt-xl-0">
                                                 <p class="mb-1"><?php echo $product_detail['product_type']?></p>
                                                 <h4 class="mb-3"><?php echo $product_detail['product_name']?></h4>
-                                                <p class="text-warning mb-2 font-13">
+                                                <p class="color2 mb-2 font-13">
                                                     Rating:
 													<?php
 														$cols = Array("AVG(rating) as rating");
@@ -128,17 +129,14 @@
 														<input type="hidden" id="product_detail_id" name="product_detail_id"value="<?=$_GET['product_detail_id']?>">
 														<div class="form-group">
 															<label for="quantity">Quantity<span class="text-danger">*</span>: </label>
-															<input type="number" class="form-control" id="quantity" name="quantity" required="" data-parsley-type="digits" data-parsley-min="1" min="1" value="1">
+															<input type="number" class="form-control" id="quantity" name="quantity" required="" data-parsley-type="digits" data-parsley-min="1" min="1" value="1"/>
 														</div>
 														<div class="form-group">
-															<input type="submit" class="form-control btn btn-warning waves-effect waves-light" value="Add to cart">
+															<input type="submit" class="form-control btn form-btn color waves-effect waves-light" value="Add to cart">
 														</div>
 														
-													</form>
-											
-
-                                                
-												
+													</form>									
+                                                											
 												<div>
 													<div>
 														<h4 class="mb-2 mt-5 font-16">Reviews</h4>
@@ -152,6 +150,7 @@
 																		$cols = Array("rating, comment");
 																		$db->join("tbl_order", "tbl_order.order_id=tbl_order_detail.order_id", "LEFT");
 																		$db->where("tbl_order.order_status",'Arrive',"=");
+																		//$db->where("tbl_order_detail.rating", NULL,"IS NOT");
 																		$db->where("tbl_order_detail.product_id",$product_detail['product_id'],"=");
 																		$db->where("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
 																		$ratings = $db->get("tbl_order_detail", null, $cols);

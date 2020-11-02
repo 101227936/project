@@ -1,6 +1,9 @@
 <?php
 	require "../Database/init.php";
 	ob_start();
+	
+	$_SESSION['user_id']=1;
+	
 	$db->join("tbl_product", "tbl_product_detail.product_id=tbl_product.product_id", "LEFT");
 	if(!empty($_GET['search']))$db->where ("tbl_product.product_name", '%'.$_GET['search'].'%', 'like');
 	if(!empty($_GET['type']))$db->where ("tbl_product.product_type", $_GET['type'], '=');
@@ -10,6 +13,7 @@
 	else $page = 1;
 	$db->pageLimit = 4;
 	$product_details = $db->arraybuilder()->paginate("tbl_product_detail", $page);		
+	
 	//print_r("<pre>");
 	//print_r($product_details);
 	//print_r($db->getLastQuery());
@@ -29,15 +33,14 @@
         <link rel="shortcut icon" href="../Landing/favicon-1.ico">
 
 	    <!-- App css -->
-	    <link href="../assets/css/bootstrap-material.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
-	    <link href="../assets/css/app-material.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
+	    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
+	    <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
 
-	    <link href="../assets/css/bootstrap-material-dark.min.css" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" disabled />
-	    <link href="../assets/css/app-material-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet"  disabled />
+	    <link href="../assets/css/bootstrap-dark.min.css" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" disabled />
+	    <link href="../assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet"  disabled />
 
 	    <!-- icons -->
 	    <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-
     </head>
 
     <body data-layout-mode="horizontal">
@@ -64,7 +67,7 @@
                                 <div class="page-title-box">
 									<div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <a href="cart.php" class="action-icon"> <i class="fa fa-shopping-cart"></i></a>
+                                            <a href="cart.php" class="action-icon color_animation2"> <i class="fa fa-shopping-cart"></i></a>
                                         </ol>
                                     </div>
                                     <h4 class="page-title">Main Menu</h4>
@@ -123,10 +126,13 @@
 														?>
                                                     </select>
                                                 </div>
-												<div class="form-group mx-sm-3">
-                                                    <input type="submit" class="btn btn-warning waves-effect waves-light" value="Search">
-													<label for="status-select" class="mr-2"></label>
-                                                </div>
+												
+												<div class="col-lg-1">
+													<div class="form-group mx-sm-3">
+														<input type="submit" class="btn form-btn" value="Search">
+														<label for="status-select" class="mr-2"></label>
+													</div>
+												</div>
 											</form>
 										</div>
                                     </div> <!-- end row -->
@@ -155,7 +161,7 @@
 													<div class="col">
 														<h5 class="font-16 mt-0 sp-line-1"><a href="product_detail.php?product_detail_id=<?=$product_detail["product_detail_id"]?>" class="text-dark"><?php echo $product_detail['product_name']?></a></h5>										
 														
-														<div class="text-warning mb-2 font-13">
+														<div class="color2 mb-2 font-13">
 															Rating:
 															<?php
 																$cols = Array("AVG(rating) as rating");
