@@ -90,10 +90,10 @@
 				<div class="logo-box">
                         <a href="" class="logo logo-light text-center">
                             <span class="logo-sm">
-                                <img src="../assets/images/foodedge.png" alt="" height="30">
+                                <img src="../Image/foodedge.png" alt="" height="30">
                             </span>
                             <span class="logo-lg">
-                                <img src="../assets/images/foodedge.png" alt="" class="logo2">
+                                <img src="../Image/foodedge.png" alt="" class="logo2">
                             </span>
                         </a>
                 </div>
