@@ -180,7 +180,7 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                     'newsletter_status' => 'Active'
                                 );
                                 $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
-                                $db->where ('u.login_id', 3);
+                                $db->where("u.user_id",$_SESSION['user_id'] ,"=");
                                 if ($db->update ('tbl_user u', $data) && $updateSubs)
                                     echo "<script> alert('Save change');location='Customer_profile.php'</script>";
                                 else
@@ -214,7 +214,7 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                         'newsletter_status' => 'Active'
                                     );
                                     $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
-                                    $db->where ('u.login_id', 3);
+                                    $db->where("u.user_id",$_SESSION['user_id'] ,"=");
                                     if ($db->update ('tbl_user u', $data) && $updateSubs)
                                         echo "<script> alert('Save change');location='Customer_profile.php'</script>";
                                     else
