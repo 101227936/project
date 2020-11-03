@@ -34,66 +34,6 @@
     </head>
 
     <body>
-        <?php
-            if(isset($_POST['btnAdd']))
-            {
-                $random_Name = date("YmdHis");
-                $error = 0;
-                $file_name = "../Image/Product/".$random_Name.'.'.explode("/",$_FILES['AddimageProduct']['type'])[1];
-                $file_size =$_FILES['AddimageProduct']['size'];
-                $file_tmp =$_FILES['AddimageProduct']['tmp_name'];
-                $file_type=$_FILES['AddimageProduct']['type'];
-
-                if($file_size > 2097152){
-                    echo "<script> alert('File size must be excately 2 MB');location='add_product.php'</script>";
-                    $error = 1;
-                }
-                if ($file_size == 0)
-                {
-                    echo "<script> alert('Must Insert a image file');location='add_product.php'</script>";
-                    $error = 1;
-                }
-                if($error==0)
-                {
-                    move_uploaded_file($file_tmp,$file_name);
-                    $data = Array (
-                        "product_type" => trim($_POST['AddpType']),
-                        "product_name" => trim($_POST['AddpName']),
-                        "product_image" => $file_name,
-                        "product_description" => trim($_POST['AddpDescription'])
-                            );
-                            $id = $db->insert ('tbl_product', $data);
-                    $size = array("small", "medium", "large");
-                    $last_id= $db->getOne('tbl_product','max(product_id)');
-                    //print_r($last_id['max(product_id)']);
-                    print_r($last_id['max(product_id)']);
-                    for($i=0;$i<3;++$i)
-                    {	
-                        $pPrice="AddpPrice".$i;
-                        $pStatus="AddpStatus".$i;
-                        $pDesc="AddpDesc".$i;
-                        if($_POST[$pPrice]!="" && $_POST[$pStatus]!="" && $_POST[$pDesc]!="")
-                        {
-                            $data2 = Array (
-                                'product_id' => $last_id['max(product_id)'],
-                                'product_detail_price' =>trim($_POST[$pPrice]),
-                                'product_detail_status' => trim($_POST[$pStatus]),
-                                'product_detail_description' => trim($_POST[$pDesc]),
-                                'product_detail_size' => $size[$i]
-                            );
-                            if ($db->insert ('tbl_product_detail', $data2) && $id)
-                            {
-                                echo "<script> alert('Add Success');location='product_list.php'</script>";
-                            } 
-                            else
-                            { 
-                                echo 'update failed: ' . $db->getLastError();
-                            }
-                        }
-                    }
-                }
-            }
-        ?>
         <!-- Begin page -->
         <div id="wrapper">
             <?php include "topbar.php"?>
@@ -120,6 +60,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        <!--<form method="post" action="" id="foodForm" class="parsley-examples" enctype="multipart/form-data">-->
                                         <form method="post" action="send_add_product_email.php" id="foodForm" class="parsley-examples" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="col-12">

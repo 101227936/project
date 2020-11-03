@@ -34,47 +34,6 @@
     </head>
 
     <body>
-        <?php
-            if(isset($_POST['btnAdd']))
-            {
-                $random_Name = date("YmdHis");
-                $error = 0;
-                $file_name = "../Image/Product/".$random_Name.'.'.explode("/",$_FILES['AddimageProductRe']['type'])[1];
-                $file_size =$_FILES['AddimageProductRe']['size'];
-                $file_tmp =$_FILES['AddimageProductRe']['tmp_name'];
-                $file_type=$_FILES['AddimageProductRe']['type'];
-
-                if($file_size > 2097152){
-                    echo "<script> alert('File size must be excately 2 MB');location='redeem_list.php'</script>";
-                    $error = 1;
-                }
-                if ($file_size == 0)
-                {
-                    echo "<script> alert('Must Insert a image file');location='redeem_list.php'</script>";
-                    $error = 1;
-                }
-                if($error==0)
-                {
-                    move_uploaded_file($file_tmp,$file_name);
-                    $data = Array (
-                        "product_redeem_type" => trim($_POST['AddpTypeRe']),
-                        "product_redeem_name" => trim($_POST['AddpNameRe']),
-                        'product_redeem_point' =>trim($_POST['AddpPointRe']),
-                        'product_redeem_status' => trim($_POST['AddpStatusRe']),
-                        "product_redeem_image" => $file_name,
-                        "product_redeem_description" => trim($_POST['AddpDescRe'])
-                            );
-                            if ($db->insert ('tbl_product_redeem', $data))
-                            {
-                                echo "<script> alert('Add Success');location='redeem_list.php'</script>";
-                            } 
-                            else
-                            { 
-                                echo 'update failed: ' . $db->getLastError();
-                            }
-                }
-            }
-        ?>
         <!-- Begin page -->
         <div id="wrapper">
             <?php include "topbar.php"?>
@@ -101,7 +60,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form method="post" action="" id="foodForm" class="parsley-examples" enctype="multipart/form-data">
+                                        <form method="post" action="send_add_product_redeem_email.php" id="foodForm" class="parsley-examples" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
