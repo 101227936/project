@@ -195,6 +195,14 @@
 														</div>
 													</div>
 												</div> <!-- end row -->
+												<form action="add_cart.php" method="POST" >
+														<input type="hidden" id="product_id" name="product_id"value="<?=$product_detail['product_id']?>">
+														<input type="hidden" id="product_detail_id" name="product_detail_id"value="<?=$product_detail['product_detail_id']?>">
+														<input type="hidden" id="product_detail_price" name="product_detail_price"value="<?=$product_detail['product_detail_price']?>">
+														<input type="hidden" id="quantity" name="quantity" value="1">
+														
+														<input type="submit" class="form-control btn form-btn color waves-effect waves-light" value="Add to cart">
+												</form>
 											</div> <!-- end product info-->
 										</div> <!-- end card-box-->
 									</div> <!-- end col-->

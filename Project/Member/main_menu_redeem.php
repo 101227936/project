@@ -189,6 +189,14 @@
 														</div>
 													</div>
 												</div> <!-- end row -->
+												<form action="add_cart.php" method="POST" >
+														<input type="hidden" id="product_id" name="product_id"value="0">
+														<input type="hidden" id="product_detail_id" name="product_detail_id"value="<?=$product_redeem_detail['product_redeem_id']?>">
+														<input type="hidden" id="product_detail_price" name="product_detail_price"value="<?=$product_redeem_detail['product_redeem_point']?>">
+														<input type="hidden" id="quantity" name="quantity" value="1">
+														
+														<input type="submit" class="form-control btn form-btn color waves-effect waves-light" value="Add to cart">
+												</form>
 											</div> <!-- end product info-->
 										</div> <!-- end card-box-->
 									</div> <!-- end col-->
