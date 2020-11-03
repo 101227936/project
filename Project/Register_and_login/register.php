@@ -41,7 +41,7 @@
 		);
 		
 		$data2 = Array (
-						  'user_profile'=> "Image/Profile/default.png",
+						  'user_profile'=> "../Image/Profile/20201021103922.png",
                           'user_name'=> $_POST['user_name'],
 						  'user_phone'=> $_POST['user_phone'],
 						  'user_address'=> $_POST['user_address'],
@@ -59,9 +59,8 @@
 			$id = $db->insert ('tbl_login', $data);
 			$id = $db->insert ('tbl_user', $data2);
 			if($id){
-			
-			echo 'user was created Successfully. Id=' . $id;
-			header("location: EmailVerificationMailer.php");
+				echo 'user was created Successfully. Id=' . $id;
+				header("location: EmailVerificationMailer.php");
 			
 			}else {echo "Sign up Unsuccessfuly. User ID Already Exits";}
 			}
