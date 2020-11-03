@@ -31,6 +31,7 @@
 	{
 		
 		
+		
 		$data = Array (
                           
                            'email' => $_POST['email_id'],
@@ -46,6 +47,7 @@
 						  'user_address'=> $_POST['user_address'],
 						  'user_reward' => "0",
 						  'newsletter_status' => "Inactive",
+						  'login_id' => 'user_id'
 						  
 		);
 		$db->where("email", $_POST['email_id']);
