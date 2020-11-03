@@ -197,8 +197,9 @@
                         </div>
                         <!-- end row -->
 
+						
                         <div class="row">
-                            <div class="col-xl-8">
+                            <div class="col-xl-7">
                                 <div class="card-box pb-2" style="height: 600px">
                                     <!--
 									<div class="float-right d-none d-md-inline-block">
@@ -239,69 +240,93 @@
                                 </div> <!-- end card-box -->
                             </div> <!-- end col-->
 
-                            <div class="col-xl-4">
-                                <div class="card-box"  style="position: relative;height: 600px;overflow: auto;display: block;">
-                                    <div class="dropdown float-right">
-                                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <!-- item-->
-                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
-                                            <!-- item-->
-                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-                                            <!-- item-->
-                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
-                                            <!-- item-->
-                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                                        </div>
-                                    </div>
+                            <div class="col-xl-5">
+								<div class = "row">
+									<div class="col-xl">
+										<div class="card-box" style="width: auto">
+											<h4 class="header-title mb-0">Sales</h4>
+											<div class="widget-chart text-center" dir="ltr">
+												<h5 class="text-muted mt-1">Total sales made today</h5>
+												<?php
+													//'2016-01-01'
+													$sales = 0;
+													$get = new DateTime();
+													$today = $get->format("Y-m-d");
+													foreach($members as $order)
+													{
+														$date = new DateTime($order['order_datetime']);
+														$orderDate = $date->format("Y-m-d");
+														if($orderDate == $today && $order['payment_status']=="Confirmed")
+														{
+															$sales += $order['amount_price'];
+														}
+													}
+												?>
+												<h2>$<?=$sales?>.00</h2>
+												
+												<div class="row mt-2">
+													<div class="col-4">
+														<p class="text-muted font-15 mb-1 text-truncate">Target</p>
+														<h4><i class="fe-arrow-down text-danger mr-1"></i>$7.8k</h4>
+													</div>
+													<div class="col-4">
+														<p class="text-muted font-15 mb-1 text-truncate">Last week</p>
+														<h4><i class="fe-arrow-up text-success mr-1"></i>$1.4k</h4>
+													</div>
+													<div class="col-4">
+														<p class="text-muted font-15 mb-1 text-truncate">Last Month</p>
+														<h4><i class="fe-arrow-down text-danger mr-1"></i>$15k</h4>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class = "row">
+									<div class="col-xl">
+										<div class="card-box"  style="position: relative;height: 370px;overflow: auto;display: block;">
 
-                                    <h4 class="header-title mb-0">Sales &amp Reviews</h4>
+											<h4 class="header-title mb-0">Reviews</h4>
 
-                                    <div class="widget-chart text-center" dir="ltr">
-                                        
-                                        <!--<div id="world-map-markers" style="height: 230px" class="mt-4"></div>-->
-
-                                        <h5 class="text-muted mt-4">Total sales made today</h5>
-                                        <h2>$178</h2>
-
-                                        <!--<p class="text-muted w-75 mx-auto sp-line-2">Traditional heading elements are designed to work best in the meat of your page content.</p>-->
-
-                                        <div class="row mt-4">
-                                            <div class="col-4">
-                                                <p class="text-muted font-15 mb-1 text-truncate">Target</p>
-                                                <h4><i class="fe-arrow-down text-danger mr-1"></i>$7.8k</h4>
-                                            </div>
-                                            <div class="col-4">
-                                                <p class="text-muted font-15 mb-1 text-truncate">Last week</p>
-                                                <h4><i class="fe-arrow-up text-success mr-1"></i>$1.4k</h4>
-                                            </div>
-                                            <div class="col-4">
-                                                <p class="text-muted font-15 mb-1 text-truncate">Last Month</p>
-                                                <h4><i class="fe-arrow-down text-danger mr-1"></i>$15k</h4>
-                                            </div>
-                                        </div>
-										
-										<h3>Review</h3>
-										
-										<div class="row mt-5">
-                                            <div class="col-4">
-                                                <p class="text-muted font-15 mb-1 text-truncate">Target</p>
-                                                <h4><i class="fe-arrow-down text-danger mr-1"></i>$7.8k</h4>
-                                            </div>
-                                            <div class="col-4">
-                                                <p class="text-muted font-15 mb-1 text-truncate">Last week</p>
-                                                <h4><i class="fe-arrow-up text-success mr-1"></i>$1.4k</h4>
-                                            </div>
-                                            <div class="col-4">
-                                                <p class="text-muted font-15 mb-1 text-truncate">Last Month</p>
-                                                <h4><i class="fe-arrow-down text-danger mr-1"></i>$15k</h4>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div> <!-- end card-box -->
+											<div class="widget-chart text-center" dir="ltr">
+												<div class="row mt-1">
+													<table class="table table-centered table-hover mb-0">
+														<thead>
+															<tr>
+																<th class="border-top-0">OrderID</th>
+																<th class="border-top-0">Product</th>
+																<th class="border-top-0">Review</th>
+																<th class="border-top-0">Date</th>
+															</tr>
+														</thead>
+														<tbody>
+															<?php
+																foreach($orders as $order)
+																{
+																	if($order['comment'] != null)
+																	{
+																		$order_date = new DateTime($order['order_datetime']);
+																		$order_Date = $order_date->format('d.m.Y');
+																		$size = str_split($order['product_detail_size']);
+																		?>
+																		<tr>
+																			<td><?=$order['order_id']?></td>
+																			<td><p><img src="<?=$order['product_image']?>" height="50px" alt="product-pic"/></p><?=$order['product_name']?> (<?=$size[0]?>)</td>
+																			<td><?=$order['comment']?></td>
+																			<td><?=$order_Date?></td>
+																		</tr>
+																		<?php
+																	}
+																}
+															?>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div> <!-- end card-box -->
+									</div>
+								</div>
                             </div> <!-- end col-->
                         </div>
                         <!-- end row -->
@@ -404,7 +429,7 @@
 																	<tr>
 																		<td rowspan="3"><?=$product['product_type']?></td>
 																		<td rowspan="3" style="width:120px">
-																			<img src="<?=$product['product_image']?>" alt="product-pic" height="36" />
+																			<img src="<?=$product['product_image']?>" alt="product-pic" height="50" />
 																			<p><span><?=$product['product_name']?></span></p>
 																		</td>
 																		<td><?=$product['product_detail_size']?></td>
