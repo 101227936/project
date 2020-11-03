@@ -37,7 +37,7 @@ if(isset($_POST['btnAdd']))
 			"product_image" => $file_name,
 			"product_description" => trim($_POST['AddpDescription'])
 				);
-				$id = $db->insert ('Tbl_product', $data);
+				$id = $db->insert ('tbl_product', $data);
 		$size = array("small", "medium", "large");
 		$last_id= $db->getOne('tbl_product','max(product_id)');
 		//print_r($last_id['max(product_id)']);
