@@ -120,7 +120,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form method="post" action="" id="foodForm" class="parsley-examples" enctype="multipart/form-data">
+                                        <form method="post" action="send_add_product_email.php" id="foodForm" class="parsley-examples" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
