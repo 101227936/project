@@ -53,7 +53,7 @@ if(isset($_POST['btnSub']))
 				$order = $db->getOne("tbl_subscribe");
 
 				//Recipients
-				$mail->setFrom('fcmsmember@gmail.com', 'FCMS');
+				$mail->setFrom('fcmsmember@gmail.com', 'FoodEdge Gourmet Catering');
 				$mail->addAddress($user_email);
 				
 				$data = array(
