@@ -88,7 +88,7 @@
 													<input type="search" class="form-control" id="search" name="search" placeholder="Search..." value="<?=(empty($_GET['search']))? '':$_GET['search']?>">
 												</div>
 												<?php
-													$cols = Array("product_type");
+													$cols = Array("DISTINCT(product_type)");
 													$product_types = $db->get("tbl_product", null, $cols);
 												?>
 												<div class="form-group mx-sm-3">

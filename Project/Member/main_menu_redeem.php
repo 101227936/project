@@ -87,7 +87,7 @@
 													<input type="search" class="form-control" id="search" name="search" placeholder="Search..." value="<?=(empty($_GET['search']))? '':$_GET['search']?>">
 												</div>
 												<?php
-													$cols = Array("product_redeem_type");
+													$cols = Array("DISTINCT(product_redeem_type)");
 													$product_redeem_types = $db->get("tbl_product_redeem", null, $cols);
 												?>
 												<div class="form-group mx-sm-3">
