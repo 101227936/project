@@ -62,11 +62,7 @@
                                             </span>
                                         </a>
                     
-                                        <a href="index.html" class="logo logo-light text-center">
-                                            <span class="logo-lg">
-                                                <img src="../assets/images/logo-light.png" alt="" height="22">
-                                            </span>
-                                        </a>
+                                       
                                     </div>
                                     <p class="text-muted mb-4 mt-3">Please enter your email address and password.</p>
                                 </div>
@@ -90,12 +86,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group mb-3">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="checkbox-signin" checked>
-                                            <label class="custom-control-label" for="checkbox-signin">Remember me</label>
-                                        </div>
-                                    </div>
+                                   
 
                                     <div class="form-group mb-0 text-center">
                                         <button class="btn btn-primary btn-block"id="btnSave" name="btnSave"  type="submit"> Log In </button>
@@ -128,9 +119,7 @@
         <!-- end page -->
 
 
-        <footer class="footer footer-alt">
-            2015 - <script>document.write(new Date().getFullYear())</script> &copy; UBold theme by <a href="" class="text-white-50">Coderthemes</a> 
-        </footer>
+        
 
         <!-- Vendor js -->
         <script src="../assets/js/vendor.min.js"></script>
