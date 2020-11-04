@@ -7,10 +7,7 @@
 		$db->join("tbl_payment", "tbl_order.order_id=tbl_payment.order_id", "LEFT");
 		$db->where("tbl_order.order_id",$_GET['order_id'],"=");
 		$order = $db->getOne("tbl_order");
-		//print_r("<pre>");
-		//print_r($order);
-		//print_r($db->getLastQuery());
-		//print_r("</pre>");
+	
         
         $db->join("tbl_product_redeem", "tbl_order_detail.product_detail_id=tbl_product_redeem.product_redeem_id && tbl_order_detail.product_id=0", "LEFT");
 		$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
@@ -18,10 +15,6 @@
 		$db->where("tbl_order_detail.order_id",$_GET['order_id'],"=");
 		$order_details = $db->get("tbl_order_detail");
 		
-		//print_r("<pre>");
-		//print_r($order_details);
-		//print_r($db->getLastQuery());
-		//print_r("</pre>");
 	}
 	
 	
@@ -32,7 +25,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Email receipt</title>
+        <title>Receipt Email</title>
         <meta name="viewport" content="width=device-width">
         <link rel="shortcut icon" href="../Landing/favicon-1.ico">
        <style type="text/css">
@@ -49,20 +42,7 @@
         </style>
     </head>
     <body bgcolor="white" style="margin: 0; padding: 0;" yahoo="fix">
-        <!--[if (gte mso 9)|(IE)]>
-        <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td>
-        <![endif]-->
         <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 600px;" class="content">
-            <!--<tr>
-                <td align="center" bgcolor="#0073AA " style="padding: 20px 20px 20px 20px; color: #ffffff; font-family: Arial, sans-serif; font-size: 36px; font-weight: bold;">
-                    <img src="img/aaa.jpeg" alt="ProUI Logo" width="152" height="152" style="display:block;">
-                </td>-->
-                <!--<td>
-                    <img src="img/aaa.jpeg" alt="ProUI Logo" width="100%" height="152" style="display:block;">
-                </td>
-            </tr>-->
             <tr>
                 <td align="center" bgcolor="#ffffff" style="padding: 0px 20px 20px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 30px; line-height: 30px;">
                     <b>Thanks for your payment!</b><br><br>
@@ -140,7 +120,7 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td align="center" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
-                                Email not displaying correctly?  <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/receipt_email.php?order_id=<?=$_GET['order_id']?>" style="color:#0073AA;" target="_blank">View it in your browser</a>
+                                Email not displaying correctly?  <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/receipt_email.php?order_id=<?=$_GET['order_id']?>" style="color:#0073AA;text-decoration:underline;" target="_blank">View it in your browser</a>
                             </td>
                         </tr>
                     </table>
@@ -151,7 +131,7 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td align="center" width="100%" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
-                                2020 &copy; FCMS
+                                2020 &copy; FoodEdge Gourmet Catering
                             </td>
                         </tr>
                     </table>
