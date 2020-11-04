@@ -43,9 +43,9 @@
                     <h1 style="border:0px;">Unsubscribe Successful</h1>
                     <hr>
                     <p class="text-center">You already unsubscribe our newsletter.</p><br>
-                    <p class="text-center">You will no longer receive any latest information about food and beverage from us.</p>
+                    <p class="text-center">You will no longer receive any latest information from us.</p>
                     <br>
-                    <a href="landing.php" style="color: #0048FF; text-align: center;"> << return to our website</a>
+                    <a href="landing.php" style="color: #0048FF; text-align: center;"> << Return to our website</a>
                 </div>
             </div>
         </section>
