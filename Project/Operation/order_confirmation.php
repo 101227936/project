@@ -36,5 +36,21 @@
 			
 			header("Location: order_detail.php?order_id=".$_GET['order_id']."");
 		}
+		else header("Location: order_detail.php?order_id=".$_GET['order_id']."");
+	}
+	else if($order["order_status"]=="Accept")
+	{
+		if($_GET['action']=="Delivery")
+		{
+			$data = Array (
+				'delivery_name' => $_POST['name'],
+				'delivery_phone' => $_POST['phone'],
+				'delivery_car_model' => $_POST['carmodel'],
+				'delivery_car_plate_number' => $_POST['carplatenumber']
+			);
+			$db->where ('order_id', $_GET['order_id']);
+			$db->update ('tbl_order', $data);
+			header("Location: order_detail.php?order_id=".$_GET['order_id']."");
+		}
 	}
 ?>

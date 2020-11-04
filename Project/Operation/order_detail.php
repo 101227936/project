@@ -119,7 +119,68 @@
 										else if($order["order_status"]=="Accept")
 										{
 											?>
-											<a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Delivery</button></a>
+											<!-- sample modal content -->
+											<div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+												<div class="modal-dialog modal-lg">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h4 class="modal-title">Delivery Information</h4>
+															<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+														</div>
+														<div class="modal-body p-4">
+															<form method="post" action="order_confirmation.php?order_id=<?=$order["order_id"]?>&action=Delivery" id="userForm" class="parsley-examples" enctype="multipart/form-data">
+																<div class="row">
+																	<div class="col-md-6">
+																		<div class="form-group">
+																			<label for="field-1" class="control-label">Driver Name</label>
+																			<input type="text" parsley-trigger="change" class="form-control" name="name" placeholder="Enter Driver Name" required <?=(!empty($order['delivery_name']))?'value="'.$order['delivery_name'].'"':""?>>
+																		</div>
+																	</div>
+																	<div class="col-md-6">
+																		<div class="form-group">
+																			<label for="field-3" class="control-label">Driver's Phone Number</label>
+																			<input type="text" data-parsley-type="digits" data-parsley-length="[10,11]" parsley-trigger="change" class="form-control" name="phone" placeholder="Enter Driver's Phone Number" required <?=(!empty($order['delivery_phone']))?'value="'.$order['delivery_phone'].'"':""?>>
+																		</div>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-6">
+																		<div class="form-group">
+																			<label for="field-4" class="control-label">Driver's Car Modal</label>
+																			<input type="text" parsley-trigger="change" class="form-control" name="carmodel" placeholder="Enter Driver's Car Modal" required <?=(!empty($order['delivery_car_model']))?'value="'.$order['delivery_car_model'].'"':""?>>
+																		</div>
+																	</div>
+																	<div class="col-md-6">
+																		<div class="form-group">
+																			<label for="field-5" class="control-label">Driver's Car Plate Number</label>
+																			<input type="text" parsley-trigger="change" class="form-control" name="carplatenumber" placeholder="Enter Driver's Car Plate Number" required <?=(!empty($order['delivery_car_plate_number']))?'value="'.$order['delivery_car_plate_number'].'"':""?>>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+																<button type="submit" onclick="return confirm('Are you sure?')" id="btnSave" name="btnSave" class="btn btn-success waves-effect waves-light">Save changes</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div><!-- /.modal -->
+											<button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2" data-toggle="modal" data-target="#con-close-modal"><i class="mdi mdi-basket mr-1"></i> Update Delivery Information</button>
+											<?php
+												if(!empty($order['delivery_name'])&&!empty($order['delivery_phone'])&&!empty($order['delivery_car_model'])&&!empty($order['delivery_car_plate_number']))
+												{
+													?>
+													<a href="send_delivery_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?\nOnce email is sent, delivery information cannot be changed anymore')"><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Change & Send Email</button></a>
+													<?php
+												}
+											?>
+											<?php
+										}
+										else if($order["order_status"]=="Delivering")
+										{
+											?>
+											<a href="send_arrive_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-success waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Arrive</button></a>
 											<?php
 										}
 										?>
@@ -259,7 +320,7 @@
                                             <p class="mb-0"><span class="font-weight-semibold">Delivery Address :</span> <?=$order["delivery_address"]?></p>
                                         </div>
 										<?php
-											if($order["order_status"]=="Delivery"||$order["order_status"]=="Arrive")
+											if($order["order_status"]=="Delivering"||$order["order_status"]=="Arrive")
 											{
 												?>
 												<h4 class="header-title mb-3">Driver Info</h4>
@@ -304,6 +365,12 @@
 
         <!-- App js -->
         <script src="../assets/js/app.min.js"></script>
+		
+		<!-- Plugin js-->
+        <script src="../assets/libs/parsleyjs/parsley.min.js"></script>
+
+        <!-- Validation init js-->
+        <script src="../assets/js/pages/form-validation.init.js"></script>
         
     </body>
 </html>
