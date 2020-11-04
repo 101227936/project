@@ -55,14 +55,15 @@
                             <div class="card-body p-4">
                                 
                                 <div class="text-center w-75 m-auto">
-                                    <div class="auth-logo">
-                                       
-                                        <a href="index.html" class="logo logo-light text-center">
-                                            <span class="logo-lg">
-                                                <img src="../assets/images/logo-light.png" alt="" height="22">
-                                            </span>
-                                        </a>
-                                    </div>
+                                    <div id="top" class="starter_container bg">
+										<div class="follow_container">
+											<div class="col-md-16 col-md-offset-3">
+												<h2 class="top-title"> FoodEdge : Login</h2>
+											
+												<hr>
+											</div>
+										</div>
+									</div>
                                     <p class="text-muted mb-4 mt-3">Please enter your email address and password.</p>
                                 </div>
 
