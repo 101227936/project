@@ -39,7 +39,7 @@
                     <br>
                     <p class="text-center" style="text-align:center; font-size:20px;"><?=$productR[0]['product_redeem_description']?></p>
                     
-                    <a href="http://<?=$_SERVER['HTTP_HOST']?>/php/ubold/Project/Member/main_menu.php" style="color: #0048FF; text-align: center; font-size:20px; text-decoration:underline;" target="_blank">See More Detail >></a>
+                    <a href="http://<?=$_SERVER['HTTP_HOST']?>/Project/Member/main_menu_redeem.php" style="color: #0048FF; text-align: center; font-size:20px; text-decoration:underline;" target="_blank">See More Detail >></a>
                 </td>
             </tr>
             <tr>

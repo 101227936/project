@@ -41,7 +41,7 @@ if(isset($_POST['btnAdd']))
 		$size = array("small", "medium", "large");
 		$last_id= $db->getOne('tbl_product','max(product_id)');
 		//print_r($last_id['max(product_id)']);
-		print_r($last_id['max(product_id)']);
+		//print_r($last_id['max(product_id)']);
 		for($i=0;$i<3;++$i)
 		{	
 			$pPrice="AddpPrice".$i;
@@ -61,80 +61,96 @@ if(isset($_POST['btnAdd']))
 		}
 		if ($adp && $id)
 		{
-			$order = $db->get("tbl_subscribe");
-			if(sizeof($order)==0)
+			$flag=false;
+			for($i=0;$i<3;++$i)
+			{	
+				$pStatus="AddpStatus".$i;
+				if($_POST[$pStatus]=="Available")
+				{
+					$flag = true;
+				}
+			}
+			if($flag)	//Available
 			{
-				echo "<script> alert('Add product successful.');location='product_list.php'</script>";
+				$order = $db->get("tbl_subscribe");
+				if(sizeof($order)==0)
+				{
+					echo "<script> alert('Add product successful.');location='product_list.php'</script>";
+				}
+				else
+				{
+					$mail = new PHPMailer(true);
+	
+					try {
+						$mail->SMTPOptions = array(
+							'ssl' => array(
+							'verify_peer' => false,
+							'verify_peer_name' => false,
+							'allow_self_signed' => false	//true
+							)
+						);
+						
+						//Server settings
+						//$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+						$mail->isSMTP();                                            // Send using SMTP
+						$mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+						$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+						$mail->Username   = 'fcmsmember@gmail.com';                     // SMTP username
+						$mail->Password   = 'howtoing';                                  // SMTP password
+						$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+						$mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+	
+						$order = $db->get("tbl_subscribe");
+	
+						//Recipients
+						$mail->setFrom('fcmsmember@gmail.com', 'FoodEdge Gourmet Catering');
+						for($i=0; $i<sizeof($order); $i++)
+						{
+							$mail->addAddress($order[$i]['subscribe_email']);
+						}
+	
+						$last_id= $db->getOne('tbl_product','max(product_id)');
+						$data = array(
+							'product_id'=>$last_id['max(product_id)'],
+						);
+						$query = http_build_query($data);
+						
+						$url = "http://" . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/add_product_email.php';
+						
+						$message =  file_get_contents($url.'?'.$query);
+						
+						$xpath = new DOMXPath(@DOMDocument::loadHTML($message));
+						$images = $xpath->evaluate("//img");
+						if($images)
+						{
+							$i=0;
+							foreach ($images as $image) {
+								$src = $image->getAttribute('src');
+								$mail->AddEmbeddedImage(''.$src, $i);
+								$message=str_replace($src,"cid:".$i,$message);
+								$i++;
+							}
+						}
+						
+						// Content
+						$mail->isHTML(true);                                  // Set email format to HTML
+						$mail->Subject = 'NEW PRODUCT RELEASE! ';
+						$mail->MsgHTML($message);
+						$mail->AltBody = 'Our new product is available now!';
+						$mail->charSet = "UTF-8"; 
+						
+						if($mail->send())
+						{
+							echo "<script> alert('Add product and send newslettter successful.');location='product_list.php'</script>";
+						}
+					} catch (Exception $e) {
+						echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+					}
+				}
 			}
 			else
 			{
-				$mail = new PHPMailer(true);
-
-				try {
-					$mail->SMTPOptions = array(
-						'ssl' => array(
-						'verify_peer' => false,
-						'verify_peer_name' => false,
-						'allow_self_signed' => false	//true
-						)
-					);
-					
-					//Server settings
-					//$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-					$mail->isSMTP();                                            // Send using SMTP
-					$mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
-					$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-					$mail->Username   = 'fcmsmember@gmail.com';                     // SMTP username
-					$mail->Password   = 'howtoing';                                  // SMTP password
-					$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-					$mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-
-					$order = $db->get("tbl_subscribe");
-
-					//Recipients
-					$mail->setFrom('fcmsmember@gmail.com', 'FCMS');
-					for($i=0; $i<sizeof($order); $i++)
-					{
-						$mail->addAddress($order[$i]['subscribe_email']);
-					}
-
-					$last_id= $db->getOne('tbl_product','max(product_id)');
-					$data = array(
-						'product_id'=>$last_id['max(product_id)'],
-					);
-					$query = http_build_query($data);
-					
-					$url = "http://" . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/add_product_email.php';
-					
-					$message =  file_get_contents($url.'?'.$query);
-					
-					$xpath = new DOMXPath(@DOMDocument::loadHTML($message));
-					$images = $xpath->evaluate("//img");
-					if($images)
-					{
-						$i=0;
-						foreach ($images as $image) {
-							$src = $image->getAttribute('src');
-							$mail->AddEmbeddedImage(''.$src, $i);
-							$message=str_replace($src,"cid:".$i,$message);
-							$i++;
-						}
-					}
-					
-					// Content
-					$mail->isHTML(true);                                  // Set email format to HTML
-					$mail->Subject = 'NEW PRODUCT RELEASE! ';
-					$mail->MsgHTML($message);
-					$mail->AltBody = 'Our new product is available now!';
-					$mail->charSet = "UTF-8"; 
-					
-					if($mail->send())
-					{
-						echo "<script> alert('Add product and send newslettter successful.');location='product_list.php'</script>";
-					}
-				} catch (Exception $e) {
-					echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-				}
+				echo "<script> alert('Add product successful.');location='product_list.php'</script>";
 			}
 		}
 	}

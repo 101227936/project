@@ -35,12 +35,12 @@
             <tr>
                 <td align="center" bgcolor="#ffffff" style="padding: 0px 20px 20px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 30px; line-height: 30px;">
                     <b>Here is our new product!</b>
-                    <hr><p class="text-center" style="text-align:center; font-size:25px;"><?=$product[0]['product_name']?></p>
+                    <hr><p class="text-center" style="text-align:center; font-size:25px;"><?=ucfirst($product[0]['product_name'])?></p>
                     <img src="<?=$product[0]['product_image']?>" alt="Product Image" width="350" height="300" style="display:block;">
                     <br>
                     <p class="text-center" style="text-align:center; font-size:20px;"><?=$product[0]['product_description']?></p>
                     
-                    <a href="http://<?=$_SERVER['HTTP_HOST']?>/php/ubold/Project/Member/main_menu.php" style="color: #0048FF; text-align: center; font-size:20px; text-decoration:underline;" target="_blank">See More Detail >></a>
+                    <a href="http://<?=$_SERVER['HTTP_HOST']?>/Project/Member/main_menu.php" style="color: #0048FF; text-align: center; font-size:20px; text-decoration:underline;" target="_blank">See More Detail >></a>
                 </td>
             </tr>
             <tr>
@@ -59,7 +59,7 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td align="center" width="100%" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
-                                2020 &copy; FCMS
+                                2020 &copy; FoodEdge Gourmet Catering
                             </td>
                         </tr>
                     </table>
