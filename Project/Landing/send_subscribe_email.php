@@ -80,7 +80,7 @@ if(isset($_POST['btnSub']))
 				
 				// Content
 				$mail->isHTML(true);                                  // Set email format to HTML
-				$mail->Subject = 'Subscribe Email from FCMS';
+				$mail->Subject = 'Thank You For Subscribing';
 				$mail->MsgHTML($message);
 				$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 				$mail->charSet = "UTF-8"; 
