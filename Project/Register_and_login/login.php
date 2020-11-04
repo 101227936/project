@@ -19,7 +19,7 @@
 		<link href="../assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet"  disabled />
 
 		<!-- icons -->
-		
+	
 
     </head>
 
@@ -55,7 +55,14 @@
                             <div class="card-body p-4">
                                 
                                 <div class="text-center w-75 m-auto">
-                                    
+                                    <div class="auth-logo">
+                                       
+                                        <a href="index.html" class="logo logo-light text-center">
+                                            <span class="logo-lg">
+                                                <img src="../assets/images/logo-light.png" alt="" height="22">
+                                            </span>
+                                        </a>
+                                    </div>
                                     <p class="text-muted mb-4 mt-3">Please enter your email address and password.</p>
                                 </div>
 
@@ -78,7 +85,9 @@
                                         </div>
                                     </div>
 
-                                   
+                                    <div class="form-group mb-3">
+                                        
+                                    </div>
 
                                     <div class="form-group mb-0 text-center">
                                         <button class="btn btn-primary btn-block"id="btnSave" name="btnSave"  type="submit"> Log In </button>
@@ -111,7 +120,7 @@
         <!-- end page -->
 
 
-        
+       
 
         <!-- Vendor js -->
         <script src="../assets/js/vendor.min.js"></script>
