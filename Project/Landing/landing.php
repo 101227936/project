@@ -324,7 +324,8 @@
         </section>
 
         <!-- ============ Contact Section  ============= -->
-        <section id="contact">
+         <section id="contact">
+            
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -332,7 +333,7 @@
                             <!-- Form Area -->
                             <div class="contact-form">
                                 <!-- Form -->
-                                <form id="contact-us" method="post" action="contact.php">
+                                <form id="contact-us" method="post">
                                     <!-- Left Inputs -->
                                     <div class="col-md-6 ">
                                         <!-- Name -->
@@ -350,7 +351,7 @@
                                     <!-- Bottom Submit -->
                                     <div class="relative fullwidth col-xs-12">
                                         <!-- Send Button -->
-                                        <button type="submit" id="submit" name="submit" class="form-btn">Send Message</button> 
+                                        <button onclick="alert('Message Sent!')" type="submit" id="submit" name="submit" class="form-btn">Send Message</button>
                                     </div><!-- End Bottom Submit -->
                                     <!-- Clear -->
                                     <div class="clear"></div>
@@ -361,6 +362,81 @@
                 </div>
             </div>
         </section>
+		
+		
+		<?php	
+			require '../Database/init.php';
+			require "../encrypt.php";
+			use PHPMailer\PHPMailer\PHPMailer;
+			use PHPMailer\PHPMailer\Exception;
+			use PHPMailer\PHPMailer\SMTP;
+			require '../PHPMailer/src/Exception.php';
+			require '../PHPMailer/src/PHPMailer.php';
+			require '../PHPMailer/src/SMTP.php';
+					
+			if(isset($_POST['submit']))
+			{
+				// Instantiation and passing `true` enables exceptions
+				$mail = new PHPMailer(true);
+	
+				try {
+					
+					$mail->SMTPOptions = array(
+						'ssl' => array(
+						'verify_peer' => false,
+						'verify_peer_name' => false,
+						'allow_self_signed' => true
+						)
+					);
+					
+					//$email = $_POST['email'];
+					
+					//Server settings
+					//$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+					$mail->isSMTP();                                            // Send using SMTP
+					$mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+					$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+					$mail->Username   = 'fcmsmember@gmail.com';                     // SMTP username
+					$mail->Password   = 'howtoing';                               // SMTP password
+					$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+					$mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+	
+					//Recipients
+					$mail->setFrom($_POST['email'], $_POST['name']);
+					$mail->addAddress('keechu613@gmail.com', 'JasminPlanet');     // Add a recipient
+					//$mail->addAddress('ellen@example.com');               // Name is optional
+					//$mail->addReplyTo('info@example.com', 'Information');
+					//$mail->addCC('cc@example.com');
+					//$mail->addBCC('bcc@example.com');
+					
+					// Attachments
+					//$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+					//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+	
+	
+					// Content
+					$mail->isHTML(true); // Set email format to HTML
+					$mail->Subject = $_POST['subject'];
+					
+					$mail->Body = $_POST['message'];
+	
+					
+					//$mail->MsgHTML($message);
+					//$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+					$mail->charSet = "UTF-8"; 
+	
+					
+					$mail->send();
+					$mail->SMTPDebug = 0;
+					
+					echo '<p hidden>Message has been sent</p>';
+					
+				} catch (Exception $e) {
+					echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+				}
+
+			}
+	  ?>	
 
         <!-- ============ Footer Section  ============= -->
         <footer class="sub_footer">
