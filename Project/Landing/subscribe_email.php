@@ -32,7 +32,7 @@
                     <p class="text-center">You've been successfully subscribed!</p>
                     <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/landing.php" style="color: #0048FF; text-align: center; font-size:20px; text-decoration:underline" target="_blank"> << Return to our website</a>
                     <br><br><br>
-                    <label style="font-size:15px">*You can unsubscribe it by clicking the <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/unsubscribe.php?subscribe_email=<?=$_GET['subscribe_email']?>" style="color: #FF0000; text-align: center; font-size:15px;" target="_blank">UNSUBSCRIBE</a></label>
+                    <label style="font-size:15px">*You can unsubscribe it by clicking the <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/unsubscribe.php?subscribe_email=<?=$_GET['subscribe_email']?>" style="color: #FF0000; text-align: center; font-size:15px;text-decoration:underline;" target="_blank">UNSUBSCRIBE</a></label>
                 </td>
             </tr>
             <tr>
