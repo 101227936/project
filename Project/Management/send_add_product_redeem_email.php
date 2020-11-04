@@ -80,7 +80,7 @@ if(isset($_POST['btnAdd']))
 						$order = $db->get("tbl_subscribe");
 
 						//Recipients
-						$mail->setFrom('fcmsmember@gmail.com', 'FCMS');
+						$mail->setFrom('fcmsmember@gmail.com', 'FoodEdge Gourmet Catering');
 						for($i=0; $i<sizeof($order); $i++)
 						{
 							$mail->addAddress($order[$i]['subscribe_email']);
