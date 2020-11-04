@@ -8,6 +8,7 @@
 	if(!empty($_GET['search']))$db->where ("tbl_product.product_name", '%'.$_GET['search'].'%', 'like');
 	if(!empty($_GET['type']))$db->where ("tbl_product.product_type", $_GET['type'], '=');
 	$db->where("tbl_product_detail.product_detail_status","Available","=");
+	$db->orderBy("tbl_product_detail.product_id", "Desc");
 	
 	if(!empty($_GET['page']))$page = $_GET['page'];
 	else $page = 1;

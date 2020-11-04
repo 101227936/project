@@ -4,6 +4,7 @@
 	if(!empty($_GET['search']))$db->where ("tbl_product_redeem.product_redeem_name", '%'.$_GET['search'].'%', 'like');
 	if(!empty($_GET['type']))$db->where ("tbl_product_redeem.product_redeem_type", $_GET['type'], '=');
 	$db->where("tbl_product_redeem.product_redeem_status","Available","=");
+	$db->orderBy("tbl_product_redeem.product_redeem_id", "Desc");
 	
 	if(!empty($_GET['page']))$page = $_GET['page'];
 	else $page = 1;
