@@ -48,7 +48,7 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td align="center" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
-                                Email not displaying correctly?  <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/add_product_email.php?product_id=<?=$_GET['product_id']?>" style="color:#0073AA;" target="_blank">View it in your browser</a>
+                                Email not displaying correctly?  <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/add_product_email.php?product_id=<?=$_GET['product_id']?>" style="color:#0073AA;text-decoration:underline;" target="_blank">View it in your browser</a>
                             </td>
                         </tr>
                     </table>
