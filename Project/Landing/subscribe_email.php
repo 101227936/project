@@ -25,25 +25,12 @@
         </style>
     </head>
     <body bgcolor="white" style="margin: 0; padding: 0;" yahoo="fix">
-        <!--[if (gte mso 9)|(IE)]>
-        <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td>
-        <![endif]-->
         <table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 600px;" class="content">
-            <!--<tr>
-                <td align="center" bgcolor="#0073AA " style="padding: 20px 20px 20px 20px; color: #ffffff; font-family: Arial, sans-serif; font-size: 36px; font-weight: bold;">
-                    <img src="img/aaa.jpeg" alt="ProUI Logo" width="152" height="152" style="display:block;">
-                </td>-->
-                <!--<td>
-                    <img src="img/aaa.jpeg" alt="ProUI Logo" width="100%" height="152" style="display:block;">
-                </td>
-            </tr>-->
             <tr>
                 <td align="center" bgcolor="#ffffff" style="padding: 0px 20px 20px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 30px; line-height: 30px;">
                     <b>Thanks for your Subscribe!</b><br>
                     <p class="text-center">You've been successfully subscribed!</p>
-                    <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/landing.php" style="color: #0048FF; text-align: center; font-size:20px; text-decoration:underline" target="_blank"> << return to our website</a>
+                    <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/landing.php" style="color: #0048FF; text-align: center; font-size:20px; text-decoration:underline" target="_blank"> << Return to our website</a>
                     <br><br><br>
                     <label style="font-size:15px">*You can unsubscribe it by clicking the <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/unsubscribe.php?subscribe_email=<?=$_GET['subscribe_email']?>" style="color: #FF0000; text-align: center; font-size:15px;" target="_blank">UNSUBSCRIBE</a></label>
                 </td>
@@ -64,7 +51,7 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td align="center" width="100%" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
-                                2020 &copy; FCMS
+                                2020 &copy; FoodEdge Gourmet Catering
                             </td>
                         </tr>
                     </table>
