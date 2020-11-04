@@ -55,15 +55,7 @@
                             <div class="card-body p-4">
                                 
                                 <div class="text-center w-75 m-auto">
-                                    <div class="auth-logo">
-                                        <a href="landing.html" class="logo logo-dark text-center">
-                                            <span class="logo-lg">
-                                                <img src="../assets/images/logo-dark.png" alt="" height="22">
-                                            </span>
-                                        </a>
-                    
-                                       
-                                    </div>
+                                    
                                     <p class="text-muted mb-4 mt-3">Please enter your email address and password.</p>
                                 </div>
 
