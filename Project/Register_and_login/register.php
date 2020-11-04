@@ -41,7 +41,7 @@
 		);
 		
 		$data2 = Array (
-						  'user_profile'=> "../Image/Profile/20201021103922.png",
+						  'user_profile'=> "Image/Profile/default.png",
                           'user_name'=> $_POST['user_name'],
 						  'user_phone'=> $_POST['user_phone'],
 						  'user_address'=> $_POST['user_address'],
@@ -59,8 +59,9 @@
 			$id = $db->insert ('tbl_login', $data);
 			$id = $db->insert ('tbl_user', $data2);
 			if($id){
-				echo 'user was created Successfully. Id=' . $id;
-				header("location: EmailVerificationMailer.php");
+			
+			echo 'user was created Successfully. Id=' . $id;
+			header("location: EmailVerificationMailer.php");
 			
 			}else {echo "Sign up Unsuccessfuly. User ID Already Exits";}
 			}
@@ -77,12 +78,20 @@
                             <div class="card-body p-4">
                                 
                                 <div class="text-center w-75 m-auto">
+								
+								 <div id="top" class="starter_container bg">
+										<div class="follow_container">
+											<div class="col-md-16 col-md-offset-3">
+												<h2 class="top-title"> FoodEdge : Register</h2>
+											
+												<hr>
+											</div>
+										</div>
+									</div>
+									
+									
                                     <div class="auth-logo">
-                                        <a href="index.html" class="logo logo-dark text-center">
-                                            <span class="logo-lg">
-                                                <img src="../assets/images/logo-dark.png" alt="" height="22">
-                                            </span>
-                                        </a>
+                                        
                     
                                         <a href="index.html" class="logo logo-light text-center">
                                             <span class="logo-lg">
@@ -164,9 +173,7 @@
         </div>
         <!-- end page -->
 
-        <footer class="footer footer-alt">
-            2015 - <script>document.write(new Date().getFullYear())</script> &copy; UBold theme by <a href="" class="text-white-50">Coderthemes</a> 
-        </footer>
+      
 
         <!-- Vendor js -->
         <script src="../assets/js/vendor.min.js"></script>
