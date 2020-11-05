@@ -53,6 +53,9 @@
 			
 			$db->join("tbl_product_detail","tbl_product_detail.product_id=tbl_product.product_id","INNER");
 			$products=$db->get("tbl_product");
+			
+			$db->where("tbl_login.role","Operation");
+			$operation = $db->get("tbl_login");
 		?>
 		
 		<?php
@@ -328,27 +331,24 @@
                             </div> <!-- end col-->
 
                             <div class="col-md-6 col-xl-3">
-                                <div class="widget-rounded-circle card-box">
+                                <div class="widget-rounded-circle card-box" style = "height:120px">
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="avatar-lg rounded bg-soft-success">
-                                                <i class="dripicons-basket font-24 avatar-title text-success"></i>
+                                                <i class="dripicons-user-group font-24 avatar-title text-success"></i>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="text-right">
 												<?php
-													$total_cart = 0;
-													foreach($orders as $order)
+													$total_operate = 0;
+													foreach($operation as $operate)
 													{
-														if($order['order_status']=='Cart')
-														{
-															$total_cart ++;
-														}
+														$total_operate++;
 													}
 												?>
-                                                <h3 class="text-dark mt-1"><span data-plugin="counterup"><?=$total_cart?></span></h3>
-                                                <p class="text-muted mb-1 text-truncate">Cart</p>
+                                                <h3 class="text-dark mt-1"><span data-plugin="counterup"><?=$total_operate?></span></h3>
+                                                <p class="text-muted mb-1">Operation Account</p>
                                             </div>
                                         </div>
                                     </div> <!-- end row-->
@@ -487,7 +487,12 @@
 																		?>
 																		<tr>
 																			<td><?=$order['order_id']?></td>
-																			<td><p><img src="<?=$order['product_image']?>" height="50px" alt="product-pic"/></p><?=$order['product_name']?> (<?=$size[0]?>)</td>
+																			<td>
+																				<a href="product_detail.php?product_id=<?=$order['product_id']?>" />
+																				<p>
+																					<img src="<?=$order['product_image']?>" height="50px" alt="product-pic"/>
+																				</p><?=$order['product_name']?> (<?=$size[0]?>)
+																			</td>
 																			<td><?=$order['comment']?></td>
 																			<td><?=$order_Date?></td>
 																		</tr>
@@ -604,7 +609,8 @@
 																	<tr>
 																		<td rowspan="3"><?=$product['product_type']?></td>
 																		<td rowspan="3" style="width:120px">
-																			<img src="<?=$product['product_image']?>" alt="product-pic" height="50" />
+																			<a href="product_detail.php?product_id=<?=$product['product_id']?>" />
+																			<img src="<?=$product['product_image']?>" alt="product-pic" height="50"/>
 																			<p><span><?=$product['product_name']?></span></p>
 																		</td>
 																		<td><?=$product['product_detail_size']?></td>
@@ -656,75 +662,6 @@
                                     </div> <!-- end table-responsive -->
                                 </div> <!-- end card-box-->
                             </div>
-							<!--
-                            <div class="col-xl-6">
-                                <div class="card-box">
-                                    <h4 class="header-title mb-3">Recent Products</h4>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-centered table-hover mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-top-0">Product</th>
-                                                    <th class="border-top-0">Size</th>
-                                                    <th class="border-top-0">Added Date</th>
-                                                    <th class="border-top-0">Amount</th>
-                                                    <th class="border-top-0">Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-												<?php
-													foreach($orders as $order)
-													{
-														if($order['order_status']!='Cart')
-														{
-															?>
-																<tr>
-																	<td>
-																		<img src="<?=$order['product_image']?>" alt="product-pic" height="36" />
-																		<span class="ml-2"><?=$order['product_name']?></span>
-																	</td>
-																	<td><?=$order['product_detail_size']?></td>
-																	<td>
-																		<?php
-																		$date = new DateTime($order['order_datetime']);
-																		$sDate = $date->format("d.m.Y");
-																		echo $sDate;
-																		?>
-																	</td>
-																	<td>$ <?=$order['product_detail_price']?>.00</td>
-																	<?php
-																		if($order['order_status']=='Reject')
-																		{
-																			?>
-																			<td><span class="badge bg-soft-danger text-danger"><?=$order['order_status']?></span></td>
-																			<?php
-																		}
-																		else if($order['order_status']=='Pending')
-																		{
-																			?>
-																			<td><span class="badge bg-soft-warning text-warning"><?=$order['order_status']?></span></td>
-																			<?php
-																		}
-																		else
-																		{
-																			?>
-																			<td><span class="badge bg-soft-success text-success"><?=$order['order_status']?></span></td>
-																			<?php
-																		}
-																	?>
-																</tr>
-															<?php
-														}
-													}													
-												?>
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- end table-responsive -->
-									<!--
-                                </div> <!-- end card-box-->
-									<!--
-                            </div> <!-- end col-->
                         </div>
                         <!-- end row-->
                         
