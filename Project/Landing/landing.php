@@ -400,7 +400,7 @@
 
         <!-- ============ Contact Section  ============= -->
         <section id ="contact" class="description_content" style="padding-top:20px;padding-bottom:100px;">
-            <div  class="pricing background_content">
+            <div  class="featured background_content">
                 <h1><span>Contact</span> Us</h1>
             </div>
             <div class="text-content container"> 
