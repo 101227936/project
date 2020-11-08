@@ -530,7 +530,12 @@
                                             </thead>
                                             <tbody>
 												<?php
-													foreach($members as $member)
+													$getMember = $members;
+													function sortFunction( $a, $b ) {
+														return strtotime($b["order_datetime"]) - strtotime($a["order_datetime"]);
+													}
+													usort($getMember, "sortFunction");
+													foreach($getMember as $member)
 													{
 														?>
 															<tr>
