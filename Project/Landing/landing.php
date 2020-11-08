@@ -1,15 +1,23 @@
 <?php
 	require "../Database/init.php";
 	ob_start();
-	$db->join("tbl_product", "tbl_product_detail.product_id=tbl_product.product_id", "LEFT");
-	if(!empty($_GET['search']))$db->where ("tbl_product.product_name", '%'.$_GET['search'].'%', 'like');
-	if(!empty($_GET['type']))$db->where ("tbl_product.product_type", $_GET['type'], '=');
-	$db->where("tbl_product_detail.product_detail_status","Available","=");
-	
-	if(!empty($_GET['page']))$page = $_GET['page'];
-	else $page = 1;
-	$db->pageLimit = 4;
-	$product_details = $db->arraybuilder()->paginate("tbl_product_detail", $page);
+	//$db->join("tbl_product", "tbl_product_detail.product_id=tbl_product.product_id", "LEFT");
+	//if(!empty($_GET['search']))$db->where ("tbl_product.product_name", '%'.$_GET['search'].'%', 'like');
+	//if(!empty($_GET['type']))$db->where ("tbl_product.product_type", $_GET['type'], '=');
+    //$db->where("tbl_product_detail.product_detail_status","Available","=");
+
+    //$db->join("tbl_product_detail pd","p.product_id = pd.product_id","INNER");
+    //$db->groupBy ("p.product_id");
+    //$db->where("pd.product_detail_status","Available","=");
+	//$product_details = $db->get("tbl_product p");
+	//if(!empty($_GET['page']))$page = $_GET['page'];
+	//else $page = 1;
+	//$db->pageLimit = 6;
+    //$product_details = $db->arraybuilder()->paginate("tbl_product p", $page);
+    //print_r("<pre>");
+	//print_r($product_details);
+	//print_r($db->getLastQuery());
+	//print_r("</pre>");
 ?>
 
 
@@ -30,7 +38,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Restaurant</title>
+        <title>FoodEdge Gourmet Catering</title>
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css" media="screen" type="text/css">
         <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -43,6 +51,14 @@
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link rel="icon" href="favicon-1.ico" type="image/x-icon">
       
+        <!-- Font Awesome Icon Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.checked {
+  color: orange;
+}
+</style>
+
     </head>
 
     <body>
@@ -105,7 +121,7 @@
             <div class="text-content container">
                 <div class="col-md-6">
                     <h1>About us</h1>
-                    <div class="fa fa-cutlery fa-2x"></div>
+                    <div class="fa fa-users fa-2x"></div>
                     <p class="desc-text">Restaurant is a place for simplicity. Good food, good beer, and good service. Simple is the name of the game, and we’re good at finding it in all the right places, even in your dining experience. We’re a small group from SWINBURNE PLANET who make simple food possible. Come join us and see what simplicity tastes like!</p>
                 </div>
                 <div class="col-md-6">
@@ -128,131 +144,212 @@
              </div>
             <div class="text-content container"> 
                 <div class="container">
-                   <div class="row">
-							<?php
-								foreach($product_details as $product_detail)
-								{
-									?>
-									 <div class="col-md-6 col-xl-3">
-										<div class="card-box product-box">
-											<div class="bg-light">
-												<img src="<?=$product_detail['product_image']?>"width="200" height="200" alt="product-pic" class="img-fluid"/>
-											</div>
+                    <div class="row">
+                        <?php
 
-											<div class="product-info">
-												<div class="row align-items-center">
-													<div class="col">
-														<h5 class="font-16 mt-0 sp-line-1"><a  class="text-dark"><?php echo $product_detail['product_name']?></a></h5>										
-														
-														<div class="text-warning mb-2 font-13">
-															Rating:
-															<?php
-																$cols = Array("AVG(rating) as rating");
-																$db->groupBy ("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
-																$db->where("tbl_order_detail.product_id",$product_detail['product_id'],"=");
-																$db->where("tbl_order_detail.product_detail_id",$product_detail['product_detail_id'],"=");
-																$rating = $db->getOne("tbl_order_detail", null, $cols);
-															
-															?>
-															<?=isset($rating['rating'])? $rating['rating']:'-'?>
-														</div>
-														<h5 class="m-0"> 
-															<span class="text-muted"> 
-																Category:
-																<?=$product_detail['product_type']?>
-															</span>												
-														</h5>
-														<h6 class="my-2"> 
-															<span class="text-muted"> 
-																Size:
-																<?=$product_detail['product_detail_size']?>
-															</span>																	
-														</h6>
-														<h6 class="my-2"> 
-															<?=$product_detail['product_description']?>															
-														</h6>
-													</div>
-													<div class="col-auto">
-														<div class="product-price-tag">
-															RM<?=$product_detail['product_detail_price']?>	
-														</div>
-													</div>
-												</div> <!-- end row -->
-											</div> <!-- end product info-->
-										</div> <!-- end card-box-->
-									</div> <!-- end col-->
+                        $db->join("tbl_product_detail pd","p.product_id = pd.product_id","INNER");
+                        $db->groupBy ("p.product_id");
+                        $product_details = $db->get("tbl_product p");
+                        //print_r("<pre>");
+                        //print_r($sow);
+                        //print_r($db->getLastQuery());
+                        //print_r("</pre>");
+                        $i=0;
+						foreach($product_details as $product_detail)
+						{
+                            ?>
+                                <div class="col-md-4">
+                                    <!--<img class="card-img-top img-fluid" src="../assets/images/small/img-5.jpg" height="300px" alt="Card image cap">-->
+                                    <img src="<?=$product_detail['product_image']?>" width="80%" height="300px" alt="product-pic" class="img-fluid"/>
+                                    <div class="card-body">
+                                        <h2 class="card-title" style="padding-top:20px;padding-bottom:10px !important"><?=$product_detail['product_name']?></h2>
+                                        <?php
+                                        $cols = Array("AVG(rating) as rating");
+                                        $db->join("tbl_order", "tbl_order.order_id=tbl_order_detail.order_id", "LEFT");
+                                        $db->where("tbl_order.order_status",'Arrive',"=");
+                                        $db->where("tbl_order_detail.product_id",$product_detail['product_id'],"=");
+                                        $rating = $db->get("tbl_order_detail", null, $cols);
+                                        if(isset($rating[0]['rating']))
+                                        {
+                                            for($i=0;$i<5;$i++)
+                                            {
+                                                if(round($rating[0]['rating'])<=$i)
+                                                {
+                                                    ?>
+                                                    <span class="fa fa-star"></span>
+                                                    <?php
+                                                }
+                                                else
+                                                {
+                                                    ?>
+                                                        <span class="fa fa-star checked"></span>
+                                                    <?php
+                                                }
+                                              
+                                            }
+                                        }
+                                        echo isset($rating[0]['rating'])? number_format((float)$rating[0]['rating'], 2, '.', ''):'No Rating';                                 
+                                        ?>
+                                        <hr style="margin-top:15px;border-top: 1px solid #bbbbbb !important">
+                                        <p style="text-align:left"><?=$product_detail['product_description']?></p>
+                                        <br>
+                                        <?php
+                                        $db->join("tbl_product_detail pd","p.product_id = pd.product_id","INNER");
+                                        $db->where("p.product_id",$product_detail['product_id'],"=");
+                                        $product_details = $db->get("tbl_product p");
+                                        ?>
+                                        <p style="text-align:left">Size: 
+                                        <?php
+                                        $msg="";
+                                        $count=0;
+                                        foreach($product_details as $product_detail)
+                                        {
+                                            if($count!=2)
+                                            {
+                                                if($product_detail['product_detail_status']=="Not available")
+                                                {
+                                                    ?>
+                                                    <del style="color:red;"><?=$product_detail['product_detail_size']?></del><?=","?>
+                                                    <?php
+                                                    $msg.=$product_detail['product_detail_size']." ";
+                                                }
+                                                else
+                                                {
+                                                    echo $product_detail['product_detail_size'].",";
+                                                }
+                                                $count++;
+                                            }
+                                            else
+                                            {
+                                                $count=0;
+                                                if($product_detail['product_detail_status']=="Not available")
+                                                {
+                                                    ?>
+                                                    <del style="color:red;"><?=$product_detail['product_detail_size']?></del>
+                                                    <?php
+                                                    $msg.=$product_detail['product_detail_size']." ";
+                                                }
+                                                else
+                                                {
+                                                    echo $product_detail['product_detail_size'];
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                        <?php
 
-									<?php
-								}
-							?>
-						</div>
+                                        ?>
+                                        <?php
+                                        $db->join("tbl_product_detail pd","p.product_id = pd.product_id","INNER");
+                                        $db->where("p.product_id",$product_detail['product_id'],"=");
+                                        $product_details = $db->getOne("tbl_product p","max(product_detail_price) AS max, min(product_detail_price) AS min");
+                                        //print_r("<pre>");
+                                        //print_r($product_details);
+                                        //print_r($db->getLastQuery());
+                                        //print_r("</pre>");
+                                        ?>
+                                        <p>
+                                            <?php
+                                            if($product_details['min']==$product_details['max'])
+                                            {
+                                                ?>
+                                                <h2 class="text-muted" style="padding-top:15px;padding-bottom:10px;">RM <?=$product_details['min'].".00"?></h2>
+                                                <?php
+                                            }
+                                            else
+                                            {
+                                            ?>
+                                                <h2 class="text-muted" style="padding-top:15px;padding-bottom:10px;">RM <?=$product_details['min'].".00 - RM ".$product_details['max'].".00"?></h2>
+                                            <?php
+                                            }
+                                            ?>
+                                        </p>
+                                        <?php
+                                        if($msg!="")
+                                        {
+                                            $na=str_replace(" ",", ",$msg);
+                                            $na2=substr_replace($na, ' ', -2);
+                                            ?>
+                                            <p style="color:red;text-align:center;font-size:15px;padding-bottom:40px;">*Not available for <?=$na2?> size</p>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>  
         </section>
 
 
         <!-- ============ Top Redeem Listing Page  ============= -->
-        <section id ="bread" class="description_content">
+       
+        <section id ="bread" class="description_content" style="padding-top:10px !important">
              <div  class="bread background_content">
                 <h1>Top Redeem Item <span>Listing</span></h1>
             </div>
             <div class="text-content container"> 
                 <div class="container">
                    <div class="row">
-							<?php
-								foreach($product_redeem_details as $product_redeem_detail)
-								{
-									?>
-									 <div class="col-md-6 col-xl-3">
-										<div class="card-box product-box">
-											<div class="bg-light">
-												<img src="<?=$product_redeem_detail['product_redeem_image']?>" width="200" height="200"alt="product-pic" class="img-fluid"/>
-											</div>
-
-											<div class="product-info">
-												<div class="row align-items-center">
-													<div class="col">
-														<h5 class="font-16 mt-0 sp-line-1"><a  class="text-dark"><?php echo $product_redeem_detail['product_redeem_name']?></a></h5>										
-														
-														<div class="text-warning mb-2 font-13">
-															Rating:
-															<?php
-																$cols = Array("AVG(rating) as rating");
-																$db->groupBy ("tbl_order_detail.product_detail_id",$product_redeem_detail['product_redeem_id'],"=");
-																$db->where("tbl_order_detail.product_id",0,"=");
-																$db->where("tbl_order_detail.product_detail_id",$product_redeem_detail['product_redeem_id'],"=");
-																$rating = $db->getOne("tbl_order_detail", null, $cols);
-															
-															?>
-															<?=isset($rating['rating'])? $rating['rating']:'-'?>
-														</div>
-														<h5 class="m-0"> 
-															<span class="text-muted"> 
-																Category:
-																<?=$product_redeem_detail['product_redeem_type']?>
-															</span>												
-														</h5>
-														<h6 class="my-2"> 
-															<?=$product_redeem_detail['product_redeem_description']?>															
-														</h6>
-													</div>
-													<div class="col-auto">
-														<div class="product-price-tag">
-															<?=$product_redeem_detail['product_redeem_point']?>	
-														</div>
-													</div>
-												</div> <!-- end row -->
-											</div> <!-- end product info-->
-										</div> <!-- end card-box-->
-									</div> <!-- end col-->
-									<?php
-								}
-							?>
-						</div>
+                        <?php
+                        $product_redeem_details = $db->get("tbl_product_redeem");
+                        //print_r("<pre>");
+                        //print_r($sow);
+                        //print_r($db->getLastQuery());
+                        //print_r("</pre>");
+                        $i=0;
+						foreach($product_redeem_details as $product_redeem_detail)
+						{
+                            ?>
+                                <div class="col-md-4">
+                                    <!--<img class="card-img-top img-fluid" src="../assets/images/small/img-5.jpg" height="300px" alt="Card image cap">-->
+                                    <img src="<?=$product_redeem_detail['product_redeem_image']?>" width="80%" height="300px" alt="product-pic" class="img-fluid"/>
+                                    <div class="card-body">
+                                        <h2 class="card-title" style="padding-top:20px;padding-bottom:10px !important"><?=$product_redeem_detail['product_redeem_name']?></h2>
+                                        <?php
+                                        $cols = Array("AVG(rating) as rating");
+                                        $db->where("tbl_order_detail.product_id",0,"=");
+                                        $db->where("tbl_order_detail.product_detail_id",$product_redeem_detail['product_redeem_id'],"=");
+                                        $rating = $db->get("tbl_order_detail", null, $cols);
+                                        if(isset($rating[0]['rating']))
+                                        {
+                                            for($i=0;$i<5;$i++)
+                                            {
+                                                if(round($rating[0]['rating'])<=$i)
+                                                {
+                                                    ?>
+                                                    <span class="fa fa-star"></span>
+                                                    <?php
+                                                }
+                                                else
+                                                {
+                                                    ?>
+                                                        <span class="fa fa-star checked"></span>
+                                                    <?php
+                                                }
+                                              
+                                            }
+                                        }
+                                        echo isset($rating[0]['rating'])? number_format((float)round($rating[0]['rating']), 2, '.', ''):'No Rating';                                 
+                                        ?>
+                                        <hr style="margin-top:15px;border-top: 1px solid #bbbbbb !important">
+                                        <p style="text-align:left"><?=$product_redeem_detail['product_redeem_description']?></p>
+                                        <br>
+                                       <p>
+                                        <h2 class="text-muted" style="padding-top:15px;padding-bottom:10px;"><?=$product_redeem_detail['product_redeem_point']." Point"?></h2>
+                                        </p>
+                                    </div>
+                                </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>  
         </section>
-
         
         <!-- ============ Featured Dish  ============= -->
         <section id="featured" class="description_content">
@@ -262,7 +359,7 @@
             <div class="text-content container"> 
                 <div class="col-md-6">
                     <h1>Have a look to our dishes!</h1>
-                    <div class="icon-hotdog fa-2x"></div>
+                    <div class="fa fa-cutlery fa-2x"></div>
                     <p class="desc-text">Each food is handmade at the crack of dawn, using only the simplest of ingredients to bring out smells and flavors that beckon the whole block. Stop by anytime and experience simplicity at its finest.</p>
                 </div>
                 <div class="col-md-6">
@@ -292,7 +389,6 @@
                                 <div class="item">
                                     <img src="images/slider3.JPG" alt="...">
                                     <div class="carousel-caption">
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -302,67 +398,55 @@
             </div>
         </section>
 
-        
-
-        <!-- ============ Social Section  ============= -->
-        <section class="social_connect">
+        <!-- ============ Contact Section  ============= -->
+        <section id ="contact" class="description_content" style="padding-top:20px;padding-bottom:100px;">
+            <div  class="pricing background_content">
+                <h1><span>Contact</span> Us</h1>
+            </div>
             <div class="text-content container"> 
                 <div class="col-md-6">
-                    <span class="social_heading">FOLLOW</span>
-                    <ul class="social_icons">
-                        <li><a class="icon-twitter color_animation" href="#" target="_blank"></a></li>
-                        <li><a class="icon-github color_animation" href="#" target="_blank"></a></li>
-                        <li><a class="icon-linkedin color_animation" href="#" target="_blank"></a></li>
-                        <li><a class="icon-mail color_animation" href="#"></a></li>
-                    </ul>
+                    <h1>Get in touch</h1>
+                    <div class="fa fa-envelope fa-2x"></div>
+                    <p class="desc-text" style="text-align: justify;text-justify: inter-word;padding-right:20px;">If you have any question, please feel free to drop us a line. We'll get back to you as soon as we can. That's a promise!</p>
                 </div>
-                <div class="col-md-4">
-                    <span class="social_heading">OR DIAL</span>
-                    <span class="social_info"><a class="color_animation" href="tel:883-335-6524">(941) 883-335-6524</a></span>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============ Contact Section  ============= -->
-         <section id="contact">
-            
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="inner contact">
-                            <!-- Form Area -->
-                            <div class="contact-form">
-                                <!-- Form -->
-                                <form id="contact-us" method="post">
-                                    <!-- Left Inputs -->
-                                    <div class="col-md-6 ">
+                <div class="col-md-6">
+                    <div class="row">
+                        <!-- Form Area -->
+                        <div class="contact-form">
+                            <!-- Form -->
+                            <form id="contact-us" method="post">
+                                <!-- Left Inputs -->
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <!-- Name -->
                                         <input type="text" name="name" id="name" required="required" class="form" placeholder="Name" />
+                                    </div>
+                                    <div class="col-md-12">
                                         <!-- Email -->
                                         <input type="email" name="email" id="email" required="required" class="form" placeholder="Email" />
+                                    </div>
+                                    <div class="col-md-12">
                                         <!-- Subject -->
                                         <input type="text" name="subject" id="subject" required="required" class="form" placeholder="Subject" />
                                     </div><!-- End Left Inputs -->
                                     <!-- Right Inputs -->
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <!-- Message -->
-                                        <textarea name="message" id="message" class="form textarea"  placeholder="Message"></textarea>
+                                        <textarea class="form" id="message" name="message" placeholder="Enter your message"></textarea>
                                     </div><!-- End Right Inputs -->
-                                    <!-- Bottom Submit -->
-                                    <div class="relative fullwidth col-xs-12">
-                                        <!-- Send Button -->
-                                        <button onclick="alert('Message Sent!')" type="submit" id="submit" name="submit" class="form-btn">Send Message</button>
-                                    </div><!-- End Bottom Submit -->
-                                    <!-- Clear -->
-                                    <div class="clear"></div>
-                                </form>
-                            </div><!-- End Contact Form Area -->
-                        </div><!-- End Inner -->
+                                </div>
+                                
+                                <!-- Bottom Submit -->
+                                <div class="text-center">
+                                    <!-- Send Button -->
+                                    <!--<button onclick="alert('Message Sent!')" type="submit" id="submit" name="submit" class="form-btn">Send Message</button>-->
+                                    <input type="submit" id="submit" name="submit" class="form-btn" style="width:100% !important;" value="Send Message">
+                                </div><!-- End Bottom Submit -->
+                            </form>
+                        </div><!-- End Contact Form Area -->
                     </div>
                 </div>
-            </div>
         </section>
-		
 		
 		<?php	
 			require '../Database/init.php';
@@ -403,34 +487,21 @@
 	
 					//Recipients
 					$mail->setFrom($_POST['email'], $_POST['name']);
-					$mail->addAddress('keechu613@gmail.com', 'JasminPlanet');     // Add a recipient
-					//$mail->addAddress('ellen@example.com');               // Name is optional
-					//$mail->addReplyTo('info@example.com', 'Information');
-					//$mail->addCC('cc@example.com');
-					//$mail->addBCC('bcc@example.com');
-					
-					// Attachments
-					//$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-					//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-	
-	
+					$mail->addAddress('keechu613@gmail.com', 'JasminPlanet');    // Add a recipient
+				
 					// Content
 					$mail->isHTML(true); // Set email format to HTML
 					$mail->Subject = $_POST['subject'];
 					
 					$mail->Body = $_POST['message'];
 	
-					
-					//$mail->MsgHTML($message);
-					//$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 					$mail->charSet = "UTF-8"; 
 	
 					
-					$mail->send();
-					$mail->SMTPDebug = 0;
-					
-					echo '<p hidden>Message has been sent</p>';
-					
+                    if($mail->send())
+                    {
+                        echo "<script> alert('Message has been sent.');location='landing.php'</script>";
+                    }
 				} catch (Exception $e) {
 					echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 				}
@@ -441,8 +512,7 @@
         <!-- ============ Footer Section  ============= -->
         <footer class="sub_footer">
             <div class="container">
-                
-                <div class="col-md-4"><p class="sub-footer-text text-center">Back to <a href="#top">TOP</a></p>
+                <div class="col-md-12"><p class="sub-footer-text text-right">Back to <a href="#top">TOP</a></p>
                 </div>
                 
             </div>
