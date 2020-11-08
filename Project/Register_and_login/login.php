@@ -60,7 +60,7 @@
 			else if ($_SESSION['role']=="Management")
 			{
 				$_SESSION['user_id']=$results[0]['user_id'];
-				header("location: ../Management/dashboard.php");
+				header("location: ../Management/management_dashboard.php");
 			}
 		}
 	}
