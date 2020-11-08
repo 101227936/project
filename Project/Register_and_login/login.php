@@ -33,15 +33,36 @@
 	if (isset($_POST['btnSave']))
 	{
 		$db->where("email", $_POST['useremail']);
+		$db->where("status", "Active","=");
 		$db->where("password", encrypt_decrypt("encrypt",trim($_POST['password'])));
 		$results = $db->get ('tbl_login');
-		if($results) {
-			echo "You are logged";
-			header("location: ../Member/main_menu.php");
-		} else {
-			echo "Wrong user/password";
+		
+		
+		if (sizeof($results)==0)
+		{
+			echo "<script> alert('Failed');location='login.php'</script>";
 		}
-
+		
+		else
+		{
+			$_SESSION['role']=$results[0]['role'];
+		
+			if($_SESSION['role']=="Member")
+			{
+				$_SESSION['user_id']=$results[0]['user_id'];
+				header("location: ../Member/main_menu.php");
+			}
+			else if ($_SESSION['role']=="Operation")
+			{
+				$_SESSION['user_id']=$results[0]['user_id'];
+				header("location: ../Operation/order_list.php");
+			}
+			else if ($_SESSION['role']=="Management")
+			{
+				$_SESSION['user_id']=$results[0]['user_id'];
+				header("location: ../Management/dashboard.php");
+			}
+		}
 	}
 	?>	
 	
@@ -67,22 +88,24 @@
                                     <p class="text-muted mb-4 mt-3">Please enter your email address and password.</p>
                                 </div>
 
-                                <form method="post" >
+                                <form method="post" class="parsley-examples" >
 
                                     <div class="form-group mb-3">
                                         <label for="useremail">User Email</label>
-                                        <input class="form-control" type="useremail" id="useremail" name="useremail"required="" placeholder="Enter your user email">
+										 <input class="form-control" type="email" id="useremail" name="useremail"  placeholder="Enter your email"required>
+                                  
                                     </div>
 									
                                     <div class="form-group mb-3">
                                         <label for="password">Password</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="password" id="password"  name="password" class="form-control" placeholder="Enter your password">
-                                            <div class="input-group-append" data-password="false">
+                                        <div class="input-group-append" data-password="false">
                                                 <div class="input-group-text">
                                                     <span class="password-eye"></span>
                                                 </div>
-                                            </div>
+                                        </div>
+											<input  type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                                            
                                         </div>
                                     </div>
 
@@ -91,7 +114,7 @@
                                     </div>
 
                                     <div class="form-group mb-0 text-center">
-                                        <button class="btn btn-primary btn-block"id="btnSave" name="btnSave"  type="submit"> Log In </button>
+                                        <button class="btn btn-primary btn-block"id="btnSave"  name="btnSave"  type="submit"> Log In </button>
                                     </div>
 									
 									
@@ -128,6 +151,13 @@
 
         <!-- App js -->
         <script src="../assets/js/app.min.js"></script>
+		
+		<!-- Plugin js-->
+        <script src="../assets/libs/parsleyjs/parsley.min.js"></script>
+
+        <!-- Validation init js-->
+        <script src="../assets/js/pages/form-validation.init.js"></script>
+        
         
     </body>
 </html>
