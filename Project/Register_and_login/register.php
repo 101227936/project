@@ -25,46 +25,158 @@
     <body class="authentication-bg authentication-bg-pattern">
 	
 	<?php	
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\Exception;
+	use PHPMailer\PHPMailer\SMTP;
+
+	require 'PHPMailer/src/Exception.php';
+	require 'PHPMailer/src/PHPMailer.php';
+	require 'PHPMailer/src/SMTP.php';
 	require '../Database/init.php';
 	require "../encrypt.php";
-	if(isset($_POST['btnSave']))
-	{
+	if(isset($_POST['btnSave'])){
 		
-		
-		
-		$data = Array (
+		$db->where("email", $_POST['email_id']);
+	
+		$results = $db->get ('tbl_login');
+
+		if($results) {
+			echo "<script> alert('Email Already Exit');location='register.php'</script>";
+			
+		} else if ($_POST['password'] != $_POST['confirmpassword'])
+		{
+			echo "<script> alert('User Password Is Different');location='register.php'</script>";
+		}
+		else 
+		{
+			
+			$data = Array (
                           
-                           'email' => $_POST['email_id'],
-                           'password' => encrypt_decrypt("encrypt",trim($_POST['password'])),
-						   'role' => "Member",
-						   'status' => "Inactive"
-		);
-		
-		$data2 = Array (
-						  'user_profile'=> "Image/Profile/default.png",
+                        'email' => $_POST['email_id'],
+                        'password' => encrypt_decrypt("encrypt",trim($_POST['password'])),
+						'role' => "Member",
+						'status' => "Inactive"
+							);
+							
+							$id = $db->insert ('tbl_login', $data);
+				
+							$last_id= $db->getOne('tbl_login','max(login_id)');
+							//print_r("<pre>");
+							//print_r($last_id);
+							//print_r($db->getLastQuery());
+							//print_r("</pre>");
+							
+			$data2 = Array (
+						  'user_profile'=> "../Image/Profile/20201021103922.png",
                           'user_name'=> $_POST['user_name'],
 						  'user_phone'=> $_POST['user_phone'],
 						  'user_address'=> $_POST['user_address'],
 						  'user_reward' => "0",
 						  'newsletter_status' => "Inactive",
-						  'login_id' => 'user_id'
+						  'login_id' => $last_id['max(login_id)']
 						  
-		);
-		$db->where("email", $_POST['email_id']);
-		$results = $db->get ('tbl_login');
-		if($results) {
-			echo "This Email Already Exits";
+							);
+
 			
-		} else {
-			$id = $db->insert ('tbl_login', $data);
-			$id = $db->insert ('tbl_user', $data2);
-			if($id){
 			
-			echo 'user was created Successfully. Id=' . $id;
-			header("location: EmailVerificationMailer.php");
+			$id2 = $db->insert ('tbl_user', $data2);
+			if($id && $id2){
+					// Instantiation and passing `true` enables exceptions
+					$mail = new PHPMailer(true);
+					try {
 			
-			}else {echo "Sign up Unsuccessfuly. User ID Already Exits";}
-			}
+
+						$data = Array (
+							'status' => "Active"
+
+						);
+						$db->where ("email", $_POST['email_id']);
+
+						if($db->update ('tbl_login', $data))
+						{
+							echo "<script> alert('User Verification Sent to Your Email Account. Please Activate It'location='l.php'</script>)";
+						
+						}else {echo "Update Unsuccessfuly. User ID Already Exits";}
+						
+						
+						
+						
+					$mail->SMTPOptions = array(
+						'ssl' => array(
+						'verify_peer' => false,
+						'verify_peer_name' => false,
+						'allow_self_signed' => true
+						)
+					);
+					
+					//Server settings
+					$mail->SMTPDebug = 0;                      // Enable verbose debug output
+					$mail->isSMTP();                                            // Send using SMTP
+					$mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+					$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+					$mail->Username   = 'fcmsmember@gmail.com';                     // SMTP username
+					$mail->Password   = 'howtoing';                               // SMTP password
+					$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+					$mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+					//Recipients
+					$mail->setFrom('fcmsmember@gmail.com', 'Mailer');
+					$mail->addAddress('keechu613@gmail.com', 'JasminPlanet');     // Add a recipient
+					//$mail->addAddress('ellen@example.com');               // Name is optional
+					//$mail->addReplyTo('info@example.com', 'Information');
+					//$mail->addCC('cc@example.com');
+					//$mail->addBCC('bcc@example.com');
+
+					// Attachments
+					//$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+					//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+					
+					$data = array(
+						'login_id'=>$last_id['max(login_id)'],
+						'status'=>'Active',
+						'url'=>$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])
+					);
+					
+					$query = http_build_query($data);
+
+					$url = "http://" .$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/email-templates/email-verification.php';
+					
+					$message = file_get_contents($url.'?'.$query);
+					
+					
+					
+					$xpath = new DOMXPath(@DOMDocument::loadHTML($message));
+					$images = $xpath->evaluate("//img");
+					if($images)
+					{
+						$i=0;
+						foreach ($images as $image) {
+							$src = $image->getAttribute('src');
+							$mail->AddEmbeddedImage('email-templates/'.$src, $i);
+							$message=str_replace($src,"cid:".$i,$message);
+							$i++;
+						}
+					}
+
+					// Content
+					$mail->isHTML(true); // Set email format to HTML
+					$mail->Subject = 'Here is the subject';
+					$mail->MsgHTML($message);
+					$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+					$mail->charSet = "UTF-8"; 
+
+					$mail->send();
+					echo 'Message has been sent';
+				} catch (Exception $e) {
+					echo  "<script> alert('User Verification Sent to Your Email Account. Please Activate It'location='login.php'</script>)";
+				}
+
+			
+			
+			
+			}else {echo "<script> alert('Register Failed');location='register.php'</script>";}
+		}
+	
 	}
 	?>	
 	
@@ -102,7 +214,7 @@
                                     <p class="text-muted mb-4 mt-3">Don't have an account? Create your account, it takes less than a minute</p>
                                 </div>
 
-                                <form method="post" action="#">
+                                <form method="post" action="#" class="parsley-examples">
 	
  
 									
@@ -112,7 +224,7 @@
 									</div>
 									<div class="form-group">
                                         <label for="userid">User Phone</label>
-                                        <input class="form-control" type="text" id="user_phone" name="user_phone" placeholder="Enter your phone" required>
+                                        <input class="form-control" type="type" data-parsley-type="digits" data-parsley-length="[10,11]" parsley-trigger="change" id="user_phone" name="user_phone" placeholder="Enter your phone"  required>
                                     </div>
 									<div class="form-group">
                                         <label for="userid">Home Address</label>
@@ -120,29 +232,31 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="emailaddress">Email address</label>
-                                        <input class="form-control" type="email" id="email_id" name="email_id" required placeholder="Enter your email">
+                                        <input class="form-control" type="email" id="email_id" name="email_id"  placeholder="Enter your email"required>
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>
                                         <div class="input-group input-group-merge">
-                                            <input  type="password" id="password" name="password" class="form-control" placeholder="Enter your password" minlength="8">
-                                            <div class="input-group-append" data-password="false">
+										<div class="input-group-append" data-password="false">
                                                 <div class="input-group-text">
                                                     <span class="password-eye"></span>
                                                 </div>
-                                            </div>
+                                        </div>
+                                            <input  type="password" id="password" name="password" class="form-control" placeholder="Enter your password" minlength="8" required>
+                                            
                                         </div>
                                     </div>
 									
 									 <div class="form-group">
                                         <label for="confirmpassword">Confirm Password</label>
                                         <div class="input-group input-group-merge">
-                                            <input type="confirmpassword" id="confirmpassword" name="confirmpassword" class="form-control" minlength="8" placeholder="Enter your confirm password">
-                                            <div class="input-group-append" data-password="false">
+										<div class="input-group-append" data-password="false">
                                                 <div class="input-group-text">
                                                     <span class="password-eye"></span>
                                                 </div>
-                                            </div>
+                                         </div>
+                                            <input type="confirmpassword" id="confirmpassword" name="confirmpassword" class="form-control" minlength="8" placeholder="Enter your confirm password" required>
+                                            
                                         </div>
                                     </div>
                                    
@@ -180,6 +294,12 @@
 
         <!-- App js -->
         <script src="../assets/js/app.min.js"></script>
+		
+		<!-- Plugin js-->
+        <script src="../assets/libs/parsleyjs/parsley.min.js"></script>
+
+        <!-- Validation init js-->
+        <script src="../assets/js/pages/form-validation.init.js"></script>
         
     </body>
 </html>
