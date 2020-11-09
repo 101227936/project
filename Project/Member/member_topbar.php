@@ -1,5 +1,8 @@
 <?php
+	require '../Database/init.php';
+	require "../encrypt.php";
 	ob_start();
+	session_start();
 	
 	$_SESSION['user_id']=1;
 	
@@ -8,7 +11,29 @@
 	$order=$db->get("tbl_order");
 	$name=$order[0]["user_name"];
 	$image=$order[1]["user_profile"];
+	
+	
+	if (isset($_SESSION['role']))
+	{
+		if ($_SESSION['role']=="Operation")
+		{
+			header("location: ../Operation/order_list.php");
+		}
+		else if ($_SESSION['role']=="Management")
+		{
+			header("location: ../Management/dashboard.php");
+		}
+	}else 
+	{
+		session_destroy();
+		header("location: ../Landing/landing.php");
+	}
 ?>
+
+
+
+
+	
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +70,7 @@
 							</a>
 							
 							<!-- item-->
-							<a href="subscribe_newsletter.php" class="dropdown-item notify-item">
+							<a href="" class="dropdown-item notify-item">
 								<i class="mdi mdi-tag-outline"></i>
 								<span>My newsletter</span>
 							</a>
@@ -53,7 +78,7 @@
 							<div class="dropdown-divider"></div>
 
 							<!-- item-->
-							<a href="../Landing/landing.php" onclick="return confirm('Are you sure want to logout?')" class="dropdown-item notify-item">
+							<a href="../Landing/landing.php?logout=1" onclick="return confirm('Are you sure want to logout?')" class="dropdown-item notify-item">
 								<i class="fe-log-out"></i>
 								<span>Logout</span>
 							</a>
