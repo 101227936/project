@@ -1,10 +1,9 @@
 <?php
-	require '../Database/init.php';
-	//require "../encrypt.php";
+	require "../encrypt.php";
 	ob_start();
 	session_start();
 	
-	//$_SESSION['user_id']=1;
+	$_SESSION['user_id']=1;
 	
 	$db->join("tbl_user", "tbl_order.user_id=tbl_user.user_id", "LEFT");
 	$db->where("tbl_order.user_id",$_SESSION['user_id'],"=");
