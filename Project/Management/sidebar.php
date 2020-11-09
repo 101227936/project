@@ -19,22 +19,6 @@
 						<ul class="nav-second-level">
 							<li>
 								<a href="product_list.php">Product List</a>
-							<ul class="nav-second-level">
-								<li>
-									<?php
-										$products = $db->get("tbl_product");
-															
-										foreach($products as $product)
-										{								
-									?>
-									<li>
-										<a href="product_detail.php?product_id=<?=$product["product_id"]?>"><?="Product detail (".$product["product_id"].")"?></a>
-									</li>
-									<?php
-										}
-									?>
-								</li>
-							</ul>
 							</li>
 						</ul>
 					</div>
@@ -50,22 +34,6 @@
 						<ul class="nav-second-level">
 							<li>
 								<a href="redeem_list.php">Product Redeem List</a>
-							<ul class="nav-second-level">
-								<li>
-									<?php
-										$products = $db->get("tbl_product_redeem");
-															
-										foreach($products as $product)
-										{								
-									?>
-									<li>
-										<a href="redeem_detail.php?product_redeem_id=<?=$product["product_redeem_id"]?>"><?="Product redeem detail (".$product["product_redeem_id"].")"?></a>
-									</li>
-									<?php
-										}
-									?>
-								</li>
-							</ul>
 							</li>
 						</ul>
 					</div>
