@@ -351,7 +351,7 @@
 
         <!-- ============ Contact Section  ============= -->
         <section id ="contact" class="description_content" style="padding-top:20px;padding-bottom:100px;">
-            <div  class="beer background_content">
+            <div  class="pricing background_content">
                 <h1><span>Contact</span> Us</h1>
             </div>
             <div class="text-content container"> 
