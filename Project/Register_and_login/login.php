@@ -29,18 +29,19 @@
 	<?php
 	require '../Database/init.php';
 	require "../encrypt.php";
+	session_start();
 	
 	if (isset($_POST['btnSave']))
 	{
+		
 		$db->where("email", $_POST['useremail']);
 		$db->where("status", "Active","=");
 		$db->where("password", encrypt_decrypt("encrypt",trim($_POST['password'])));
 		$results = $db->get ('tbl_login');
 		
-		
 		if (sizeof($results)==0)
 		{
-			echo "<script> alert('Failed');location='login.php'</script>";
+			echo "<script> alert('Failed');location=' ../Register_and_login/login.php'</script>";
 		}
 		
 		else
@@ -49,19 +50,33 @@
 		
 			if($_SESSION['role']=="Member")
 			{
-				$_SESSION['user_id']=$results[0]['user_id'];
+				$db->where("tbl_user.login_id",$results[0]['login_id'] );
+				$results1 =$db->get("tbl_user");
+
+				$_SESSION['user_id']=$results1[0]['user_id'];
+				//print_r ($results1);
+				//print_r("<pre>");
+				//print_r($product_details);
+				//print_r($db->getLastQuery());
+				//print_r("</pre>");
 				header("location: ../Member/main_menu.php");
 			}
 			else if ($_SESSION['role']=="Operation")
 			{
-				$_SESSION['user_id']=$results[0]['user_id'];
+				$db->where("tbl_staff.login_id",$results[0]['login_id'] );
+				$results1 =$db->get("tbl_staff");
+				$_SESSION['user_id']=$results[0]['staff_id'];
 				header("location: ../Operation/order_list.php");
 			}
 			else if ($_SESSION['role']=="Management")
 			{
-				$_SESSION['user_id']=$results[0]['user_id'];
-				header("location: ../Management/management_dashboard.php");
+				$db->where("tbl_staff.login_id",$results[0]['login_id'] );
+				$results1 =$db->get("tbl_staff");
+				$_SESSION['user_id']=$results[0]['staff_id'];
+				header("location: ../Management/dashboard.php");
 			}
+			//print_r ($_SESSION['user_id']);
+			//print_r ($_SESSION['role']);
 		}
 	}
 	?>	
