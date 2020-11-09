@@ -5,7 +5,7 @@ ob_start();
 session_start();
 //error_reporting(0);
 //$_SESSION['user_id']=1;
-print_r($_SESSION['user_id']);
+//print_r($_SESSION['user_id']);
 if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
 ?>
 <!DOCTYPE html>
@@ -271,7 +271,7 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                 <div class="card-box text-center">
                                     <?php
                                         $db->join("tbl_login l", "l.login_id=u.login_id", "INNER");
-                                        $db->where("u.login_id", 3);
+                                        $db->where("u.user_id",$_SESSION['user_id'] ,"=");
                                         $rows = $db->getOne ("tbl_user u");
                                     ?>
                                     <img src="<?php echo $rows['user_profile']?>" width="196" height="196" alt="profile-image">
