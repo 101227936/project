@@ -166,12 +166,12 @@
 													</div>
 												</div>
 											</div><!-- /.modal -->
-											<button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2" data-toggle="modal" data-target="#con-close-modal"><i class="mdi mdi-basket mr-1"></i> Update Delivery Information</button>
+											<button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2" data-toggle="modal" data-target="#con-close-modal"><i class="mdi mdi-truck mr-1"></i> Update Delivery Information</button>
 											<?php
 												if(!empty($order['delivery_name'])&&!empty($order['delivery_phone'])&&!empty($order['delivery_car_model'])&&!empty($order['delivery_car_plate_number']))
 												{
 													?>
-													<a href="send_delivery_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?\nOnce email is sent, delivery information cannot be changed anymore')"><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-truck mr-1"></i> Change & Send Email</button></a>
+													<a href="send_delivery_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?\nOnce email is sent, delivery information cannot be changed anymore')"><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-email mr-1"></i> Change & Send Email</button></a>
 													<?php
 												}
 											?>
