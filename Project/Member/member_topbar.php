@@ -1,5 +1,5 @@
 <?php
-	require "../encrypt.php";
+	//require "../encrypt.php";
 	ob_start();
 	session_start();
 	
