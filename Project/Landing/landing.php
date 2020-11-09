@@ -1,41 +1,10 @@
 <?php
 	require "../Database/init.php";
 	ob_start();
-	//$db->join("tbl_product", "tbl_product_detail.product_id=tbl_product.product_id", "LEFT");
-	//if(!empty($_GET['search']))$db->where ("tbl_product.product_name", '%'.$_GET['search'].'%', 'like');
-	//if(!empty($_GET['type']))$db->where ("tbl_product.product_type", $_GET['type'], '=');
-    //$db->where("tbl_product_detail.product_detail_status","Available","=");
-
-    //$db->join("tbl_product_detail pd","p.product_id = pd.product_id","INNER");
-    //$db->groupBy ("p.product_id");
-    //$db->where("pd.product_detail_status","Available","=");
-	//$product_details = $db->get("tbl_product p");
-	//if(!empty($_GET['page']))$page = $_GET['page'];
-	//else $page = 1;
-	//$db->pageLimit = 6;
-    //$product_details = $db->arraybuilder()->paginate("tbl_product p", $page);
-    //print_r("<pre>");
-	//print_r($product_details);
-	//print_r($db->getLastQuery());
-	//print_r("</pre>");
 ?>
 
-
-<?php
-	require "../Database/init.php";
-	ob_start();
-	if(!empty($_GET['search']))$db->where ("tbl_product_redeem.product_redeem_name", '%'.$_GET['search'].'%', 'like');
-	if(!empty($_GET['type']))$db->where ("tbl_product_redeem.product_redeem_type", $_GET['type'], '=');
-	$db->where("tbl_product_redeem.product_redeem_status","Available","=");
-	
-	if(!empty($_GET['page']))$page = $_GET['page'];
-	else $page = 1;
-	$db->pageLimit = 4;
-	$product_redeem_details = $db->arraybuilder()->paginate("tbl_product_redeem", $page);
-?>
 <!DOCTYPE html>
 <html>
-
     <head>
         <meta charset="UTF-8">
         <title>FoodEdge Gourmet Catering</title>
@@ -52,13 +21,12 @@
         <link rel="icon" href="favicon-1.ico" type="image/x-icon">
       
         <!-- Font Awesome Icon Library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-.checked {
-  color: orange;
-}
-</style>
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+        .checked {
+        color: orange;
+        }
+        </style>
     </head>
 
     <body>
@@ -116,7 +84,6 @@
         </div>
 
         <!-- ============ About Us ============= -->
-
         <section id="story" class="description_content">
             <div class="text-content container">
                 <div class="col-md-6">
@@ -140,26 +107,21 @@
        <!-- ============ Main Menu Pricing  ============= -->
         <section id ="pricing" class="description_content">
              <div class="pricing background_content">
-                <h1><span>Special Cuisine</span> pricing</h1>
+                <h1><span>Main</span> Menu</h1>
              </div>
             <div class="text-content container"> 
                 <div class="container">
                     <div class="row">
                         <?php
-
                         $db->join("tbl_product_detail pd","p.product_id = pd.product_id","INNER");
                         $db->groupBy ("p.product_id");
                         $product_details = $db->get("tbl_product p");
-                        //print_r("<pre>");
-                        //print_r($sow);
-                        //print_r($db->getLastQuery());
-                        //print_r("</pre>");
+
                         $i=0;
 						foreach($product_details as $product_detail)
 						{
                             ?>
                                 <div class="col-md-4">
-                                    <!--<img class="card-img-top img-fluid" src="../assets/images/small/img-5.jpg" height="300px" alt="Card image cap">-->
                                     <img src="<?=$product_detail['product_image']?>" width="80%" height="300px" alt="product-pic" class="img-fluid"/>
                                     <div class="card-body">
                                         <h2 class="card-title" style="padding-top:20px;padding-bottom:10px !important"><?=$product_detail['product_name']?></h2>
@@ -243,10 +205,6 @@
                                         $db->join("tbl_product_detail pd","p.product_id = pd.product_id","INNER");
                                         $db->where("p.product_id",$product_detail['product_id'],"=");
                                         $product_details = $db->getOne("tbl_product p","max(product_detail_price) AS max, min(product_detail_price) AS min");
-                                        //print_r("<pre>");
-                                        //print_r($product_details);
-                                        //print_r($db->getLastQuery());
-                                        //print_r("</pre>");
                                         ?>
                                         <p>
                                             <?php
@@ -270,7 +228,7 @@
                                             $na=str_replace(" ",", ",$msg);
                                             $na2=substr_replace($na, ' ', -2);
                                             ?>
-                                            <p style="color:red;text-align:center;font-size:15px;padding-bottom:40px;">*Not available for <?=$na2?> size</p>
+                                            <p style="color:red;text-align:center;font-size:15px;padding-bottom:70px;">*Not available for <?=$na2?> size</p>
                                             <?php
                                         }
                                         ?>
@@ -286,26 +244,21 @@
 
 
         <!-- ============ Top Redeem Listing Page  ============= -->
-       
         <section id ="bread" class="description_content" style="padding-top:10px !important">
              <div  class="bread background_content">
-                <h1>Top Redeem Item <span>Listing</span></h1>
+                <h1>Redeem Item <span>Listing</span></h1>
             </div>
             <div class="text-content container"> 
                 <div class="container">
                    <div class="row">
                         <?php
                         $product_redeem_details = $db->get("tbl_product_redeem");
-                        //print_r("<pre>");
-                        //print_r($sow);
-                        //print_r($db->getLastQuery());
-                        //print_r("</pre>");
+
                         $i=0;
 						foreach($product_redeem_details as $product_redeem_detail)
 						{
                             ?>
                                 <div class="col-md-4">
-                                    <!--<img class="card-img-top img-fluid" src="../assets/images/small/img-5.jpg" height="300px" alt="Card image cap">-->
                                     <img src="<?=$product_redeem_detail['product_redeem_image']?>" width="80%" height="300px" alt="product-pic" class="img-fluid"/>
                                     <div class="card-body">
                                         <h2 class="card-title" style="padding-top:20px;padding-bottom:10px !important"><?=$product_redeem_detail['product_redeem_name']?></h2>
@@ -339,7 +292,7 @@
                                         <p style="text-align:left"><?=$product_redeem_detail['product_redeem_description']?></p>
                                         <br>
                                        <p>
-                                        <h2 class="text-muted" style="padding-top:15px;padding-bottom:10px;"><?=$product_redeem_detail['product_redeem_point']." Point"?></h2>
+                                        <h2 class="text-muted" style="padding-top:5px;padding-bottom:70px;"><?=$product_redeem_detail['product_redeem_point']." Point"?></h2>
                                         </p>
                                     </div>
                                 </div>
@@ -377,13 +330,11 @@
                                 <div class="item active">
                                     <img src="images/slider1.jpg"  alt="...">
                                     <div class="carousel-caption">
-                                        
                                     </div>
                                 </div>
                                 <div class="item">
                                     <img src="images/slider2.jpg" alt="...">
                                     <div class="carousel-caption">
-                                        
                                     </div>
                                 </div>
                                 <div class="item">
@@ -400,7 +351,7 @@
 
         <!-- ============ Contact Section  ============= -->
         <section id ="contact" class="description_content" style="padding-top:20px;padding-bottom:100px;">
-            <div  class="featured background_content">
+            <div  class="beer background_content">
                 <h1><span>Contact</span> Us</h1>
             </div>
             <div class="text-content container"> 
