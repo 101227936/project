@@ -30,11 +30,6 @@
 	}
 ?>
 
-
-
-
-	
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -70,7 +65,7 @@
 							</a>
 							
 							<!-- item-->
-							<a href="" class="dropdown-item notify-item">
+							<a href="subscribe_newsletter.php" class="dropdown-item notify-item">
 								<i class="mdi mdi-tag-outline"></i>
 								<span>My newsletter</span>
 							</a>
