@@ -51,9 +51,6 @@
 			$db->where("tbl_login.status","Active");
 			$orders = $db->get("tbl_login");
 			
-			$db->join("tbl_product_detail","tbl_product_detail.product_id=tbl_product.product_id","INNER");
-			$products=$db->get("tbl_product");
-			
 			$db->where("tbl_login.role","Operation");
 			$operation = $db->get("tbl_login");
 		?>
@@ -434,25 +431,31 @@
 								<div class = "row">
 									<div class="col-xl">
 										<div class="card-box">
+											<div class="card-widgets">
+												<a data-toggle="collapse" href="#cardCollpase2" role="button" aria-expanded="false" aria-controls="cardCollpase2"><i class="mdi mdi-minus"></i></a>
+											</div>
 											<h4 class="header-title mb-0">Sales</h4>
-											<div class="widget-chart text-center" dir="ltr">
-												<h5 class="text-muted mt-1">Total sales made today</h5>
-												<?php
-													//'2016-01-01'
-													$sales = 0;
-													$get = new DateTime();
-													$today = $get->format("Y-m-d");
-													foreach($members as $order)
-													{
-														$date = new DateTime($order['order_datetime']);
-														$orderDate = $date->format("Y-m-d");
-														if($orderDate == $today && $order['payment_status']=="Confirmed")
+
+											<div id="cardCollpase2" class="collapse pt-0 show">
+												<div class="widget-chart text-center" dir="ltr">
+													<h5 class="text-muted mt-1">Total sales made today</h5>
+													<?php
+														//'2016-01-01'
+														$sales = 0;
+														$get = new DateTime();
+														$today = $get->format("Y-m-d");
+														foreach($members as $order)
 														{
-															$sales += $order['amount_price'];
+															$date = new DateTime($order['order_datetime']);
+															$orderDate = $date->format("Y-m-d");
+															if($orderDate == $today && $order['payment_status']=="Confirmed")
+															{
+																$sales += $order['amount_price'];
+															}
 														}
-													}
-												?>
-												<h2>RM<?=$sales?>.00</h2>												
+													?>
+													<h2>RM<?=$sales?>.00</h2>												
+												</div>
 											</div>
 										</div>
 									</div>
@@ -460,48 +463,52 @@
 								
 								<div class = "row">
 									<div class="col-xl">
-										<div class="card-box"  style="position: relative;height: 435px;overflow: auto;display: block;">
-
+										<div class="card-box">
+											<div class="card-widgets">
+												<a data-toggle="collapse" href="#cardCollpase3" role="button" aria-expanded="false" aria-controls="cardCollpase3"><i class="mdi mdi-minus"></i></a>
+											</div>
 											<h4 class="header-title mb-0">Reviews</h4>
 
-											<div class="widget-chart text-center" dir="ltr">
-												<div class="row mt-1">
-													<table class="table table-centered table-hover mb-0">
-														<thead>
-															<tr>
-																<th class="border-top-0">OrderID</th>
-																<th class="border-top-0">Product</th>
-																<th class="border-top-0">Review</th>
-																<th class="border-top-0">Date</th>
-															</tr>
-														</thead>
-														<tbody>
-															<?php
-																foreach($orders as $order)
-																{
-																	if($order['comment'] != null)
+											<div id="cardCollpase3" class="collapse pt-3 show">
+												<div class="widget-chart text-center" dir="ltr"  style="position: relative;height: 345px; overflow-y: auto; overflow-x:hidden; display: block;">
+													<div class="row mt-1">
+														<table id="basic-datatable" class="table dt-responsive nowrap w-100">
+															<thead>
+																<tr>
+																	<th class="border-top-0">OrderID</th>
+																	<th class="border-top-0">Product</th>
+																	<th class="border-top-0">Review</th>
+																	<th class="border-top-0">Date</th>
+																</tr>
+															</thead>
+															<tbody>
+																<?php
+																	foreach($orders as $order)
 																	{
-																		$order_date = new DateTime($order['order_datetime']);
-																		$order_Date = $order_date->format('d.m.Y');
-																		$size = str_split($order['product_detail_size']);
-																		?>
-																		<tr>
-																			<td><?=$order['order_id']?></td>
-																			<td>
-																				<a href="product_detail.php?product_id=<?=$order['product_id']?>" />
-																				<p>
-																					<img src="<?=$order['product_image']?>" height="50px" alt="product-pic"/>
-																				</p><?=$order['product_name']?> (<?=$size[0]?>)
-																			</td>
-																			<td><?=$order['comment']?></td>
-																			<td><?=$order_Date?></td>
-																		</tr>
-																		<?php
+																		if($order['comment'] != null)
+																		{
+																			$order_date = new DateTime($order['order_datetime']);
+																			$order_Date = $order_date->format('d.m.Y');
+																			$size = str_split($order['product_detail_size']);
+																			?>
+																			<tr>
+																				<td><?=$order['order_id']?></td>
+																				<td>
+																					<a href="product_detail.php?product_id=<?=$order['product_id']?>" />
+																					<p>
+																						<img src="<?=$order['product_image']?>" height="50px" alt="product-pic"/>
+																					</p><?=$order['product_name']?> (<?=$size[0]?>)
+																				</td>
+																				<td><?=$order['comment']?></td>
+																				<td><?=$order_Date?></td>
+																			</tr>
+																			<?php
+																		}
 																	}
-																}
-															?>
-														</tbody>
-													</table>
+																?>
+															</tbody>
+														</table>
+													</div>
 												</div>
 											</div>
 										</div> <!-- end card-box -->
@@ -515,156 +522,167 @@
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card-box">
+									<div class="card-widgets">
+										<a data-toggle="collapse" href="#cardCollpase4" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+									</div>
                                     <h4 class="header-title mb-3">Transaction History</h4>
 
-                                    <div style="position: relative;height: 700px;overflow: auto;display: block;">
-                                        <table class="table table-centered table-hover mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-top-0">Name</th>
-                                                    <th class="border-top-0">Card</th>
-                                                    <th class="border-top-0">Date</th>
-                                                    <th class="border-top-0">Amount</th>
-                                                    <th class="border-top-0">Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-												<?php
-													$getMember = $members;
-													function sortFunction( $a, $b ) {
-														return strtotime($b["order_datetime"]) - strtotime($a["order_datetime"]);
-													}
-													usort($getMember, "sortFunction");
-													foreach($getMember as $member)
-													{
-														?>
-															<tr>
-																<td>
-																	<img src="<?php echo $member['user_profile']?>" alt="user-pic" class="rounded-circle avatar-sm bx-shadow-lg" />
-																	<p><span><?php echo $member['user_name'] ?></span></p>
-																</td>
-																<td>
-																	<img src="../assets/images/cards/visa.png" alt="user-card" height="24" />
+                                    <div id="cardCollpase4" class="collapse pt-3 show">
+                                       <div style="position: relative;height: 700px;overflow: auto;display: block;">
+											<table class="table table-centered table-hover mb-0">
+												<thead>
+													<tr>
+														<th class="border-top-0">Name</th>
+														<th class="border-top-0">Card</th>
+														<th class="border-top-0">Date</th>
+														<th class="border-top-0">Amount</th>
+														<th class="border-top-0">Status</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php
+														$getMember = $members;
+														function sortFunction( $a, $b ) {
+															return strtotime($b["order_datetime"]) - strtotime($a["order_datetime"]);
+														}
+														usort($getMember, "sortFunction");
+														foreach($getMember as $member)
+														{
+															?>
+																<tr>
+																	<td>
+																		<img src="<?php echo $member['user_profile']?>" alt="user-pic" class="rounded-circle avatar-sm bx-shadow-lg" />
+																		<p><span><?php echo $member['user_name'] ?></span></p>
+																	</td>
+																	<td>
+																		<img src="../assets/images/cards/visa.png" alt="user-card" height="24" />
+																		<?php
+																			$num = $member['card_number'];
+																			$last = substr($num, -4);
+																		?>
+																		<span class="ml-2">**** <?=$last?></span>
+																	</td>
+																	<td><?php
+																			$date = new DateTime($member['order_datetime']);
+																			$sDate = $date->format("d.m.Y");
+																			echo $sDate;
+																		?>
+																	</td>
+																	<td>RM <?=($member['amount_price'])?>.00</td>
 																	<?php
-																		$num = $member['card_number'];
-																		$last = substr($num, -4);
+																		if($member['payment_status']=='Waiting for Refund')
+																		{
+																			?>
+																				<td><span class="badge badge-pill badge-warning">Pending Refund</span></td>
+																			<?php
+																		}else if($member['payment_status']=='Refunded')
+																		{
+																			?>
+																				<td><span class="badge badge-pill badge-danger">Refunded</span></td>
+																			<?php
+																		}else if($member['payment_status']=='Confirmed')
+																		{
+																			?>
+																				<td><span class="badge badge-pill badge-success">Confirmed</span></td>
+																			<?php
+																		}
 																	?>
-																	<span class="ml-2">**** <?=$last?></span>
-																</td>
-																<td><?php
-																		$date = new DateTime($member['order_datetime']);
-																		$sDate = $date->format("d.m.Y");
-																		echo $sDate;
-																	?>
-																</td>
-																<td>RM <?=($member['amount_price'])?>.00</td>
-																<?php
-																	if($member['payment_status']=='Waiting for Refund')
-																	{
-																		?>
-																			<td><span class="badge badge-pill badge-warning">Pending Refund</span></td>
-																		<?php
-																	}else if($member['payment_status']=='Refunded')
-																	{
-																		?>
-																			<td><span class="badge badge-pill badge-danger">Refunded</span></td>
-																		<?php
-																	}else if($member['payment_status']=='Confirmed')
-																	{
-																		?>
-																			<td><span class="badge badge-pill badge-success">Confirmed</span></td>
-																		<?php
-																	}
-																?>
-															</tr>
-														<?php
-													}
-												?>
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- end table-responsive -->
-
+																</tr>
+															<?php
+														}
+													?>
+												</tbody>
+											</table>
+										</div><!-- end table-responsive -->
+									</div>
                                 </div> <!-- end card-box-->
                             </div> <!-- end col-->
 							<div class="col-xl-6">
                                 <div class="card-box">
+									<div class="card-widgets">
+										<a data-toggle="collapse" href="#cardCollpase5" role="button" aria-expanded="false" aria-controls="cardCollpase5"><i class="mdi mdi-minus"></i></a>
+									</div>
                                     <h4 class="header-title mb-3">Stock List</h4>
 
-                                    <div style="position: relative;height: 700px;overflow: auto;display: block;">
-                                        <table class="table table-centered table-hover mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-top-0">Category</th>
-                                                    <th class="border-top-0">Product</th>
-                                                    <th class="border-top-0">Size</th>
-                                                    <th class="border-top-0">Price</th>
-                                                    <th class="border-top-0">Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-												<?php
-													$cnt = 0;
-													foreach($products as $product)
-													{
-														?>
-															<?php
-																if($cnt%3==0)
-																{
-																	?>
-																	<tr>
-																		<td rowspan="3"><?=$product['product_type']?></td>
-																		<td rowspan="3" style="width:120px">
-																			<a href="product_detail.php?product_id=<?=$product['product_id']?>" />
-																			<img src="<?=$product['product_image']?>" alt="product-pic" height="50"/>
-																			<p><span><?=$product['product_name']?></span></p>
-																		</td>
-																		<td><?=$product['product_detail_size']?></td>
-																		<td>RM <?=$product['product_detail_price']?>.00</td>
-																		<?php
-																			if(strtolower($product['product_detail_status'])=='not available')
-																			{
-																				?>
-																				<td><span class="badge bg-soft-danger text-danger"><?=$product['product_detail_status']?></span></td>
-																				<?php
-																			}
-																			else if(strtolower($product['product_detail_status'])=='available')
-																			{
-																				?>
-																				<td><span class="badge bg-soft-success text-success"><?=$product['product_detail_status']?></span></td>
-																				<?php
-																			}
-																		?>
-																	</tr>
+                                    <div id="cardCollpase5" class="collapse pt-3 show">
+										<div style="position: relative;height: 700px;overflow: auto;display: block;">
+											<table class="table table-centered table-hover mb-0">
+												<thead>
+													<tr>
+														<th class="border-top-0">Category</th>
+														<th class="border-top-0">Product</th>
+														<th class="border-top-0">Size</th>
+														<th class="border-top-0">Price</th>
+														<th class="border-top-0">Status</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php
+														$db->join("tbl_product_detail","tbl_product_detail.product_id=tbl_product.product_id","INNER");
+														$products=$db->get("tbl_product");
+														$cnt = 0;
+														foreach($products as $product)
+														{
+															?>
 																<?php
-																}else
-																{
-																	?>
-																	<tr>
-																		<td><?=$product['product_detail_size']?></td>
-																		<td>RM <?=$product['product_detail_price']?>.00</td>
-																		<?php
-																			if(strtolower($product['product_detail_status'])=='not available')
-																			{
-																				?>
-																				<td><span class="badge bg-soft-danger text-danger"><?=$product['product_detail_status']?></span></td>
-																				<?php
-																			}
-																			else if(strtolower($product['product_detail_status'])=='available')
-																			{
-																				?>
-																				<td><span class="badge bg-soft-success text-success"><?=$product['product_detail_status']?></span></td>
-																				<?php
-																			}
+																	if($cnt%3==0)
+																	{
 																		?>
-																	</tr>
+																		<tr>
+																			<td rowspan="3"><?=$product['product_type']?></td>
+																			<td rowspan="3" style="width:120px">
+																				<a href="product_detail.php?product_id=<?=$product['product_id']?>" />
+																				<img src="<?=$product['product_image']?>" alt="product-pic" height="50"/>
+																				<p><span><?=$product['product_name']?></span></p>
+																			</td>
+																			<td><?=$product['product_detail_size']?></td>
+																			<td>RM <?=$product['product_detail_price']?>.00</td>
+																			<?php
+																				if(strtolower($product['product_detail_status'])=='not available')
+																				{
+																					?>
+																					<td><span class="badge bg-soft-danger text-danger"><?=$product['product_detail_status']?></span></td>
+																					<?php
+																				}
+																				else if(strtolower($product['product_detail_status'])=='available')
+																				{
+																					?>
+																					<td><span class="badge bg-soft-success text-success"><?=$product['product_detail_status']?></span></td>
+																					<?php
+																				}
+																			?>
+																		</tr>
 																	<?php
-																}
-														$cnt++;
-													}
-												?>
-                                            </tbody>
-                                        </table>
-                                    </div> <!-- end table-responsive -->
+																	}else
+																	{
+																		?>
+																		<tr>
+																			<td><?=$product['product_detail_size']?></td>
+																			<td>RM <?=$product['product_detail_price']?>.00</td>
+																			<?php
+																				if(strtolower($product['product_detail_status'])=='not available')
+																				{
+																					?>
+																					<td><span class="badge bg-soft-danger text-danger"><?=$product['product_detail_status']?></span></td>
+																					<?php
+																				}
+																				else if(strtolower($product['product_detail_status'])=='available')
+																				{
+																					?>
+																					<td><span class="badge bg-soft-success text-success"><?=$product['product_detail_status']?></span></td>
+																					<?php
+																				}
+																			?>
+																		</tr>
+																		<?php
+																	}
+															$cnt++;
+														}
+													?>
+												</tbody>
+											</table>
+										</div> <!-- end table-responsive -->
+									</div>
                                 </div> <!-- end card-box-->
                             </div>
                         </div>
