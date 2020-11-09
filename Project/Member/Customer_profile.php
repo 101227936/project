@@ -5,7 +5,7 @@ ob_start();
 session_start();
 //error_reporting(0);
 //$_SESSION['user_id']=1;
-print_r($_SESSION['user_id']);
+//print_r($_SESSION['user_id']);
 if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
 ?>
 <!DOCTYPE html>
