@@ -282,7 +282,7 @@ INTRO CONTAINER
     background-attachment: fixed;
 }
  .pricing.background_content{
-    background: url('../images/prod_back.jpg') no-repeat center center; 
+    background: url('../images/prod_redeem_back.jpg') no-repeat center center; 
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -294,7 +294,7 @@ INTRO CONTAINER
     background-attachment: fixed;
 }
 .bread.background_content{
-    background: url('../images/prod_back.jpg') no-repeat center center; 
+    background: url('../images/prod_redeem_back.jpg') no-repeat center center; 
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
