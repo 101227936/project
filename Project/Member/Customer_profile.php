@@ -4,7 +4,7 @@ require "../encrypt.php";
 ob_start();
 session_start();
 error_reporting(0);
-$_SESSION['user_id']=1;
+//$_SESSION['user_id']=1;
 if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
 ?>
 <!DOCTYPE html>
@@ -60,7 +60,6 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                             {
                                 $old_password = $rows['password'];
                                
-                                
                                 $data = Array (
                                     'user_name' =>trim($_POST['name']),
                                     'user_phone' => trim($_POST['userPhone']),
@@ -160,7 +159,9 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                         {
                             if(trim($_POST['password'])=="")
                             {
-                                unlink($old_image);
+                                if($old_image!="../Image/Profile/default.png"){
+                                    unlink($old_image);
+                                }
                                 move_uploaded_file($file_tmp,$file_name);
                                 $old_password = $rows['password'];
                                 
@@ -194,7 +195,9 @@ if(empty($_SESSION['user_id']))header("Location: ../Landing/landing.php");
                                 }
                                 else
                                 {
-                                    unlink($old_image);
+                                    if($old_image!="../Image/Profile/default.png"){
+                                        unlink($old_image);
+                                    }
                                     move_uploaded_file($file_tmp,$file_name);
                                     $new_password = encrypt_decrypt("encrypt",trim($_POST['New_password']));
 
