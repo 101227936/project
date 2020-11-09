@@ -106,14 +106,14 @@
 										if($order["order_status"]=="Waiting for Confirmation" || $order["order_status"]=="Pending")
 										{
 											?>
-											<a href="order_confirmation.php?order_id=<?=$order["order_id"]?>&action=Accept" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-success waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Accept</button></a>
-											<a href="order_confirmation.php?order_id=<?=$order["order_id"]?>&action=Reject" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Reject</button></a>
+											<a href="order_confirmation.php?order_id=<?=$order["order_id"]?>&action=Accept" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-success waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-check mr-1"></i> Accept</button></a>
+											<a href="order_confirmation.php?order_id=<?=$order["order_id"]?>&action=Reject" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-danger waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-close mr-1"></i> Reject</button></a>
 											<?php
 										}
 										else if($order["order_status"]=="Menu Edited")
 										{
 											?>
-											<a href="send_confirmation_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Change & Send Email</button></a>
+											<a href="send_confirmation_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-email mr-1"></i> Change & Send Email</button></a>
 											<?php
 										}
 										else if($order["order_status"]=="Accept")
@@ -171,7 +171,7 @@
 												if(!empty($order['delivery_name'])&&!empty($order['delivery_phone'])&&!empty($order['delivery_car_model'])&&!empty($order['delivery_car_plate_number']))
 												{
 													?>
-													<a href="send_delivery_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?\nOnce email is sent, delivery information cannot be changed anymore')"><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Change & Send Email</button></a>
+													<a href="send_delivery_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?\nOnce email is sent, delivery information cannot be changed anymore')"><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-truck mr-1"></i> Change & Send Email</button></a>
 													<?php
 												}
 											?>
@@ -180,11 +180,11 @@
 										else if($order["order_status"]=="Delivering")
 										{
 											?>
-											<a href="send_arrive_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-success waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i> Arrive</button></a>
+											<a href="send_arrive_email.php?order_id=<?=$order["order_id"]?>" onclick="return confirm('Are you sure?')"><button type="button" class="btn btn-success waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-map-marker-check mr-1"></i> Arrive</button></a>
 											<?php
 										}
 										?>
-										<a href="order_list.php"><button type="button" class="btn btn-info waves-effect waves-light mb-2 mr-2"> Back</button></a>
+										<a href="order_list.php"><button type="button" class="btn btn-info waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-arrow-left mr-1"></i> Back</button></a>
                                     </div>
                                 </div>
                             </div>
