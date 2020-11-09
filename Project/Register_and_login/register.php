@@ -120,8 +120,8 @@
 					$mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
 					//Recipients
-					$mail->setFrom('fcmsmember@gmail.com', 'Mailer');
-					$mail->addAddress('keechu613@gmail.com', 'JasminPlanet');     // Add a recipient
+					$mail->setFrom('fcmsmember@gmail.com', ' FoodEdge Gourmet Catering');
+					$mail->addAddress($_POST['email_id'], 'Mailer');     // Add a recipient
 					//$mail->addAddress('ellen@example.com');               // Name is optional
 					//$mail->addReplyTo('info@example.com', 'Information');
 					//$mail->addCC('cc@example.com');
@@ -166,7 +166,7 @@
 					$mail->charSet = "UTF-8"; 
 
 					$mail->send();
-					echo  "<script> alert('Message has been sent'location='login.php'</script>)";
+					echo 'Message has been sent';
 				} catch (Exception $e) {
 					echo  "<script> alert('User Verification Sent to Your Email Account. Please Activate It'location='login.php'</script>)";
 				}
