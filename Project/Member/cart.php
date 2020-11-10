@@ -1,7 +1,6 @@
 <?php
 	include '../Database/init.php';
 	ob_start();
-	session_start();
 	
 	$_SESSION['user_id']=1;
 	
@@ -28,7 +27,7 @@
 	$db->where("tbl_order.user_id",$_SESSION['user_id'],"=");
 	$orders = $db->get("tbl_order");
 	$reward=$orders[0]["user_reward"];
-	
+
 	if(isset($_POST["btnSave"]))
 	{
 		$db->where("tbl_order_detail.order_detail_id",$_POST['order_detail_id'],"=");
@@ -77,9 +76,7 @@
 			if ($db->update ('tbl_order_detail', $data))
 				echo $db->count . ' records were updated';
 			else
-				echo 'update failed: ' . $db->getLastError();
-			
-			
+				echo 'update failed: ' . $db->getLastError();			
 		}
 		header("Location: cart.php");
 	}
@@ -99,9 +96,17 @@
 			echo 'update failed: ' . $db->getLastError();
 
 		header("Location: cart.php");
-	}
-
+	}	
 	
+	else if(isset($_POST["btnDeleteALL"]))
+	{	
+		if ($db->delete ('tbl_order_detail'))
+			echo $db->count . ' records were updated';
+		else
+			echo 'update failed: ' . $db->getLastError();
+
+		header("Location: cart.php");
+	}	
 ?>
 	
 <!DOCTYPE html>
@@ -115,6 +120,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="../Landing/favicon-1.ico">
+		
+		<!-- Jquery Toast css -->
+        <link href="../assets/libs/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" type="text/css" />
 
 	    <!-- App css -->
 	    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
@@ -150,11 +158,19 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box">
+									<div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+											<form method="post">
+												<button type="submit" onclick="return confirm('Are you sure you want to clear the shopping cart?')" formaction="cart.php?action=deleteALL" name="btnDeleteALL" class="mdi mdi-cart-remove btn btn-danger waves-effect waves-light"></button>
+											</form>
+										</ol>
+                                    </div>
                                     <h4 class="page-title">Shopping Cart</h4>
                                 </div>
                             </div>
-                        </div>     
+						</div>     
                         <!-- end page title --> 
+						
 
                         <div class="row">
                             <div class="col-12">
@@ -184,10 +200,11 @@
 																	{
 																		if(isset($order["product_id"]))$total+=$order["product_detail_price"] * $order["quantity"];
 																		else $point+=$order["product_redeem_point"] * $order["quantity"];
+																		
 																		?>
 																		<form method="post" class="parsley-examples">
 																		<input type="hidden" name="order_detail_id" value="<?=$order["order_detail_id"]?>">
-																		 <tr>
+																		<tr>
 																			<td>
 																				<img src="<?=(isset($order["product_id"]))? $order["product_image"]:$order["product_redeem_image"];?>" alt="product-img"
 																					title="product-img" class="rounded mr-3" height="120" width="70"/>
@@ -212,8 +229,17 @@
 																			<td>
 																				<button type="submit" onclick="return confirm('Are you sure?')" formaction="cart.php?action=delete" name="btnDelete" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-close"></i></button>
 																			</td>
-																		</tr>
+																			</tr>
 																		</form>
+																		<?php
+																	}
+																	else {
+																		?>
+																		<tr>
+																			<td>
+																				<p class="mdi mdi-cart-off text-danger"><?php echo " The shopping cart is empty."?></p>
+																			</td>
+																		</tr>
 																		<?php
 																	}
 																}
@@ -306,6 +332,12 @@
 
         <!-- Vendor js -->
         <script src="../assets/js/vendor.min.js"></script>
+		
+		<!-- Tost-->
+        <script src="../assets/libs/jquery-toast-plugin/jquery.toast.min.js"></script>
+		
+		<!-- toastr init js-->
+        <script src="../assets/js/pages/toastr.init.js"></script>
 		
         <!-- App js -->
         <script src="../assets/js/app.min.js"></script>
