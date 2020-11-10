@@ -19,6 +19,7 @@
 		<link href="../assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet"  disabled />
 
 		<!-- icons -->
+		<link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 	
 
     </head>
@@ -33,7 +34,6 @@
 	
 	if (isset($_POST['btnSave']))
 	{
-		
 		$db->where("email", $_POST['useremail']);
 		$db->where("status", "Active","=");
 		$db->where("password", encrypt_decrypt("encrypt",trim($_POST['password'])));
@@ -73,7 +73,7 @@
 				$db->where("tbl_staff.login_id",$results[0]['login_id'] );
 				$results1 =$db->get("tbl_staff");
 				$_SESSION['user_id']=$results[0]['staff_id'];
-				header("location: ../Management/dashboard.php");
+				header("location: ../Management/management_dashboard.php");
 			}
 			//print_r ($_SESSION['user_id']);
 			//print_r ($_SESSION['role']);
@@ -111,22 +111,22 @@
                                   
                                     </div>
 									
-                                    <div class="form-group mb-3">
+									<div class="form-group">
                                         <label for="password">Password</label>
                                         <div class="input-group input-group-merge">
-                                        <div class="input-group-append" data-password="false">
+										<div class="input-group-append" data-password="false">
                                                 <div class="input-group-text">
                                                     <span class="password-eye"></span>
                                                 </div>
                                         </div>
-											<input  type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                                            <input  type="password" id="password" name="password" class="form-control" placeholder="Enter your password" minlength="8" required>
                                             
                                         </div>
                                     </div>
+									
+                                    
 
-                                    <div class="form-group mb-3">
-                                        
-                                    </div>
+                                    
 
                                     <div class="form-group mb-0 text-center">
                                         <button class="btn btn-primary btn-block"id="btnSave"  name="btnSave"  type="submit"> Log In </button>
