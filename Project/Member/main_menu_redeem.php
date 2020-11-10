@@ -12,6 +12,7 @@
 	$product_redeem_details = $db->arraybuilder()->paginate("tbl_product_redeem", $page);	
 
 	$db->join("tbl_order", "tbl_order_detail.order_id=tbl_order.order_id", "LEFT");
+	$db->where("tbl_order.order_status","Cart","=");
 	$orders = $db->get("tbl_order_detail");
 	$no=count($orders);
 	//print_r("<pre>");
