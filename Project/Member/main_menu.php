@@ -13,7 +13,11 @@
 	if(!empty($_GET['page']))$page = $_GET['page'];
 	else $page = 1;
 	$db->pageLimit = 4;
-	$product_details = $db->arraybuilder()->paginate("tbl_product_detail", $page);		
+	$product_details = $db->arraybuilder()->paginate("tbl_product_detail", $page);	
+
+	$db->join("tbl_order", "tbl_order_detail.order_id=tbl_order.order_id", "LEFT");
+	$orders = $db->get("tbl_order_detail");
+	$no=count($orders);
 	
 	//print_r("<pre>");
 	//print_r($product_details);
@@ -65,10 +69,10 @@
                        <!-- start page title -->
                         <div class="row">
                             <div class="col-10">
-                                <div class="page-title-box">
+                                <div class="page-title-box notification-list mr-1">
 									<div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <a href="cart.php" class="action-icon color_animation2"> <i class="fa fa-shopping-cart"></i></a>
+                                            <a href="cart.php" class="action-icon color_animation2"> <i class="fa fa-shopping-cart"></i><span class="badge badge-danger rounded-circle noti-icon-badge"><?php echo $no;?></span></a>
                                         </ol>
                                     </div>
                                     <h4 class="page-title">Main Menu</h4>
@@ -195,6 +199,7 @@
 															RM<?=$product_detail['product_detail_price']?>	
 														</div>
 													</div>
+													
 												</div> <!-- end row -->
 												<form action="add_cart.php" method="POST" >
 														<input type="hidden" id="product_id" name="product_id"value="<?=$product_detail['product_id']?>">
