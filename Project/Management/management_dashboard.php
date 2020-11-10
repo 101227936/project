@@ -383,7 +383,7 @@
 						
                         <div class="row">
                             <div class="col-xl-7">
-                                <div class="card-box pb-2" style="height: 600px">
+                                <div class="card-box pb-0" style="height: 675px">
                                     <?php
 										$pre_sales = 0;
 										$cur_sales = 0;
@@ -442,6 +442,8 @@
 													<?php
 														//'2016-01-01'
 														$sales = 0;
+														$refund = 0;
+														$pending = 0;
 														$get = new DateTime();
 														$today = $get->format("Y-m-d");
 														foreach($members as $order)
@@ -451,11 +453,72 @@
 															if($orderDate == $today && $order['payment_status']=="Confirmed")
 															{
 																$sales += $order['amount_price'];
+															}else if($orderDate == $today && $order['payment_status']=="Refunded")
+															{
+																$refund += $order['amount_price'];
+															}else if($order['payment_status']=="Waiting for Refund")
+															{
+																$pending += $order['amount_price'];
 															}
 														}
 													?>
-													<h2>RM<?=$sales?>.00</h2>												
+													<h2>
+														<?php
+															if($sales>0)
+															{
+																?>
+																<i class="fa fa-caret-up text-success mr-1"></i>
+																<?php
+															}else if($sales == 0)
+															{
+																?>
+																<i class="fa fa-minus text-secondary mr-1"></i>
+																<?php
+															}
+														?>
+														RM<?=$sales?>.00</h2>
+													<div class = "row mt-3">
+														<div class="col-6">
+															<p class="text-muted font-15 mb-1 text-truncate">Refund today</p>
+															<h4>
+																<?php
+																	if($refund>0)
+																	{
+																		?>
+																		<i class="fa fa-caret-up text-danger mr-1"></i>
+																		<?php
+																	}else if($refund == 0)
+																	{
+																		?>
+																		<i class="fa fa-minus text-secondary mr-1"></i>
+																		<?php
+																	}
+																?>
+																RM<?=$refund?>.00
+															</h4>
+														</div>
+														<div class="col-5">
+															<p class="text-muted font-15 mb-1 text-truncate">Pending Refund</p>
+															<h4>
+																<?php
+																	if($pending>0)
+																	{
+																		?>
+																		<i class="fa fa-caret-up text-danger mr-1"></i>
+																		<?php
+																	}else if($pending == 0)
+																	{
+																		?>
+																		<i class="fa fa-minus text-secondary mr-1"></i>
+																		<?php
+																	}
+																?>
+																RM<?=$pending?>.00
+															</h4>
+														</div>
+													</div>
 												</div>
+												
 											</div>
 										</div>
 									</div>
@@ -549,13 +612,12 @@
 														foreach($getMember as $member)
 														{
 															?>
-																<tr>
+																<tr onclick="window.location='payment_detail.php?payment_id=<?=$member['payment_id']?>'" style="cursor: pointer;">
 																	<td>
 																		<img src="<?php echo $member['user_profile']?>" alt="user-pic" class="rounded-circle avatar-sm bx-shadow-lg" />
 																		<p><span><?php echo $member['user_name'] ?></span></p>
 																	</td>
 																	<td>
-																		<img src="../assets/images/cards/visa.png" alt="user-card" height="24" />
 																		<?php
 																			$num = $member['card_number'];
 																			$last = substr($num, -4);
