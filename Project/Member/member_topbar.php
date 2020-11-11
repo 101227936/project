@@ -20,7 +20,7 @@
 		}
 		else if ($_SESSION['role']=="Management")
 		{
-			header("location: ../Management/dashboard.php");
+			header("location: ../Management/management_dashboard.php");
 		}
 	}else 
 	{
