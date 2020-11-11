@@ -10,7 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Thanks for your Subscribe</title>
         <meta name="viewport" content="width=device-width">
-        <link rel="icon" href="img/FoodEdge.ico" type="image/x-icon">
+        <link rel="icon" href="FoodEdge.ico" type="image/x-icon">
        <style type="text/css">
             @media only screen and (max-width: 550px), screen and (max-device-width: 550px) {
                 body[yahoo] .buttonwrapper { background-color: transparent !important; }
