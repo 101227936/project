@@ -1,6 +1,7 @@
 <?php
 	require "../Database/init.php";
 	ob_start();
+	session_start();
 	
 	$db->join("tbl_product", "tbl_product_detail.product_id=tbl_product.product_id", "LEFT");
 	if(!empty($_GET['search']))$db->where ("tbl_product.product_name", '%'.$_GET['search'].'%', 'like');

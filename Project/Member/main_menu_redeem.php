@@ -1,6 +1,7 @@
 <?php
 	require "../Database/init.php";
 	ob_start();
+	session_start();
 	
 	if(!empty($_GET['search']))$db->where ("tbl_product_redeem.product_redeem_name", '%'.$_GET['search'].'%', 'like');
 	if(!empty($_GET['type']))$db->where ("tbl_product_redeem.product_redeem_type", $_GET['type'], '=');
