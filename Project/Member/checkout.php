@@ -1,4 +1,7 @@
-<?php require "../Database/init.php";?>
+<?php 
+	require "../Database/init.php";
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -91,7 +94,7 @@
 															<?php
 																$db->join("tbl_user", "tbl_order.user_id=tbl_user.user_id", "LEFT");
 																$db->join("tbl_login","tbl_login.login_id=tbl_user.login_id","LEFT");
-																$db->where("tbl_user.user_id", 1);
+																$db->where("tbl_user.user_id", $_SESSION['user_id']);
 																$orders = $db->get("tbl_order");
 																
 																foreach($orders as $order)
