@@ -14,8 +14,7 @@
 			'order_status' => "Cart"
 		);
 		
-		if ($db->insert ('tbl_order', $data)) echo $db->count . ' records were updated';
-		else echo 'update failed: ' . $db->getLastError();
+		if (!$db->insert ('tbl_order', $data)) echo 'insert failed: ' . $db->getLastError();
 	}
 	$db->join("tbl_user", "tbl_order.user_id=tbl_user.user_id", "LEFT");
 	$db->join("tbl_order_detail", "tbl_order.order_id=tbl_order_detail.order_id", "LEFT");
@@ -58,9 +57,7 @@
 				);
 				$db->where("tbl_order_detail.order_detail_id",$_POST['order_detail_id'],"=");
 				
-				if ($db->update ('tbl_order_detail', $data))
-					echo $db->count . ' records were updated';
-				else
+				if (!$db->update ('tbl_order_detail', $data))
 					echo 'update failed: ' . $db->getLastError();
 			}
 			else $_SESSION['error'] = "No Sufficient Point Balance";
@@ -72,10 +69,8 @@
 			);
 			$db->where("tbl_order_detail.order_detail_id",$_POST['order_detail_id'],"=");
 			
-			if ($db->update ('tbl_order_detail', $data))
-				echo $db->count . ' records were updated';
-			else
-				echo 'update failed: ' . $db->getLastError();			
+			if (!$db->update ('tbl_order_detail', $data))
+				echo 'update failed: ' . $db->getLastError();							
 		}
 		header("Location: cart.php");
 	}
@@ -89,21 +84,16 @@
 		
 		$db->where("tbl_order_detail.order_detail_id",$_POST['order_detail_id'],"=");
 		
-		if ($db->delete ('tbl_order_detail'))
-			echo $db->count . ' records were updated';
-		else
-			echo 'update failed: ' . $db->getLastError();
+		if (!$db->delete ('tbl_order_detail'))
+			echo 'delete failed: ' . $db->getLastError();			
 
 		header("Location: cart.php");
 	}	
 	
 	else if(isset($_POST["btnDeleteALL"]))
 	{	
-		if ($db->delete ('tbl_order_detail'))
-			echo $db->count . ' records were updated';
-		else
-			echo 'update failed: ' . $db->getLastError();
-
+		if (!$db->delete ('tbl_order_detail'))
+			echo 'delete failed: ' . $db->getLastError();	
 		header("Location: cart.php");
 	}	
 ?>
