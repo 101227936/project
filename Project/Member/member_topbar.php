@@ -3,11 +3,10 @@
 	ob_start();
 	session_start();
 	
-	$db->join("tbl_user", "tbl_order.user_id=tbl_user.user_id", "LEFT");
-	$db->where("tbl_order.user_id",$_SESSION['user_id'],"=");
-	$order=$db->get("tbl_order");
+	$db->where("tbl_user.user_id",$_SESSION['user_id'],"=");
+	$order=$db->get("tbl_user");
 	$name=$order[0]["user_name"];
-	$image=$order[1]["user_profile"];
+	$image=$order[0]["user_profile"];
 	
 	
 	if (isset($_SESSION['role']))
