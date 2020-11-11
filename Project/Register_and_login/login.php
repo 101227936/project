@@ -65,14 +65,14 @@
 			{
 				$db->where("tbl_staff.login_id",$results[0]['login_id'] );
 				$results1 =$db->get("tbl_staff");
-				$_SESSION['user_id']=$results[0]['staff_id'];
+				$_SESSION['user_id']=$results1[0]['staff_id'];
 				header("location: ../Operation/order_list.php");
 			}
 			else if ($_SESSION['role']=="Management")
 			{
 				$db->where("tbl_staff.login_id",$results[0]['login_id'] );
 				$results1 =$db->get("tbl_staff");
-				$_SESSION['user_id']=$results[0]['staff_id'];
+				$_SESSION['user_id']=$results1[0]['staff_id'];
 				header("location: ../Management/management_dashboard.php");
 			}
 			//print_r ($_SESSION['user_id']);
