@@ -50,10 +50,10 @@
                 </div>
 				<div class="b">
                     <div>
-                       <img src="../landing/images/kabob.jpg" width="250" height="220">
-                       <img src="../landing/images/limes.jpg" width="250" height="220">
-                       <img src="../landing/images/radish.jpg"  width="250" height="220">
-                       <img src="../landing/images/corn.jpg"  width="250" height="220">
+                       <img src="../Landing/images/kabob.jpg" width="250" height="220">
+                       <img src="../Landing/images/limes.jpg" width="250" height="220">
+                       <img src="../Landing/images/radish.jpg"  width="250" height="220">
+                       <img src="../Landing/images/corn.jpg"  width="250" height="220">
                    </div>
                 </div>
 				
