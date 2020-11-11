@@ -1,12 +1,10 @@
-
-
-
+<?php require '../../Database/init.php';?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Adminty - Premium Admin Template by Colorlib</title>
+        <title>FCMS - Email Activation</title>
         <meta name="viewport" content="width=device-width">
         <link rel="icon" href="img/favicon.ico" type="image/x-icon">
        <style type="text/css">
@@ -41,7 +39,18 @@
             </tr>
             <tr>
                 <td align="center" bgcolor="#f9f9f9" style="padding: 20px 20px 0 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px;">
-                    <b>Account:</b> kee***<a href="..\..\..\..\..\cdn-cgi\l\email-protection.htm" class="__cf_email__" data-cfemail="f3c3c0b3968b929e839f96dd909c9e">[email&#160;protected]</a>
+                    <b>Account:</b> 
+					<?php
+						
+						
+						//$last_id= $db->getOne('tbl_login','email');
+						//echo $db->getOne('tbl_login','email');
+						
+						$last_id= $db->getOne('tbl_login','max(login_id)');
+						$db->where ("login_id", $last_id['max(login_id)']);
+						$user = $db->getOne ("tbl_login");
+						echo $user['email'];
+					?>
                 </td>
             </tr>
             <tr>
@@ -59,22 +68,13 @@
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td align="center" bgcolor="#ffffff" style="padding: 10px 20px 10px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 24px;">
-                    Help! <a href="#" style="color: #1b8bf9;">I didn't request this!</a>
-                </td>
-            </tr>
+          
             <tr>
                 <td align="center" bgcolor="#dddddd" style="padding: 15px 10px 15px 10px; color: #555555; font-family: Arial, sans-serif; font-size: 12px; line-height: 18px;">
-                    <b>Company Inc.</b><br>985 Example St. &bull; Suite A1S2 &bull; San Francisco, CA 12458 USA
-                </td>
-            </tr>
-            <tr>
-                <td style="padding: 15px 10px 15px 10px;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
-                            <td align="center" width="100%" style="color: #fff; font-family: Arial, sans-serif; font-size: 12px;">
-                                2017-18 &copy; <a href="http://html.codedthemes.com/mash-able/" style="color: #0073AA;">Mash Able</a>
+                            <td align="center" width="100%" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
+                                2020 &copy; <a href="http://html.codedthemes.com/mash-able/" style="color: #0073AA;">FCMS</a>
                             </td>
                         </tr>
                     </table>
