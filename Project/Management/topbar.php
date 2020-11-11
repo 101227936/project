@@ -1,4 +1,5 @@
 <?php
+	require '../Database/init.php';
 	ob_start();
 	session_start();
 
