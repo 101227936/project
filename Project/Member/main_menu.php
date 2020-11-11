@@ -2,8 +2,6 @@
 	require "../Database/init.php";
 	ob_start();
 	
-	$_SESSION['user_id']=1;
-	
 	$db->join("tbl_product", "tbl_product_detail.product_id=tbl_product.product_id", "LEFT");
 	if(!empty($_GET['search']))$db->where ("tbl_product.product_name", '%'.$_GET['search'].'%', 'like');
 	if(!empty($_GET['type']))$db->where ("tbl_product.product_type", $_GET['type'], '=');
@@ -17,6 +15,7 @@
 
 	$db->join("tbl_order", "tbl_order_detail.order_id=tbl_order.order_id", "LEFT");
 	$db->where("tbl_order.order_status","Cart","=");
+	$db->where("tbl_order.user_id", $_SESSION['user_id'],"=");
 	$orders = $db->get("tbl_order_detail");
 	$no=count($orders);
 	
