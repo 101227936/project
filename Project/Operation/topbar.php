@@ -66,12 +66,6 @@
 							</a>
 						</div>
 					</li>
-
-					<li class="dropdown notification-list">
-						<a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
-							<i class="fe-settings noti-icon color_animation"></i>
-						</a>
-					</li>
 				</ul> 
 
 				<ul class="list-unstyled topnav-menu topnav-menu-left m-0">
