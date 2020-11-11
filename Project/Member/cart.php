@@ -2,8 +2,6 @@
 	include '../Database/init.php';
 	ob_start();
 	
-	$_SESSION['user_id']=1;
-	
 	$db->where("tbl_order.order_status","Cart","=");
 	$db->where("tbl_order.user_id",$_SESSION['user_id'],"=");
 	$orders = $db->get("tbl_order");
