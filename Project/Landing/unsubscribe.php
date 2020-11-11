@@ -22,7 +22,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Restaurant</title>
+        <title>Unsubscribe our newsletter</title>
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css" media="screen" type="text/css">
         <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -33,7 +33,7 @@
         <link rel="stylesheet" href="css/jquery-ui.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link rel="icon" href="favicon-1.ico" type="image/x-icon">
+        <link rel="icon" href="FoodEdge.ico" type="image/x-icon">
     </head>
 
     <body>

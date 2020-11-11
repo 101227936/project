@@ -23,7 +23,7 @@
         <link rel="stylesheet" href="css/jquery-ui.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link rel="icon" href="favicon-1.ico" type="image/x-icon">
+        <link rel="icon" href="FoodEdge.ico" type="image/x-icon">
       
         <!-- Font Awesome Icon Library -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
