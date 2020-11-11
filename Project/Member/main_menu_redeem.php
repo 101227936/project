@@ -13,6 +13,8 @@
 	$db->pageLimit = 4;
 	$product_redeem_details = $db->arraybuilder()->paginate("tbl_product_redeem", $page);	
 
+	$total_page = $db->totalPages;
+
 	$db->join("tbl_order", "tbl_order_detail.order_id=tbl_order.order_id", "LEFT");
 	$db->where("tbl_order.order_status","Cart","=");
 	$db->where("tbl_order.user_id", $_SESSION['user_id'],"=");
@@ -223,7 +225,7 @@
 										{
 											?>
 											<li class="page-item">
-												<a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.($page-1):(($db->totalPages>$page)? 'page='.($page)-1:'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>" aria-label="Previous">
+												<a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.($page-1):(($total_page>$page)? 'page='.($page)-1:'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>" aria-label="Previous">
 													<span aria-hidden="true">«</span>
 													<span class="sr-only">Previous</span>
 												</a>
@@ -232,19 +234,19 @@
 										}
 									?>
 									<?php
-									for ($x = 1; $x <= $db->totalPages; $x++) 
+									for ($x = 1; $x <= $total_page; $x++) 
 									{
 										?>
-										<li class="page-item <?=($x==$page)? 'active':''?>"><a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.($x):(($db->totalPages>1)? 'page='.$x:'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>"><?=$x?></a></li>
+										<li class="page-item <?=($x==$page)? 'active':''?>"><a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.($x):(($total_page>1)? 'page='.$x:'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>"><?=$x?></a></li>
 										<?php
 									}
 									?>
 									<?php
-										if($page<$db->totalPages)
+										if($page<$total_page)
 										{
 											?>
 											<li class="page-item">
-												<a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.(($page+1)):(($db->totalPages>1)? 'page='.($page+1):'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>" aria-label="Next">
+												<a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.(($page+1)):(($total_page>1)? 'page='.($page+1):'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>" aria-label="Next">
 													<span aria-hidden="true">»</span>
 													<span class="sr-only">Next</span>
 												</a>
