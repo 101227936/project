@@ -1,5 +1,5 @@
 <?php 
-	require "../Database/init.php"
+	require "../Database/init.php";
 	session_start();
 ?>
 <!DOCTYPE html>
