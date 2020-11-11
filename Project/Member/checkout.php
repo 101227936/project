@@ -529,6 +529,8 @@
 																						'expiry_date' => $expiry,
 																						'cvc' => $_POST['card-cvv'],
 																						'payment_status' => 'Confirmed',
+																						'amount_price' => $sum_price,
+																						'amount_point' => $sum_point
 																					);
 															$update_user = Array('user_reward' => ($lastPoint+($sum_price/10)));
 															$db->where('tbl_user.user_id', $order['user_id']);
