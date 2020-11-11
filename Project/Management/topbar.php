@@ -1,11 +1,28 @@
 <?php
 	ob_start();
+	session_start();
 
 	$_SESSION['staff_id']=1;
 
 	$db->where("tbl_staff.staff_id",$_SESSION['staff_id'],"=");
 	$staff=$db->get("tbl_staff");
 	$name=$staff[0]["staff_name"];
+	
+	if (isset($_SESSION['role']))
+	{
+		if ($_SESSION['role']=="Operation")
+		{
+			header("location: ../Operation/order_list.php");
+		}
+		else if ($_SESSION['role']=="Member")
+		{
+			header("location: ../Member/main_menu.php");
+		}
+	}else 
+	{
+		session_destroy();
+		header("location: ../Landing/landing.php");
+	}
 	
 ?>
 <!DOCTYPE html>
@@ -40,7 +57,7 @@
 							<div class="dropdown-divider"></div>
 
 							<!-- item-->
-							<a href="../Landing/landing.php" onclick="return confirm('Are you sure want to logout?')" class="dropdown-item notify-item">
+							<a href="../Landing/landing.php?logout=3" onclick="return confirm('Are you sure want to logout?')" class="dropdown-item notify-item">
 								<i class="fe-log-out"></i>
 								<span>Logout</span>
 							</a>
