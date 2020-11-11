@@ -533,7 +533,7 @@
 											<h4 class="header-title mb-0">Reviews</h4>
 
 											<div id="cardCollpase3" class="collapse pt-3 show">
-												<div class="widget-chart text-center" dir="ltr"  style="position: relative;height: 345px; overflow-y: auto; overflow-x:hidden; display: block;">
+												<div class="widget-chart text-center" dir="ltr"  style="position: relative;height: 345px; overflow: auto; display: block;">
 													<div class="row mt-1">
 														<table id="basic-datatable" class="table dt-responsive nowrap w-100">
 															<thead>
@@ -562,7 +562,10 @@
 																						<img src="<?=$order['product_image']?>" height="50px" alt="product-pic"/>
 																					</p><?=$order['product_name']?> (<?=$size[0]?>)
 																				</td>
-																				<td><?=$order['comment']?></td>
+																				<td>
+																					<p><?=$order['comment']?></p>
+																					<p>Rate: <?=$order['rating']?></p>
+																				</td>
 																				<td><?=$order_Date?></td>
 																			</tr>
 																			<?php
