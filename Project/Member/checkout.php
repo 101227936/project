@@ -316,7 +316,7 @@
 			
 																	<div class="row mt-4">
 																		<div class="col-sm-6">
-																			<a href="ecommerce-cart.html" class="btn btn-secondary">
+																			<a href="cart.php" class="btn btn-secondary">
 																				<i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
 																		</div> <!-- end col -->
 																	</div> <!-- end row -->
@@ -384,7 +384,7 @@
 
 																<div class="row mt-4">
 																	<div class="col-sm-6">
-																		<a href="ecommerce-cart.html" class="btn btn-secondary">
+																		<a href="cart.php" class="btn btn-secondary">
 																			<i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
 																	</div> <!-- end col -->
 																</div> <!-- end row -->
@@ -441,7 +441,7 @@
 			
 																<div class="row mt-4">
 																	<div class="col-sm-6">
-																		<a href="ecommerce-cart.html" class="btn btn-secondary">
+																		<a href="cart.php" class="btn btn-secondary">
 																			<i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
 																	</div> <!-- end col -->
 																	<div class="col-sm-6">
@@ -454,7 +454,7 @@
 														</div>
 													</div>
 												</form>
-												<?php																	
+												<?php
 													if ($_SERVER['REQUEST_METHOD'] == 'POST')
 													{
 														
