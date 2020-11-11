@@ -530,7 +530,7 @@
 																						'cvc' => $_POST['card-cvv'],
 																						'payment_status' => 'Confirmed',
 																					);
-															$update_user = Array('user_reward' => $lastPoint);
+															$update_user = Array('user_reward' => ($lastPoint+($sum_price/10)));
 															$db->where('tbl_user.user_id', $order['user_id']);
 															$updateUser = $db->update('tbl_user',$update_user);
 															$db->where('tbl_order.order_id',$orderID);
