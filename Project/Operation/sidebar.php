@@ -23,22 +23,7 @@
 						</ul>
 					</div>
 				</li>
-				
-				<li>
-					<a href=".php">
-						<i data-feather="info"></i>
-						<span> About Us </span>
-					</a>
-				</li>
-				
-				<li>
-					<a href=".php">
-						<i data-feather="user"></i>
-						<span> Contact Us </span>
-					</a>
-				</li>
 
-				</li>
 			</ul>	
 		</div>
 		<!-- End Sidebar -->

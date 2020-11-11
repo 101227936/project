@@ -6,8 +6,8 @@
             </div>
         <div class="col-md-6">
             <div class="text-md-right footer-links d-none d-sm-block">
-                <a href="">About Us</a>
-                <a href="">Contact Us</a>
+                <a href="about_us.php">About Us</a>
+                <a href="contact_us.php">Contact Us</a>
             </div>
         </div>
     </div>
