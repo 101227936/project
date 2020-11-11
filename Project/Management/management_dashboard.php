@@ -144,99 +144,7 @@
 			}
 		?>
 		
-		<script>
-			window.onload = function () {
-
-				var chart = new CanvasJS.Chart("chartContainer", {
-					animationEnabled: true,
-					theme: "light2",
-					title: {
-						text: "Monthly Sales & Customer Data"
-					},
-					axisX: {
-						valueFormatString: "MMM"
-					},
-					axisY: {
-						prefix: "RM",
-						labelFormatter: addSymbols
-					},
-					toolTip: {
-						shared: true
-					},
-					legend: {
-						cursor: "pointer",
-						itemclick: toggleDataSeries
-					},
-					data: [
-					{
-						type: "line",
-						name: "Sales",
-						showInLegend: true,
-						xValueFormatString: "MMM YYYY",
-						yValueFormatString: "RM#,##0",
-						dataPoints: [
-							
-							{ x: new Date(<?=$today_Year?>, 0), y: <?=$sales_1?> },
-							{ x: new Date(<?=$today_Year?>, 1), y: <?=$sales_2?> },
-							{ x: new Date(<?=$today_Year?>, 2), y: <?=$sales_3?> },
-							{ x: new Date(<?=$today_Year?>, 3), y: <?=$sales_4?> },
-							{ x: new Date(<?=$today_Year?>, 4), y: <?=$sales_5?> },
-							{ x: new Date(<?=$today_Year?>, 5), y: <?=$sales_6?> },
-							{ x: new Date(<?=$today_Year?>, 6), y: <?=$sales_7?> },
-							{ x: new Date(<?=$today_Year?>, 7), y: <?=$sales_8?> },
-							{ x: new Date(<?=$today_Year?>, 8), y: <?=$sales_9?> },
-							{ x: new Date(<?=$today_Year?>, 9), y: <?=$sales_10?>},
-							{ x: new Date(<?=$today_Year?>, 10), y: <?=$sales_11?> },
-							{ x: new Date(<?=$today_Year?>, 11), y: <?=$sales_12?> }
-						]
-					},
-					{
-						type: "line",
-						name: "Number of Customer",
-						showInLegend: true,
-						xValueFormatString: "MMM YYYY",
-						yValueFormatString: "#,##0",
-						dataPoints: [
-							
-							{ x: new Date(<?=$today_Year?>, 0), y: <?=$cust_1?> },
-							{ x: new Date(<?=$today_Year?>, 1), y: <?=$cust_2?> },
-							{ x: new Date(<?=$today_Year?>, 2), y: <?=$cust_3?> },
-							{ x: new Date(<?=$today_Year?>, 3), y: <?=$cust_4?> },
-							{ x: new Date(<?=$today_Year?>, 4), y: <?=$cust_5?> },
-							{ x: new Date(<?=$today_Year?>, 5), y: <?=$cust_6?> },
-							{ x: new Date(<?=$today_Year?>, 6), y: <?=$cust_7?> },
-							{ x: new Date(<?=$today_Year?>, 7), y: <?=$cust_8?> },
-							{ x: new Date(<?=$today_Year?>, 8), y: <?=$cust_9?> },
-							{ x: new Date(<?=$today_Year?>, 9), y: <?=$cust_10?>},
-							{ x: new Date(<?=$today_Year?>, 10), y: <?=$cust_11?> },
-							{ x: new Date(<?=$today_Year?>, 11), y: <?=$cust_12?> }
-						]
-					}]
-				});
-				chart.render();
-
-				function addSymbols(e) {
-					var suffixes = ["", "K", "M", "B"];
-					var order = Math.max(Math.floor(Math.log(e.value) / Math.log(1000)), 0);
-
-					if(order > suffixes.length - 1)                	
-						order = suffixes.length - 1;
-
-					var suffix = suffixes[order];      
-					return CanvasJS.formatNumber(e.value / Math.pow(1000, order)) + suffix;
-				}
-
-				function toggleDataSeries(e) {
-					if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-						e.dataSeries.visible = false;
-					} else {
-						e.dataSeries.visible = true;
-					}
-					e.chart.render();
-				}
-
-			}
-		</script>
+		
 
         <!-- Begin page -->
         <div id="wrapper">
@@ -792,4 +700,97 @@
         <script src="../assets/js/app.min.js"></script>
         
     </body>
+	<script>
+		window.onload = function () {
+
+			var chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				theme: "light2",
+				title: {
+					text: "Monthly Sales & Customer Data"
+				},
+				axisX: {
+					valueFormatString: "MMM"
+				},
+				axisY: {
+					prefix: "RM",
+					labelFormatter: addSymbols
+				},
+				toolTip: {
+					shared: true
+				},
+				legend: {
+					cursor: "pointer",
+					itemclick: toggleDataSeries
+				},
+				data: [
+				{
+					type: "line",
+					name: "Sales",
+					showInLegend: true,
+					xValueFormatString: "MMM YYYY",
+					yValueFormatString: "RM#,##0",
+					dataPoints: [
+						
+						{ x: new Date(<?=$today_Year?>, 0), y: <?=$sales_1?> },
+						{ x: new Date(<?=$today_Year?>, 1), y: <?=$sales_2?> },
+						{ x: new Date(<?=$today_Year?>, 2), y: <?=$sales_3?> },
+						{ x: new Date(<?=$today_Year?>, 3), y: <?=$sales_4?> },
+						{ x: new Date(<?=$today_Year?>, 4), y: <?=$sales_5?> },
+						{ x: new Date(<?=$today_Year?>, 5), y: <?=$sales_6?> },
+						{ x: new Date(<?=$today_Year?>, 6), y: <?=$sales_7?> },
+						{ x: new Date(<?=$today_Year?>, 7), y: <?=$sales_8?> },
+						{ x: new Date(<?=$today_Year?>, 8), y: <?=$sales_9?> },
+						{ x: new Date(<?=$today_Year?>, 9), y: <?=$sales_10?>},
+						{ x: new Date(<?=$today_Year?>, 10), y: <?=$sales_11?> },
+						{ x: new Date(<?=$today_Year?>, 11), y: <?=$sales_12?> }
+					]
+				},
+				{
+					type: "line",
+					name: "Number of Customer",
+					showInLegend: true,
+					xValueFormatString: "MMM YYYY",
+					yValueFormatString: "#,##0",
+					dataPoints: [
+						
+						{ x: new Date(<?=$today_Year?>, 0), y: <?=$cust_1?> },
+						{ x: new Date(<?=$today_Year?>, 1), y: <?=$cust_2?> },
+						{ x: new Date(<?=$today_Year?>, 2), y: <?=$cust_3?> },
+						{ x: new Date(<?=$today_Year?>, 3), y: <?=$cust_4?> },
+						{ x: new Date(<?=$today_Year?>, 4), y: <?=$cust_5?> },
+						{ x: new Date(<?=$today_Year?>, 5), y: <?=$cust_6?> },
+						{ x: new Date(<?=$today_Year?>, 6), y: <?=$cust_7?> },
+						{ x: new Date(<?=$today_Year?>, 7), y: <?=$cust_8?> },
+						{ x: new Date(<?=$today_Year?>, 8), y: <?=$cust_9?> },
+						{ x: new Date(<?=$today_Year?>, 9), y: <?=$cust_10?>},
+						{ x: new Date(<?=$today_Year?>, 10), y: <?=$cust_11?> },
+						{ x: new Date(<?=$today_Year?>, 11), y: <?=$cust_12?> }
+					]
+				}]
+			});
+			chart.render();
+
+			function addSymbols(e) {
+				var suffixes = ["", "K", "M", "B"];
+				var order = Math.max(Math.floor(Math.log(e.value) / Math.log(1000)), 0);
+
+				if(order > suffixes.length - 1)                	
+					order = suffixes.length - 1;
+
+				var suffix = suffixes[order];      
+				return CanvasJS.formatNumber(e.value / Math.pow(1000, order)) + suffix;
+			}
+
+			function toggleDataSeries(e) {
+				if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+					e.dataSeries.visible = false;
+				} else {
+					e.dataSeries.visible = true;
+				}
+				e.chart.render();
+			}
+
+		}
+	</script>
 </html>
