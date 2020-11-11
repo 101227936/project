@@ -29,13 +29,13 @@
 					
 					<li class="nav-item dropdown">
                         <div class="btn adjustment">
-                            <a href=""<i class="mdi mdi-information adjustment color_animation"></i> About Us </a>
+                            <a href="about_us.php"<i class="mdi mdi-information adjustment color_animation"></i> About Us </a>
                         </div>
                     </li>
 					
 					<li class="nav-item dropdown">
                         <div class="btn adjustment">
-                            <a href=""<i class="mdi mdi-account adjustment color_animation" ></i> Contact Us </a>
+                            <a href="contact_us.php"<i class="mdi mdi-account adjustment color_animation" ></i> Contact Us </a>
                         </div>
                     </li>	
                 </ul> <!-- end navbar-->
