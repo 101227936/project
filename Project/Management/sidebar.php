@@ -55,7 +55,7 @@
 			<ul id="side-menu">
 				<li class="menu-title">Operation Account Management</li>
 				<li>
-					<a href="#">
+					<a href="operation_list.php">
 						<i class="mdi mdi-account"></i>
 						<span> Operation Account</span>
 					</a>
@@ -65,7 +65,7 @@
 			<ul id="side-menu">
 				<li class="menu-title">Payment Refund Management</li>
 				<li>
-					<a href="#">
+					<a href="payment_list.php">
 						<i class="mdi mdi-credit-card-refund"></i>
 						<span> Payment Refund</span>
 					</a>
