@@ -41,6 +41,17 @@
 
                     <!-- Start Content-->
                     <div class="container-fluid">
+                        
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">Order Detail</h4>
+                                </div>
+                            </div>
+                        </div>     
+                        <!-- end page title --> 
+						
 						<?php
 							if(empty($_GET['order_id']))header("Location: order_list.php");
 							else
