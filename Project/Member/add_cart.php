@@ -3,8 +3,6 @@
 	ob_start();
 	session_start();
 	
-	$_SESSION['user_id']=1;
-	
 	$db->where("tbl_order.order_status","Cart","=");
 	$db->where("tbl_order.user_id",$_SESSION['user_id'],"=");
 	$order = $db->getOne("tbl_order");

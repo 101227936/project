@@ -1,4 +1,7 @@
-<?php require "../Database/init.php"?>
+<?php 
+	require "../Database/init.php"
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -88,7 +91,7 @@
 														$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
 														$db->join("tbl_payment", "tbl_order.order_id=tbl_payment.order_id", "LEFT");
 														$db->join("tbl_user", "tbl_user.user_id=tbl_order.user_id", "INNER");
-														$db->where("tbl_user.user_id", 1);
+														$db->where("tbl_user.user_id", $_SESSION['user_id']);
 														
 														$db->where("order_status", "Cart","!=");
 														//$db->where("TIMESTAMPDIFF(MINUTE, order_datetime, now())",5,">");
