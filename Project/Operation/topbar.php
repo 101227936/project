@@ -4,9 +4,7 @@
 	session_start();
 	ob_start();
 
-	$_SESSION['staff_id']=2;
-
-	$db->where("tbl_staff.staff_id",$_SESSION['staff_id'],"=");
+	$db->where("tbl_staff.staff_id",$_SESSION['user_id'],"=");
 	$staff=$db->get("tbl_staff");
 	$name=$staff[0]["staff_name"];
 	
