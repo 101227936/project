@@ -37,7 +37,7 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../Landing/favicon-1.ico">
+        <link rel="shortcut icon" href="../assets/images/FoodEdge.ico">
 
 	    <!-- App css -->
 	    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
@@ -71,13 +71,6 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box">
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
-                                            <li class="breadcrumb-item active">Products</li>
-                                        </ol>
-                                    </div>
                                     <h4 class="page-title">Products</h4>
                                 </div>
                             </div>
