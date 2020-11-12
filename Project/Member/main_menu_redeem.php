@@ -225,7 +225,7 @@
 										{
 											?>
 											<li class="page-item">
-												<a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.($page-1):(($total_page>$page)? 'page='.($page)-1:'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>" aria-label="Previous">
+												<a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.(1):'page='(1).((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>" aria-label="Previous">
 													<span aria-hidden="true">«</span>
 													<span class="sr-only">Previous</span>
 												</a>
@@ -234,7 +234,7 @@
 										}
 									?>
 									<?php
-									for ($x = 1; $x <= $total_page; $x++) 
+									for ($x = (($page-1)==0)?1:($page-1); $x <= ((($page+1)>=$total_page)?$total_page:($page+1)); $x++)
 									{
 										?>
 										<li class="page-item <?=($x==$page)? 'active':''?>"><a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.($x):(($total_page>1)? 'page='.$x:'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>"><?=$x?></a></li>
@@ -246,7 +246,7 @@
 										{
 											?>
 											<li class="page-item">
-												<a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.(($page+1)):(($total_page>1)? 'page='.($page+1):'page=1').((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>" aria-label="Next">
+												<a class="page-link" href="main_menu_redeem.php?<?=(empty($_GET['search'])&&empty($_GET['type']))? 'page='.($total_page):'page='.($total_page).((!empty($_GET['search']))?'&search='.$_GET['search']:'').((!empty($_GET['type']))?'&type='.$_GET['type']:'')?>" aria-label="Next">
 													<span aria-hidden="true">»</span>
 													<span class="sr-only">Next</span>
 												</a>
