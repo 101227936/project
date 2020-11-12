@@ -30,7 +30,7 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../Landing/favicon-1.ico">
+        <link rel="shortcut icon" href="../Landing/FoodEdge.ico">
 		
 		 <!-- third party css -->
         <link href="../assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />

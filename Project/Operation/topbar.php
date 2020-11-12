@@ -1,7 +1,7 @@
 <?php
 	require '../Database/init.php';
 	ob_start();
-	session_start();
+	if (!session_id()) session_start();
 	error_reporting(0);
 	
 	$db->where("tbl_staff.staff_id",$_SESSION['user_id'],"=");
@@ -52,6 +52,11 @@
 							</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+							<!-- item-->
+							<a href="profile.php" class="dropdown-item notify-item">
+								<i class="fe-user"></i>
+								<span>My Account</span>
+							</a>
 							<!-- item-->
 							<a href="../Landing/landing.php?logout=2" onclick="return confirm('Are you sure want to logout?')" class="dropdown-item notify-item">
 								<i class="fe-log-out"></i>

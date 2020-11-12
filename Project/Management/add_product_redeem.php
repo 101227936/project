@@ -5,13 +5,13 @@
 <html lang="en">
     <head>
     <meta charset="utf-8" />
-        <title>Advanced Plugins | UBold - Responsive Admin Dashboard Template</title>
+        <title>Add New Product Redeem</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="shortcut icon" href="../assets/images/FoodEdge.ico">
 
         <!-- Plugins css -->
         <link href="../assets/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
@@ -64,7 +64,7 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                        <label for="product_Size" class="h4">Product Redeem</label>
+                                                        <label for="product_Size" class="h4">Product Redeem Information</label>
                                                         </div>
                                                     </div> <!-- end col -->
                                                 </div> <!-- end row -->
@@ -94,7 +94,7 @@
                                                             <label for="type">Type</label>
                                                             <select class="form-control" name='AddpTypeRe' id="AddpTypeRe">
                                                                     <?php
-                                                                        $Type = array("Rice","Noodles","Meat","Vegetables","Side Dishes","Drinks","Fruits");
+                                                                        $Type = array("Rice","Noodles","Meat","Vegetables","Soup","Side Dishes","Drinks","Fruits");
                                                                         for($t=0; $t< count($Type);$t++)
                                                                         {
                                                                             echo "<option value=\"".$Type[$t]."\"";

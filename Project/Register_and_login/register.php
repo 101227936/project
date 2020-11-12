@@ -2,13 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Register & Signup | </title>
+        <title>Register & Signup Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="shortcut icon" href="../Landing/FoodEdge.ico">
 
 		<!-- App css -->
 		<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
@@ -166,7 +166,7 @@
 					$mail->charSet = "UTF-8"; 
 
 					$mail->send();
-					echo 'Message has been sent';
+					echo  "<script> alert('Message has been sent'location='login.php'</script>)";
 				} catch (Exception $e) {
 					echo  "<script> alert('User Verification Sent to Your Email Account. Please Activate It'location='login.php'</script>)";
 				}
