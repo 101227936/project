@@ -130,7 +130,7 @@
 											<div class="product-info">
 												<div class="row align-items-center">
 													<div class="col">
-														<h5 class="font-16 mt-0 sp-line-1"><a href="ecommerce-product-detail.html" class="text-dark"><?=$product_detail['product_name']?></a> </h5>
+														<h5 class="font-16 mt-0 sp-line-1"><a href="select_alternative_product.php?order_id=<?=$_GET["order_id"]?>&product_id=<?=$_GET['product_id']?>&product_detail_id=<?=$_GET['product_detail_id']?>&select_product_id=<?=$product_detail['product_id']?>&select_product_detail_id=<?=$product_detail['product_detail_id']?>" onclick="return confirm('Are you sure?')" class="text-dark"><?=$product_detail['product_name']?></a> </h5>
 													</div>
 													<div class="col-auto">
 														<div class="product-price-tag">
