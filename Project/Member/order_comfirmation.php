@@ -31,6 +31,19 @@
 			);
 			$db->where ('order_id', $_GET['order_id']);
 			$db->update ('tbl_payment', $data);
+		}else if ($_GET['action']=="Reject")
+		{
+			$data = Array (
+				'order_status' => 'Cancel',
+			);
+			$db->where ('order_id', $_GET['order_id']);
+			$db->update ('tbl_order', $data);
+			
+			$data = Array (
+				'payment_status' => 'Waiting for Refund',
+			);
+			$db->where ('order_id', $_GET['order_id']);
+			$db->update ('tbl_payment', $data);
 		}
 	}
 	header("Location: order_detail.php?order_id=".$_GET['order_id']."");
