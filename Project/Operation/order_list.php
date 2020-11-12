@@ -105,7 +105,15 @@
 															<tr>
 																<td><a href="order_detail.php?order_id=<?=$order["order_id"]?>" class="text-body font-weight-bold">#<?=$order["order_id"]?></a> </td>
 																<td>
-																	<?=$order["remark"]?>
+																	<?php
+																		if($order["remark"]==null)
+																		{
+																			echo("-");
+																		}else
+																		{
+																			echo($order["remark"]);
+																		}
+																	?>
 																</td>
 																<td>
 																	<?php
