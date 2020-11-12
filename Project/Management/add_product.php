@@ -89,7 +89,7 @@
                                                             <label for="image">Type</label>
                                                             <select class="form-control" name='AddpType' id="AddpType">
                                                                     <?php
-                                                                        $Type = array("Rice","Noodles","Meat","Vegetables","Side Dishes","Drinks","Fruits");
+                                                                        $Type = array("Rice","Noodles","Meat","Vegetables","Soup","Side Dishes","Drinks","Fruits");
                                                                         for($t=0; $t< count($Type);$t++)
                                                                         {
                                                                             echo "<option value=\"".$Type[$t]."\"";

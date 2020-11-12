@@ -166,7 +166,7 @@
 					$mail->charSet = "UTF-8"; 
 
 					$mail->send();
-					echo 'Message has been sent';
+					echo  "<script> alert('Message has been sent'location='login.php'</script>)";
 				} catch (Exception $e) {
 					echo  "<script> alert('User Verification Sent to Your Email Account. Please Activate It'location='login.php'</script>)";
 				}
