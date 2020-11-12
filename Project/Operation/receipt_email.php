@@ -27,7 +27,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Receipt Email</title>
         <meta name="viewport" content="width=device-width">
-        <link rel="shortcut icon" href="../Landing/favicon-1.ico">
+        <link rel="shortcut icon" href="../Landing/FoodEdge.ico">
        <style type="text/css">
             @media only screen and (max-width: 550px), screen and (max-device-width: 550px) {
                 body[yahoo] .buttonwrapper { background-color: transparent !important; }

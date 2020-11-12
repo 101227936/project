@@ -41,7 +41,7 @@ try {
 	$user_name = $order['user_name'];
 
 	//Recipients
-	$mail->setFrom('fcmsmember@gmail.com', 'FCMS');
+	$mail->setFrom('fcmsmember@gmail.com', 'FoodEdge Gourmet Catering');
 	$mail->addAddress($user_email, $user_name);
 	
 
@@ -69,7 +69,7 @@ try {
     
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Receipt Email from FCMS';
+    $mail->Subject = 'Receipt Email from FoodEdge Gourmet Catering';
 	$mail->MsgHTML($message);
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 	$mail->charSet = "UTF-8"; 
