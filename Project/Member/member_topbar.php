@@ -1,7 +1,7 @@
 <?php
 	require '../Database/init.php';
 	ob_start();
-	session_start();
+	if (!session_id()) session_start();
 	error_reporting(0);
 	
 	$db->where("tbl_user.user_id",$_SESSION['user_id'],"=");
