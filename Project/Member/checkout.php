@@ -309,7 +309,7 @@
 																		<div class="col-12">
 																			<div class="form-group mt-3">
 																				<label for="example-textarea">Order Notes:</label>
-																				<textarea class="form-control" id="example-textarea" rows="3" placeholder="Write some note.."></textarea>
+																				<textarea class="form-control" name="example-textarea" id="example-textarea" rows="3" placeholder="Write some note.."></textarea>
 																			</div>
 																		</div>
 																	</div> <!-- end row -->
