@@ -250,7 +250,7 @@
 															if($total!=0)
 															{
 																?>
-																<a href="checkout.php" class="btn form-btn"><i class="mdi mdi-cart-plus mr-1"></i> Checkout </a>
+																<a href="checkout.php" style="background:rgba(80, 160, 108, 1);" class="btn btn-success"><i class="mdi mdi-cart-plus mr-1"></i> Checkout </a>
 																<?php
 															}
 														?>
