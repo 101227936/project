@@ -43,7 +43,7 @@ try {
 	//print_r("</pre>");
 
     //Recipients
-    $mail->setFrom('ccloudercf@gmail.com', 'FCMS');
+    $mail->setFrom('fcmsmember@gmail.com', 'FoodEdge Gourmet Catering');
     $mail->addAddress($order['email'], $order['user_name']);     // Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
@@ -80,9 +80,9 @@ try {
     
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Email from FCMS';
+    $mail->Subject = 'Email of Confirmation of Menu Edited ';
 	$mail->MsgHTML($message);
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->AltBody = 'Sorry for that inform to you about the menu is edited. Please preview detail of menu edited in browser';
 	$mail->charSet = "UTF-8"; 
     
     if($mail->send())
