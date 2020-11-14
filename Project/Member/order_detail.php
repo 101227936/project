@@ -183,7 +183,7 @@
 																	if($order["order_status"]=="Arrive")
 																	{
 																		
-																		if($order_detail["comment"] == null && $currentDate < $endDate) 
+																		if($order_detail["comment"] === null && $currentDate < $endDate) 
 																		{
 																			$null = 1;
 																		?>
@@ -233,7 +233,7 @@
 													$rating = 0;
 													foreach($order_details as $order_detail)
 													{
-														if($order_detail['comment'] == null)
+														if($order_detail['comment'] === null)
 														{
 															$getComment = 'comment'.$order_detail['order_detail_id'];
 															$getRating = 'rating'.$order_detail['order_detail_id'];
