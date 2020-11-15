@@ -1,4 +1,10 @@
-<?php require '../../Database/init.php';?>
+<?php 
+require '../../Database/init.php';
+session_start();
+
+
+
+?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -41,8 +47,6 @@
                 <td align="center" bgcolor="#f9f9f9" style="padding: 20px 20px 0 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px;">
                     <b>Account:</b> 
 					<?php
-						
-						
 						//$last_id= $db->getOne('tbl_login','email');
 						//echo $db->getOne('tbl_login','email');
 						
@@ -54,15 +58,24 @@
                 </td>
             </tr>
             <tr>
-                <td align="center" bgcolor="#f9f9f9" style="padding: 30px 20px 30px 20px; font-family: Arial, sans-serif; border-bottom: 1px solid #f6f6f6;">
+                 <td align="center" bgcolor="#f9f9f9" style="padding: 30px 20px 30px 20px; font-family: Arial, sans-serif; border-bottom: 1px solid #f6f6f6;">
                     <table bgcolor="#0073AA" border="0" cellspacing="0" cellpadding="0" class="buttonwrapper">
                         <tr>
-							
-						
-						
                             <td id="btnSave" name="btnSave" align="center"  height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
-                                <a  href="<?=$_GET['url']?>/../Member/main_menu.php?login_id=<?=$_GET['login_id']?>" style="color: #ffffff; text-align: center; text-decoration: none;">Activate Account</a>
+                                <a  href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/validateSuccess.php?status=true" style="color: #ffffff; text-align: center; text-decoration: none;">Activate Account</a>
 								
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+			
+			 <tr>
+                <td style="padding: 0px 10px 15px 10px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td align="center" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
+                                Email not displaying correctly?  <a href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/email-verification.php" style="color:#0073AA;text-decoration:underline;" target="_blank">View it in your browser</a>
                             </td>
                         </tr>
                     </table>
@@ -74,7 +87,7 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td align="center" width="100%" style="color: #000; font-family: Arial, sans-serif; font-size: 12px;">
-                                2020 &copy; <a href="http://html.codedthemes.com/mash-able/" style="color: #0073AA;">FCMS</a>
+                                2020 &copy; FoogEdge Gourment Catering
                             </td>
                         </tr>
                     </table>
