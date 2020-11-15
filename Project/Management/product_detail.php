@@ -197,8 +197,26 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="name">Product Type<span class="text-danger">*</span></label>
-                                                        <input type="text" name="pType" parsley-trigger="change" required placeholder="Enter product type" class="form-control" id="Ptype" value="<?php echo $product['product_type']?>">
-                                                    </div>
+							    <div class="col-md-6">
+							    	<div class="form-group">
+									<label for="image">Type</label>
+									<select class="form-control" name='Ptype' id="Ptype">
+										<?php
+										    $Type = array("Rice","Noodles","Meat","Vegetables","Soup","Side Dishes","Drinks","Fruits");
+										    for($t=0; $t< count($Type);$t++)
+										    {
+											echo "<option value=\"".$Type[$t]."\"";
+											if($product['product_type'] == $Type[$t])
+											{
+											    echo " selected";
+											}	
+											echo ">".$Type[$t]."</option>";
+										    }
+										?>
+									</select>
+								    </div>
+								</div> <!-- end col -->
+						    	 </div>
                                                 </div>
                                             </div> <!-- end row -->
                                             <div class="row">
