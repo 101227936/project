@@ -192,25 +192,21 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="name">Product Type<span class="text-danger">*</span></label>
-							    <div class="col-md-6">
-							    	<div class="form-group">
-									<select class="form-control" name='Ptype' id="Ptype">
-										<?php
-										    $Type = array("Rice","Noodles","Meat","Vegetables","Soup","Side Dishes","Drinks","Fruits");
-										    for($t=0; $t< count($Type);$t++)
-										    {
-											echo "<option value=\"".$Type[$t]."\"";
-											if($product['product_type'] == $Type[$t])
-											{
-											    echo " selected";
-											}	
-											echo ">".$Type[$t]."</option>";
-										    }
-										?>
-									</select>
-								    </div>
-								</div> <!-- end col -->
+							<label for="name">Product Type<span class="text-danger">*</span></label>
+								<select class="form-control" name='Ptype' id="Ptype">
+									<?php
+									    $Type = array("Rice","Noodles","Meat","Vegetables","Soup","Side Dishes","Drinks","Fruits");
+									    for($t=0; $t< count($Type);$t++)
+									    {
+										echo "<option value=\"".$Type[$t]."\"";
+										if($product['product_type'] == $Type[$t])
+										{
+										    echo " selected";
+										}	
+										echo ">".$Type[$t]."</option>";
+									    }
+									?>
+								</select>
 						    	 </div>
                                                 </div>
                                             </div> <!-- end row -->
