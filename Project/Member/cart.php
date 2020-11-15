@@ -276,7 +276,7 @@
                                                                     <td><?php echo $point;?>
                                                                 </tr>
 																<tr>
-                                                                    <td>Reward Points:</td>
+                                                                    <td>Your Current Reward Points:</td>
                                                                     <td><?=(isset($_SESSION['user_id']))? $reward:""?></td>
                                                                 </tr>
 																<tr>
