@@ -76,7 +76,7 @@ try {
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'Email of Arrival Information from FCMS';
 	$mail->MsgHTML($message);
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->AltBody = 'The order is arrival. Please comment the order as soon as possible. Thanks for enjoy the service with us.';
 	$mail->charSet = "UTF-8"; 
     
     if($mail->send())

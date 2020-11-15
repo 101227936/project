@@ -46,13 +46,6 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box">
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ecommerce</a></li>
-                                            <li class="breadcrumb-item active">Order Detail</li>
-                                        </ol>
-                                    </div>
                                     <h4 class="page-title">Order Detail</h4>
                                 </div>
                             </div>
@@ -151,80 +144,125 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-												<?php
-													$db->join("tbl_product_redeem", "tbl_order_detail.product_detail_id=tbl_product_redeem.product_redeem_id && tbl_order_detail.product_id=0", "LEFT");
-													$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
-													$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
-													$db->where("order_id",$order["order_id"],"=");
-													$cols = Array ("*");
-													$order_details = $db->get("tbl_order_detail",null, $cols);
-													//print_r("<pre>");
-													//print_r($order_details);
-													//print_r($db->getLastQuery());
-													//print_r("</pre>");
-													$price_sum=0;
-													$point_sum=0;
-													foreach($order_details as $order_detail)
-													{
-														if($order_detail['product_id']==0)$point_sum+=$order_detail['product_redeem_point']*$order_detail['quantity'];
-															else $price_sum+=$order_detail['product_detail_price']*$order_detail['quantity'];
-														?>
-														<tr>
-															<th scope="row"><?=($order_detail['product_id']==0)?$order_detail['product_redeem_name']:$order_detail['product_name']?></th>
-															<td><?=($order_detail['product_id']==0)?$order_detail['product_redeem_type']:$order_detail['product_type']?></td>
-															<td><?=$order_detail['product_detail_size']?></td>
-															<td><?=$order_detail['quantity']?></td>
-															<td><?=$order_detail['product_detail_price']?></td>
-															<td><?=$order_detail['product_detail_price']*$order_detail['quantity']?></td>
-															<td>
-															<?php
-																$currentDate = new DateTime();
-																$endDate = new DateTime($order['delivery_datetime']);
-																date_modify($endDate,"+14 days");
-																if($order["order_status"]=="Arrive")
-																{
-																	
-																	if($order["comment"] == null && $currentDate < $endDate)
-																	{
-																	?>
-																		<p>Comment: </p>
-																		<textarea id="w3review" name="w3review" rows="3" cols="20" placeholder="Insert comment here"></textarea>
-																		<p>Rating(0 to 5):
-																			<input type="number" id="rating" name="rating" min="0" max="5">
-																		</p>
-																		<?php
-																	}
-																	else
-																	{
-																		?>
-																		<p>Comment: <?php echo $order["comment"]?></p>
-																		<p>Rating: <?php echo $order["rating"]?></p>
-																		<?php
-																	}
-																}
-																?>
-															</td>
-														</tr>
-														<?php
-													}
-													?>
-													<tr>
-                                                        <th scope="row" colspan="5" class="text-right">Total (RM):</th>
-                                                        <td><div class="font-weight-bold"><?=$price_sum?></div></td>
-														<?php
-														if($order["comment"] == null && $order["order_status"] == "Arrive")
+													<form method="post" action="#">
+													<?php
+														$db->join("tbl_product_redeem", "tbl_order_detail.product_detail_id=tbl_product_redeem.product_redeem_id && tbl_order_detail.product_id=0", "LEFT");
+														$db->join("tbl_product_detail", "tbl_order_detail.product_detail_id=tbl_product_detail.product_detail_id", "LEFT");
+														$db->join("tbl_product", "tbl_order_detail.product_id=tbl_product.product_id", "LEFT");
+														$db->where("order_id",$order["order_id"],"=");
+														$cols = Array ("*");
+														$order_details = $db->get("tbl_order_detail",null, $cols);
+														//print_r("<pre>");
+														//print_r($order_details);
+														//print_r($db->getLastQuery());
+														//print_r("</pre>");
+														$price_sum=0;
+														$point_sum=0;
+														$null = 0;
+														foreach($order_details as $order_detail)
 														{
-														?>
-															<td><a href=""><button type="button" class="btn btn-warning waves-effect waves-light mb-2 mr-2"><i class="mdi mdi-basket mr-1"></i>Submit</button></a></td>
+															if($order_detail['product_id']==0)$point_sum+=$order_detail['product_redeem_point']*$order_detail['quantity'];
+																else $price_sum+=$order_detail['product_detail_price']*$order_detail['quantity'];
+															?>
+															<tr>
+																<th scope="row"><?=($order_detail['product_id']==0)?$order_detail['product_redeem_name']:$order_detail['product_name']?></th>
+																<td><?=($order_detail['product_id']==0)?$order_detail['product_redeem_type']:$order_detail['product_type']?></td>
+																<td><?=$order_detail['product_detail_size']?></td>
+																<td><?=$order_detail['quantity']?></td>
+																<td><?=$order_detail['product_detail_price']?></td>
+																<td><?=$order_detail['product_detail_price']*$order_detail['quantity']?></td>
+																<td>
+																<?php
+																	$setComment = 'comment'.$order_detail['order_detail_id'];
+																	$setRating = 'rating'.$order_detail['order_detail_id'];
+																	
+																	$currentDate = new DateTime();
+																	$endDate = new DateTime($order['delivery_datetime']);
+																	date_modify($endDate,"+14 days");
+																	
+																	if($order["order_status"]=="Arrive")
+																	{
+																		
+																		if($order_detail["comment"] === null && $currentDate < $endDate) 
+																		{
+																			$null = 1;
+																		?>
+																			<p>Comment: </p>
+																			<textarea id="<?=$setComment?>" name="<?=$setComment?>"  rows="3" cols="20" placeholder="Insert comment here"></textarea>
+																			<p>Rating(0 to 5):
+																				<input type="number" id="<?=$setRating?>"  name="<?=$setRating?>"  min="0" max="5">
+																			</p>
+																			<?php
+																		}
+																		else
+																		{
+																			?>
+																			<p>Comment: <?php echo $order_detail["comment"]?></p>
+																			<p>Rating: <?php echo $order_detail["rating"]?></p>
+																			<?php
+																		}
+																	}
+																	?>
+																</td>
+															</tr>
 															<?php
 														}
 														?>
-                                                    </tr>
-													<tr>
-                                                        <th scope="row" colspan="5" class="text-right">Total point:</th>
-                                                        <td><div class="font-weight-bold"><?=$point_sum?></div></td>
-                                                    </tr>
+														<tr>
+															<th scope="row" colspan="5" class="text-right">Total (RM):</th>
+															<td><div class="font-weight-bold"><?=$price_sum?></div></td>
+															<?php
+															if($null == 1 && $order["order_status"] == "Arrive")
+															{
+															?>
+																<td><input type="submit" id="completeBtn" name="completeBtn" class="btn btn-warning waves-effect waves-light mb-2 mr-2"/></td>
+																<?php
+															}
+															?>
+														</tr>
+														<tr>
+															<th scope="row" colspan="5" class="text-right">Total point:</th>
+															<td><div class="font-weight-bold"><?=$point_sum?></div></td>
+														</tr>
+													</form>
                                                 </tbody>
+												<?php
+												if ($_SERVER['REQUEST_METHOD'] == 'POST')
+												{
+													$comment = null;
+													$rating = 0;
+													foreach($order_details as $order_detail)
+													{
+														if($order_detail['comment'] === null)
+														{
+															$getComment = 'comment'.$order_detail['order_detail_id'];
+															$getRating = 'rating'.$order_detail['order_detail_id'];
+															
+															$comment = $_POST[$getComment];
+															$rating = $_POST[$getRating];
+															
+															if($rating == null)
+															{
+																$rating = 5;
+															}
+															
+															if($comment == null)
+															{
+																$comment = "";
+															}
+															
+															$update = Array(
+																				'rating' => $rating,
+																				'comment' => $comment
+																			);
+															$db->where('tbl_order_detail.order_detail_id',$order_detail['order_detail_id']);
+															$updateDetail = $db->update('tbl_order_detail', $update);
+														}
+													}
+													$url = 'order_detail.php?order_id='.$order['order_id'];
+													echo '<script>location.href = "'.$url.'";</script>';
+												}
+												?>
                                             </table>
                                         </div>
                                     </div>

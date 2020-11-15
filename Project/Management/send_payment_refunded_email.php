@@ -25,7 +25,7 @@ $db->join("tbl_payment p","p.order_id = p.order_id","INNER");
 $db->where("p.payment_id",$_GET['payment_id'],"=");
 $user=$db->getOne("tbl_user u");
 
-$total=($user['user_reward'] + $user['amount_point']);
+$total=($user['user_reward'] + $user['amount_point'] - ($user['amount_price']/10));
 
 $data2 = Array (
 	'user_reward' => $total

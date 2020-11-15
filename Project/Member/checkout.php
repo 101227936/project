@@ -49,13 +49,6 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="page-title-box">
-                                    <div class="page-title-right">
-                                        <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ecommerce</a></li>
-                                            <li class="breadcrumb-item active">Checkout</li>
-                                        </ol>
-                                    </div>
                                     <h4 class="page-title">Checkout</h4>
                                 </div>
                             </div>
@@ -117,13 +110,26 @@
 																			if($order_detail['product_id']==0)$sum_point+=$order_detail['product_redeem_point']*$order_detail['quantity'];
 																			else $sum_price+=$order_detail['product_detail_price']*$order_detail['quantity'];
 																			$total=$order_detail['product_detail_price']*$order_detail['quantity'];
+																			$link = "";
+																			if($order_detail['product_id']==0)
+																			{
+																				$link = "product_redeem_detail.php?product_redeem_id=".$order_detail['product_redeem_id'];
+																			}
+																			else
+																			{
+																				$link = "product_detail.php?product_detail_id=".$order_detail['product_detail_id'];
+																			}
 																			?>
 																				<tr>
 																					<td style="width: 90px;">
+																						<a href="<?=$link?>">
 																						<img src="<?=($order_detail['product_id']==0)?$order_detail['product_redeem_image']:$order_detail['product_image']?>" alt="product-img" height="48" class="rounded"/>
+																						</a>
 																					</td>
 																					<td>
-																						<a href="" class="text-body font-weight-semibold"><?=($order_detail['product_id']==0)?$order_detail['product_redeem_name']:$order_detail['product_name']?></a>
+																						<a href="<?=$link?>">
+																						<p class="text-body font-weight-semibold"><?=($order_detail['product_id']==0)?$order_detail['product_redeem_name']:$order_detail['product_name']?></p>
+																						</a>
 																						<?php
 																						if($order_detail['product_id']==0)
 																						{
@@ -148,7 +154,6 @@
 																							<?php
 																						}
 																						?>
-																						
 																					</td>
 																					<?php
 																						if($order_detail['product_id']==0)
@@ -172,8 +177,8 @@
 																							<td class="text-right">RM <?=$total?></td>
 																							<?php
 																						}
-																					?>
-																					
+																						?>
+																				</tr>
 																			<?php
 																		}
 																	}
