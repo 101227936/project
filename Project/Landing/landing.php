@@ -120,7 +120,8 @@
                         <?php
                         $db->join("tbl_product_detail pd","p.product_id = pd.product_id","INNER");
                         $db->groupBy ("p.product_id");
-                        $product_details = $db->get("tbl_product p");
+			$db->orderBy("p.product_id","Desc");
+                        $product_details = $db->get("tbl_product p",6);
 
                         $i=0;
 						foreach($product_details as $product_detail)
@@ -257,7 +258,7 @@
                 <div class="container">
                    <div class="row">
                         <?php
-                        $product_redeem_details = $db->get("tbl_product_redeem");
+                        $product_redeem_details = $db->get("tbl_product_redeem",6);
 
                         $i=0;
 						foreach($product_redeem_details as $product_redeem_detail)
