@@ -210,7 +210,7 @@
 																				<input type="number" min="1" value="<?php echo $order["quantity"];?>" required name="quantity" class="form-control" placeholder="Qty" style="width: 90px;">
 																			</td>
 																			<td>
-																				<?=(isset($order["product_id"]))? "RM". $order["product_detail_price"] * $order["quantity"]:$order["product_redeem_point"]* $order["quantity"]?>
+																				<?=(isset($order["product_id"]))? "RM". $order["product_detail_price"] * $order["quantity"]:$order["product_redeem_point"]* $order["quantity"]." points"?>
 																			</td>
 																			<td>
 																				<button type="submit" formaction="cart.php?action=save" formmethod="post" name="btnSave" class="btn btn-blue waves-effect waves-light"><i class="mdi mdi-content-save"></i></button>
