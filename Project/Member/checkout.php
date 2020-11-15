@@ -525,6 +525,7 @@
 																					'order_datetime' =>  date('Y-m-d H:i:s'),
 																					'delivery_address' => $_POST['billing-address'],
 																					'delivery_datetime' => $delivery,
+																					'modified_datetime' => date('Y-m-d H:i:s'),
 																					'order_status' => 'Pending'
 																				);
 															$insert_payment = Array(

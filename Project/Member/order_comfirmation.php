@@ -14,6 +14,7 @@
 		{
 			$data = Array (
 				'order_status' => 'Accept',
+				'modified_datetime' => date('Y-m-d H:i:s')
 			);
 			$db->where ('order_id', $_GET['order_id']);
 			$db->update ('tbl_order', $data);
@@ -22,6 +23,7 @@
 		{
 			$data = Array (
 				'order_status' => 'Reject',
+				'modified_datetime' => date('Y-m-d H:i:s')
 			);
 			$db->where ('order_id', $_GET['order_id']);
 			$db->update ('tbl_order', $data);
@@ -35,6 +37,7 @@
 		{
 			$data = Array (
 				'order_status' => 'Cancel',
+				'modified_datetime' => date('Y-m-d H:i:s')
 			);
 			$db->where ('order_id', $_GET['order_id']);
 			$db->update ('tbl_order', $data);

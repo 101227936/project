@@ -14,6 +14,7 @@
 		{
 			$data = Array (
 				'order_status' => 'Accept',
+				'modified_datetime' => date('Y-m-d H:i:s')
 			);
 			$db->where ('order_id', $_GET['order_id']);
 			$db->update ('tbl_order', $data);
@@ -24,6 +25,7 @@
 		{
 			$data = Array (
 				'order_status' => 'Reject',
+				'modified_datetime' => date('Y-m-d H:i:s')
 			);
 			$db->where ('order_id', $_GET['order_id']);
 			$db->update ('tbl_order', $data);
@@ -46,7 +48,8 @@
 				'delivery_name' => $_POST['name'],
 				'delivery_phone' => $_POST['phone'],
 				'delivery_car_model' => $_POST['carmodel'],
-				'delivery_car_plate_number' => $_POST['carplatenumber']
+				'delivery_car_plate_number' => $_POST['carplatenumber'],
+				'modified_datetime' => date('Y-m-d H:i:s')
 			);
 			$db->where ('order_id', $_GET['order_id']);
 			$db->update ('tbl_order', $data);
