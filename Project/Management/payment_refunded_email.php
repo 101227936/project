@@ -59,8 +59,9 @@
             </tr>
             <tr>
                 <td align="left" bgcolor="#ffffff" style="padding: 10px 20px 0px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px; border-bottom: 1px solid #f6f6f6;">
-                    We've refunded RM <?=$sum?> and <?=$point?> point for Order #<?=$_GET['payment_id']?> to the payment method that you use to make the purchase on <?=date_format(date_create($order['refund_datetime']),"l jS F Y, h:i:s A");?>.
-                    <p>Payment ID:<br> <i>#<?=$_GET['payment_id']?></i></p>
+                    We've refunded RM <?=$sum?> and <?=$point?> point in Order #<?=$_GET['payment_id']?> to the payment method that you use to make the purchase on <?=date_format(date_create($order['refund_datetime']),"l jS F Y, h:i:s A");?>.
+			We also reduce the reward point that you earned from this order which is <?=$sum/10?> point.
+		    <p>Payment ID:<br> <i>#<?=$_GET['payment_id']?></i></p>
                     <p>Card Number:<br> <i>xxxx xxxx xxxx xxxx <?=substr($order['card_number'],-4)?></i></p>
                     <p>Reason: <br><i><?=$order['refund_reason']?></i></p>
                     
