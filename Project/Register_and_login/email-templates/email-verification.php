@@ -44,25 +44,11 @@ session_start();
                 </td>
             </tr>
             <tr>
-                <td align="center" bgcolor="#f9f9f9" style="padding: 20px 20px 0 20px; color: #555555; font-family: Arial, sans-serif; font-size: 20px; line-height: 30px;">
-                    <b>Account:</b> 
-					<?php
-						//$last_id= $db->getOne('tbl_login','email');
-						//echo $db->getOne('tbl_login','email');
-						
-						$last_id= $db->getOne('tbl_login','max(login_id)');
-						$db->where ("login_id", $last_id['max(login_id)']);
-						$user = $db->getOne ("tbl_login");
-						echo $user['email'];
-					?>
-                </td>
-            </tr>
-            <tr>
                  <td align="center" bgcolor="#f9f9f9" style="padding: 30px 20px 30px 20px; font-family: Arial, sans-serif; border-bottom: 1px solid #f6f6f6;">
                     <table bgcolor="#0073AA" border="0" cellspacing="0" cellpadding="0" class="buttonwrapper">
                         <tr>
                             <td id="btnSave" name="btnSave" align="center"  height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
-                                <a  href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/validateSuccess.php?status=true" style="color: #ffffff; text-align: center; text-decoration: none;">Activate Account</a>
+                                <a  href="http://<?=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])?>/validateSuccess.php?status=true&id=<?=$_GET['login_id']?>" style="color: #ffffff; text-align: center; text-decoration: none;">Activate Account</a>
 								
                             </td>
                         </tr>

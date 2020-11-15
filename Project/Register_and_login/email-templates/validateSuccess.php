@@ -2,10 +2,11 @@
 require '../../Database/init.php';
 session_start();
 
-	if ($_GET['status']=="true")
+	if ($_GET['status']=="true"&& isset($_GET['id']))
 	{
 		
 		$data = Array ('status' => "Active");
+		$db->where ("login_id", $_GET['id']);
 		$results=$db->update ('tbl_login', $data);
 		
 		if($results) 

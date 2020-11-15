@@ -41,7 +41,7 @@
 		$results = $db->get ('tbl_login');
 
 		if($results) {
-			echo "<script> alert('Email Already Exit');location='register.php'</script>";
+			echo "<script> alert('Email Already Exist');location='register.php'</script>";
 			
 		} else if ($_POST['password'] != $_POST['confirmpassword'])
 		{
@@ -60,7 +60,7 @@
 							
 							$id = $db->insert ('tbl_login', $data);
 				
-							$last_id= $db->getOne('tbl_login','max(login_id)');
+							//$last_id= $db->getOne('tbl_login','max(login_id)');
 							//print_r("<pre>");
 							//print_r($last_id);
 							//print_r($db->getLastQuery());
@@ -73,7 +73,7 @@
 						  'user_address'=> $_POST['user_address'],
 						  'user_reward' => "0",
 						  'newsletter_status' => "Inactive",
-						  'login_id' => $last_id['max(login_id)']
+						  'login_id' => $id
 						  
 							);
 
@@ -116,7 +116,7 @@
 					//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 					
 					$data = array(
-						'login_id'=>$last_id['max(login_id)'],
+						'login_id'=>$id,
 					
 						'url'=>$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])
 					);
