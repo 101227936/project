@@ -84,22 +84,6 @@
 					// Instantiation and passing `true` enables exceptions
 					$mail = new PHPMailer(true);
 					try {
-			
-
-						$data = Array (
-							'status' => "Active"
-
-						);
-						$db->where ("email", $_POST['email_id']);
-
-						if($db->update ('tbl_login', $data))
-						{
-							echo "<script> alert('User Verification Sent to Your Email Account. Please Activate It'location='l.php'</script>)";
-						
-						}else {echo "Update Unsuccessfuly. User ID Already Exits";}
-						
-						
-						
 						
 					$mail->SMTPOptions = array(
 						'ssl' => array(
@@ -133,7 +117,7 @@
 					
 					$data = array(
 						'login_id'=>$last_id['max(login_id)'],
-						'status'=>'Active',
+					
 						'url'=>$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])
 					);
 					
@@ -166,9 +150,10 @@
 					$mail->charSet = "UTF-8"; 
 
 					$mail->send();
-					echo  "<script> alert('Message has been sent'location='login.php'</script>)";
+					echo "<script> alert('User Verification Sent to Your Email Account. Please Activate It');location='login.php'</script>";
+			
 				} catch (Exception $e) {
-					echo  "<script> alert('User Verification Sent to Your Email Account. Please Activate It'location='login.php'</script>)";
+					echo  "<script> alert('Register Failed';location='register.php'</script>)";
 				}
 
 			
