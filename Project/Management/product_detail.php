@@ -143,10 +143,6 @@
                 {
                     $db->where("product_id",$_GET['product_id'],"=");
                     $product = $db->getOne("tbl_product");
-                    //print_r("<pre>");
-                    //print_r($order);
-                    //print_r($db->getLastQuery());
-                    //print_r("</pre>");
                 }
             ?>
             <div class="content-page">
@@ -199,7 +195,6 @@
                                                         <label for="name">Product Type<span class="text-danger">*</span></label>
 							    <div class="col-md-6">
 							    	<div class="form-group">
-									<label for="image">Type</label>
 									<select class="form-control" name='Ptype' id="Ptype">
 										<?php
 										    $Type = array("Rice","Noodles","Meat","Vegetables","Soup","Side Dishes","Drinks","Fruits");
