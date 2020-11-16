@@ -6,6 +6,7 @@ use PHPMailer\PHPMailer\SMTP;
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
+require '../Database/init.php';
 
 // Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
@@ -20,7 +21,7 @@ try {
 	);
 	
     //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+    $mail->SMTPDebug = 0;                       // Enable verbose debug output
     $mail->isSMTP();                                            // Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
@@ -29,9 +30,13 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
     $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
+	$db->join("tbl_user", "tbl_user.login_id=tbl_login.login_id", "LEFT");
+	$db->where ("email", $_GET['emailaddress']);
+	$user = $db->getOne ("tbl_login");
+	
     //Recipients
     $mail->setFrom('fcmsmember@gmail.com', 'Mailer');
-    $mail->addAddress('keechu613@gmail.com', 'JasminPlanet');     // Add a recipient
+    $mail->addAddress($user['email'], $user['user_name']);     // Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
@@ -42,7 +47,7 @@ try {
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 	
 	$data = array(
-		'login_id'=>'4',
+		'login_id'=>$user['login_id'],
 		'url'=>$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])
     );
 	$query = http_build_query($data);
@@ -74,7 +79,7 @@ try {
 	$mail->charSet = "UTF-8"; 
 
     $mail->send();
-    echo 'Message has been sent';
+	echo "<script> alert('Reset Password Email Sent to Your Email Account. Please Reset It');location='login.php'</script>";
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }

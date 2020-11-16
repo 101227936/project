@@ -37,19 +37,6 @@
 							
                                 
                                 <div class="text-center w-75 m-auto">
-                                    <div class="auth-logo">
-                                        <a href="index.html" class="logo logo-dark text-center">
-                                            <span class="logo-lg">
-                                                <img src="../assets/images/logo-dark.png" alt="" height="22">
-                                            </span>
-                                        </a>
-                    
-                                        <a href="index.html" class="logo logo-light text-center">
-                                            <span class="logo-lg">
-                                                <img src="../assets/images/logo-light.png" alt="" height="22">
-                                            </span>
-                                        </a>
-                                    </div>
                                     <p class="text-muted mb-4 mt-3">Enter your email address and we'll send you an email with instructions to reset your password.</p>
                                 </div>
 								
@@ -60,7 +47,7 @@
 
                                     <div class="form-group mb-3">
                                         <label for="emailaddress">Email address</label>
-                                        <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email">
+                                        <input class="form-control" type="email" id="emailaddress" name="emailaddress" required="" placeholder="Enter your email">
                                     </div>
 
                                     <div class="form-group mb-0 text-center">
@@ -93,7 +80,7 @@
 
 
         <footer class="footer footer-alt">
-            2015 - <script>document.write(new Date().getFullYear())</script> &copy; UBold theme by <a href="" class="text-white-50">Coderthemes</a> 
+            <script>document.write(new Date().getFullYear())</script> &copy; <a href="order_list.php" class="btn2">FoodEdge Gourmet. </a>All rights reserved.
         </footer>
 
         <!-- Vendor js -->

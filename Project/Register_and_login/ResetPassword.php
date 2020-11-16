@@ -32,8 +32,8 @@
 			$data = Array (
 			'password' => encrypt_decrypt("encrypt",trim($_POST['password']))
 			);
-			$db->where ('login_id', 4);
-			if ($db->update ('tbl_login', $data))
+			$db->where('login_id', $_GET['login_id']);
+			if($db->update ('tbl_login', $data))
 			{
 				echo "Password update success: ";
 				header("location: login.php");
@@ -43,7 +43,7 @@
 				echo "Password update failed: " . $db->getLastError();
 			}
 		}
-		?>	
+		?>
 		
 	
 
@@ -56,19 +56,6 @@
                             <div class="card-body p-4">
                                 
                                 <div class="text-center w-75 m-auto">
-                                    <div class="auth-logo">
-                                        <a href="index.html" class="logo logo-dark text-center">
-                                            <span class="logo-lg">
-                                                <img src="../assets/images/logo-dark.png" alt="" height="22">
-                                            </span>
-                                        </a>
-                    
-                                        <a href="index.html" class="logo logo-light text-center">
-                                            <span class="logo-lg">
-                                                <img src="../assets/images/logo-light.png" alt="" height="22">
-                                            </span>
-                                        </a>
-                                    </div>
                                     <p class="text-muted mb-4 mt-3">Forget Password? Reset it!</p>
                                 </div>
 
@@ -115,7 +102,7 @@
         <!-- end page -->
 
         <footer class="footer footer-alt">
-            2015 - <script>document.write(new Date().getFullYear())</script> &copy; UBold theme by <a href="" class="text-white-50">Coderthemes</a> 
+            <script>document.write(new Date().getFullYear())</script> &copy; <a href="order_list.php" class="btn2">FoodEdge Gourmet. </a>All rights reserved.
         </footer>
 
         <!-- Vendor js -->
