@@ -92,6 +92,9 @@
 	
 	else if(isset($_POST["btnDeleteALL"]))
 	{	
+		$db->join("tbl_order", "tbl_order.order_id=tbl_order_detail.order_id", "LEFT");
+		$db->where("tbl_order.order_status","Cart","=");
+		$db->where("tbl_order_detail.user_id",$_SESSION['user_id'],"=");
 		if (!$db->delete ('tbl_order_detail'))
 			echo 'delete failed: ' . $db->getLastError();	
 		header("Location: cart.php");
