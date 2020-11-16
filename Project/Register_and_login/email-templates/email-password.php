@@ -41,7 +41,7 @@
                     <table bgcolor="#0073AA" border="0" cellspacing="0" cellpadding="0" class="buttonwrapper">
                         <tr>
                             <td id="btnSave" name="btnSave" align="center"  height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
-                                <a  href="http://<?=$_GET['url']?>/ResetPassword.php?login_id=<?=$_GET['login_id']?>" style="color: #ffffff; text-align: center; text-decoration: none;">Activate Account</a>
+                                <a  href="http://<?=$_GET['url']?>/ResetPassword.php?login_id=<?=$_GET['login_id']?>" style="color: #ffffff; text-align: center; text-decoration: none;">Reset Password</a>
 								
                             </td>
                         </tr>
