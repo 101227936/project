@@ -37,7 +37,7 @@ try {
 	if(!isset($user))echo "<script> alert('Email is not exist');location='login.php'</script>";
 	
     //Recipients
-    $mail->setFrom('fcmsmember@gmail.com', 'Mailer');
+    $mail->setFrom('fcmsmember@gmail.com', 'FoodEdge Gourmet Catering');
     $mail->addAddress($user['email'], $user['user_name']);     // Add a recipient
     //$mail->addAddress('ellen@example.com');               // Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
