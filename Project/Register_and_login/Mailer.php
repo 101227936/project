@@ -34,6 +34,8 @@ try {
 	$db->where ("email", $_GET['emailaddress']);
 	$user = $db->getOne ("tbl_login");
 	
+	if(!isset($user))echo "<script> alert('Email is not exist');location='login.php'</script>";
+	
     //Recipients
     $mail->setFrom('fcmsmember@gmail.com', 'Mailer');
     $mail->addAddress($user['email'], $user['user_name']);     // Add a recipient
