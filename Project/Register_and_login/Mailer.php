@@ -75,9 +75,9 @@ try {
 
     // Content
     $mail->isHTML(true); // Set email format to HTML
-    $mail->Subject = 'Here is the subject';
+    $mail->Subject = 'Reset Password from FCMS';
 	$mail->MsgHTML($message);
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->AltBody = "Forgot your password? Let's get you a new one! ";
 	$mail->charSet = "UTF-8"; 
 
     $mail->send();
