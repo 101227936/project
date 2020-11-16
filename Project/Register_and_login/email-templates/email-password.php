@@ -50,11 +50,6 @@
             </tr>
 			
             <tr>
-                <td align="center" bgcolor="#dddddd" style="padding: 15px 10px 15px 10px; color: #555555; font-family: Arial, sans-serif; font-size: 12px; line-height: 18px;">
-                    <b>Company Inc.</b><br>985 Example St. &bull; Suite A1S2 &bull; San Francisco, CA 12458 USA
-                </td>
-            </tr>
-            <tr>
                 <td style="padding: 15px 10px 15px 10px;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
