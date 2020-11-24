@@ -444,7 +444,7 @@
 	
 					//Recipients
 					$mail->setFrom($_POST['email'], $_POST['name']);
-					$mail->addAddress('keechu613@gmail.com', 'JasminPlanet');    // Add a recipient
+					$mail->addAddress('fcmsspt@gmail.com', 'FCMS Support');    // Add a recipient
 				
 					// Content
 					$mail->isHTML(true); // Set email format to HTML
