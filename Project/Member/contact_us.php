@@ -188,7 +188,7 @@
 	
 					//Recipients
 					$mail->setFrom($_POST['email'], $_POST['name']);
-					$mail->addAddress('keechu613@gmail.com', 'JasminPlanet');     // Add a recipient
+					$mail->addAddress('fcmsspt@gmail.com', 'FCMS Support');     // Add a recipient
 					//$mail->addAddress('ellen@example.com');               // Name is optional
 					//$mail->addReplyTo('info@example.com', 'Information');
 					//$mail->addCC('cc@example.com');
