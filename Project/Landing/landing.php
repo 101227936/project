@@ -444,6 +444,7 @@
 	
 					//Recipients
 					$mail->setFrom($_POST['email'], $_POST['name']);
+					$mail->AddReplyTo($_POST['email'], $_POST['name']);
 					$mail->addAddress('fcmsspt@gmail.com', 'FCMS Support');    // Add a recipient
 				
 					// Content
